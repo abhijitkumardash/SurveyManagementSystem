@@ -11,6 +11,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.survey.modules.manager.QuestionManager;
+import com.survey.modules.model.QuestionModel;
+
 /**
  * Handles requests for the application home page.
  */
@@ -33,6 +36,12 @@ public class HomeController {
 		
 		model.addAttribute("serverTime", formattedDate );
 		
+//		QuestionManager qMgr=new QuestionManager();
+//		QuestionModel qModel=new QuestionModel();
+//		qModel.setQuestionId(2);
+//		qModel.setQuestionTitle("Question");
+//		qModel.setSurveyId(7);
+//		qMgr.saveQuestion(qModel);
 		return "home";
 	}
 	
