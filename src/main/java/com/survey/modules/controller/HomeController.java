@@ -35,13 +35,7 @@ public class HomeController {
 		String formattedDate = dateFormat.format(date);
 		
 		model.addAttribute("serverTime", formattedDate );
-		
-//		QuestionManager qMgr=new QuestionManager();
-//		QuestionModel qModel=new QuestionModel();
-//		qModel.setQuestionId(2);
-//		qModel.setQuestionTitle("Question");
-//		qModel.setSurveyId(7);
-//		qMgr.saveQuestion(qModel);
+
 		return "home";
 	}
 	
