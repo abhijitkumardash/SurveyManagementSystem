@@ -9,20 +9,21 @@ import org.hibernate.Transaction;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 
-import com.survey.modules.model.QuestionModel;
+import com.survey.modules.model.SurveyModel;
 
 
-public class QuestionDAO {
+
+public class SurveyDAOImpl implements SurveyDAOInterface{
 	private Session currentSession;
 	private Transaction currentTransaction;
 
 	public Session openCurrentSession() {
-		currentSession = getSessionFactory().openSession();
+		currentSession = HibernateUtil.getSessionFactory().openSession();
 		return currentSession;
 	}
 
 	public Session openCurrentSessionwithTransaction() {
-		currentSession = getSessionFactory().openSession();
+		currentSession = HibernateUtil.getSessionFactory().openSession();
 		currentTransaction = currentSession.beginTransaction();
 		return currentSession;
 	}
@@ -36,14 +37,6 @@ public class QuestionDAO {
 		currentSession.close();
 	}
 
-	private static SessionFactory getSessionFactory() {
-		Configuration configuration = new Configuration().configure();
-		StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder()
-				.applySettings(configuration.getProperties());
-		SessionFactory sessionFactory = configuration
-				.buildSessionFactory(builder.build());
-		return sessionFactory;
-	}
 
 	public Session getCurrentSession() {
 		return currentSession;
@@ -61,34 +54,36 @@ public class QuestionDAO {
 		this.currentTransaction = currentTransaction;
 	}
 	
-	public void saveQuestion(QuestionModel entity) {
+	public void saveSurvey(SurveyModel entity) {
 		getCurrentSession().save(entity);
+		
 	}
 	
-	public void updateQuestion(QuestionModel entity){
+	public void updateSurvey(SurveyModel entity){
 		getCurrentSession().update(entity);
+		
 	}
 	
-	public QuestionModel findQuestionById(String questionId){
-		 QuestionModel quesObj=(QuestionModel) getCurrentSession().get(QuestionModel.class, questionId);
-		 return quesObj;
+	public SurveyModel findSurveyById(String surveyId){
+		 SurveyModel surveyObj=(SurveyModel) getCurrentSession().get(SurveyModel.class, surveyId);
+		 return surveyObj;
 	}
 	
-	public void deleteQuestion(QuestionModel entity){
+	public void deleteSurvey(SurveyModel entity){
 		getCurrentSession().delete(entity);
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<QuestionModel> QuestionList(){
-		Criteria cr=getCurrentSession().createCriteria(QuestionModel.class);
-		List<QuestionModel> questonList=cr.list();
-		return questonList;
+	public List<SurveyModel> SurveyList(){
+		Criteria cr=getCurrentSession().createCriteria(SurveyModel.class);
+		List<SurveyModel> surveyList=cr.list();
+		return surveyList;
 	}
 	
 	public void deleteAll(){
-		List<QuestionModel> entityList = QuestionList();
-		for (QuestionModel entity : entityList) {
-				deleteQuestion(entity);
+		List<SurveyModel> entityList = SurveyList();
+		for (SurveyModel entity : entityList) {
+				deleteSurvey(entity);
 		}
 	}
 }

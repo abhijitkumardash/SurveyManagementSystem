@@ -1,12 +1,14 @@
 package com.survey.modules.dao;
 
 import java.util.List;
+
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
+
 import com.survey.modules.model.LoginModel;
 
 public class LoginDAO {
@@ -75,6 +77,7 @@ public class LoginDAO {
 		getCurrentSession().delete(entity);
 	}
 	
+	@SuppressWarnings("unchecked")
 	public List<LoginModel> LoginList(){
 		Criteria cr=getCurrentSession().createCriteria(LoginModel.class);
 		List<LoginModel> loginList=cr.list();

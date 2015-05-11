@@ -11,18 +11,18 @@ import org.hibernate.cfg.Configuration;
 
 import com.survey.modules.model.QuestionModel;
 
+public class QuestionDAOImpl implements QuestionDAOInterface {
 
-public class QuestionDAO {
 	private Session currentSession;
 	private Transaction currentTransaction;
 
 	public Session openCurrentSession() {
-		currentSession = getSessionFactory().openSession();
+		currentSession = HibernateUtil.getSessionFactory().openSession();
 		return currentSession;
 	}
 
 	public Session openCurrentSessionwithTransaction() {
-		currentSession = getSessionFactory().openSession();
+		currentSession =HibernateUtil.getSessionFactory().openSession();
 		currentTransaction = currentSession.beginTransaction();
 		return currentSession;
 	}
@@ -32,17 +32,8 @@ public class QuestionDAO {
 	}
 
 	public void closeCurrentSessionwithTransaction() {
-		//currentTransaction.commit();
+//	currentTransaction.commit();
 		currentSession.close();
-	}
-
-	private static SessionFactory getSessionFactory() {
-		Configuration configuration = new Configuration().configure();
-		StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder()
-				.applySettings(configuration.getProperties());
-		SessionFactory sessionFactory = configuration
-				.buildSessionFactory(builder.build());
-		return sessionFactory;
 	}
 
 	public Session getCurrentSession() {
@@ -63,10 +54,12 @@ public class QuestionDAO {
 	
 	public void saveQuestion(QuestionModel entity) {
 		getCurrentSession().save(entity);
+		
 	}
 	
 	public void updateQuestion(QuestionModel entity){
 		getCurrentSession().update(entity);
+	
 	}
 	
 	public QuestionModel findQuestionById(String questionId){
@@ -91,4 +84,6 @@ public class QuestionDAO {
 				deleteQuestion(entity);
 		}
 	}
+
+
 }
