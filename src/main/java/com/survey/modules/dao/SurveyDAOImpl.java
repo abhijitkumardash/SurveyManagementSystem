@@ -11,8 +11,6 @@ import org.hibernate.cfg.Configuration;
 
 import com.survey.modules.model.SurveyModel;
 
-
-
 public class SurveyDAOImpl implements SurveyDAOInterface{
 	private Session currentSession;
 	private Transaction currentTransaction;
@@ -64,7 +62,7 @@ public class SurveyDAOImpl implements SurveyDAOInterface{
 		
 	}
 	
-	public SurveyModel findSurveyById(String surveyId){
+	public SurveyModel findSurveyById(int surveyId){
 		 SurveyModel surveyObj=(SurveyModel) getCurrentSession().get(SurveyModel.class, surveyId);
 		 return surveyObj;
 	}
