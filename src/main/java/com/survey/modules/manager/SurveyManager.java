@@ -13,6 +13,7 @@ public class SurveyManager {
 	public SurveyManager() {
 		sDAO=new SurveyDAOImpl();
 	}
+	
 
 	public void saveSurvey(SurveyModel surveyObj){
 		
@@ -29,12 +30,12 @@ public class SurveyManager {
 			sDAO.closeCurrentSessionwithTransaction();
 		}
 	}
-	
 	public void updateSurvey(SurveyModel surveyObj){
 		
 		try{
 			sDAO.openCurrentSessionwithTransaction();
 			sDAO.updateSurvey(surveyObj);
+			sDAO.getCurrentTransaction().commit();
 		}
 		catch(HibernateException e){
 			e.getStackTrace();
@@ -42,6 +43,22 @@ public class SurveyManager {
 		}
 		finally{
 			sDAO.closeCurrentSessionwithTransaction();
+		}
+	}
+	@SuppressWarnings("finally")
+	public SurveyModel findSurveyById(int surveyId){
+		SurveyModel surveyModel=null;
+		try{
+			sDAO.openCurrentSessionwithTransaction();
+			surveyModel=sDAO.findSurveyById(surveyId);
+		}
+		catch(HibernateException e){
+			e.getStackTrace();
+			sDAO.getCurrentTransaction().rollback();
+		}
+		finally{
+			sDAO.closeCurrentSessionwithTransaction();
+			return surveyModel;
 		}
 	}
 }
