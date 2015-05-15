@@ -62,7 +62,7 @@ public class QuestionDAOImpl implements QuestionDAOInterface {
 	
 	}
 	
-	public QuestionModel findQuestionById(String questionId){
+	public QuestionModel findQuestionById(int questionId){
 		 QuestionModel quesObj=(QuestionModel) getCurrentSession().get(QuestionModel.class, questionId);
 		 return quesObj;
 	}
