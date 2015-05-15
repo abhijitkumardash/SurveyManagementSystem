@@ -48,19 +48,15 @@
 	     	<li>
 	     		<input type="text" placeholder="Enter the answer" name="answer2" id="answer2"/>
 	     	</li>
-	   <!--  <li>
-	     		<input type="text" placeholder="Enter the answer" name="answer3" id="answer3"/>
-	     	</li>
-	     	<li>
-	     		<input type="text" placeholder="Enter the answer" name="answer4" id="answer5"/>
-	     	</li>--> 	
-			
-     	</ul>
+	
+		</ul>
      	<a class="waves-effect waves-light btn" id="save-question-answer">Save</a>
 			<a class="waves-effect waves-light btn red">Cancel</a>
      	</li>
      	
+     	
      </ul>
+
             
 
 </body>

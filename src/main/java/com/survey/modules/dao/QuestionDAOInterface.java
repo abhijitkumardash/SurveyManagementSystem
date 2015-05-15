@@ -9,7 +9,7 @@ public interface QuestionDAOInterface {
 	
  public void saveQuestion(QuestionModel entity);
  public void updateQuestion(QuestionModel entity);
- public QuestionModel findQuestionById(String employeeId);
+ public QuestionModel findQuestionById(int questionId);
  public void deleteQuestion(QuestionModel entity);
  public List<QuestionModel> QuestionList();
  public void deleteAll();

@@ -40,6 +40,7 @@ public class QuestionManager {
 			qDAO.closeCurrentSessionwithTransaction();
 		}
 	}
+
 	
 	public void updateQuestion(QuestionModel quesObj){
 		
@@ -56,6 +57,7 @@ public class QuestionManager {
 			qDAO.closeCurrentSessionwithTransaction();
 		}
 	}
+	
 	public void deleteQuestion(QuestionModel quesObj){
 		try{
 			qDAO.openCurrentSessionwithTransaction();
@@ -70,4 +72,22 @@ public class QuestionManager {
 			qDAO.closeCurrentSessionwithTransaction();
 		}
 	}
+	
+	@SuppressWarnings("finally")
+	public QuestionModel findQuestionById(int questionId){
+		QuestionModel questionModel=null;
+		try{
+			qDAO.openCurrentSessionwithTransaction();
+			questionModel=qDAO.findQuestionById(questionId);
+		}
+		catch(HibernateException e){
+			e.getStackTrace();
+			qDAO.getCurrentTransaction().rollback();
+		}
+		finally{
+			qDAO.closeCurrentSession();
+			return questionModel;
+		}
+	}
+	
 }
