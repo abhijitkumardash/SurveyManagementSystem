@@ -23,7 +23,7 @@ public class QuestionManager {
 			qDAO.openCurrentSessionwithTransaction();
 			SurveyModel surveyObj=new SurveyModel();
 			
-		SurveyDAOImpl sDAO=new SurveyDAOImpl();
+//		SurveyDAOImpl sDAO=new SurveyDAOImpl();
 		
 		SurveyManager smgr=new SurveyManager();
 		surveyObj=smgr.findSurveyById(surveyId);
