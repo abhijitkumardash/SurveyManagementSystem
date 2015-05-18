@@ -1,27 +1,29 @@
 $(document).ready(function(){
 	
 	$('#save-question-answer').click(function(){
-		alert("save clicked");
 		var question= $("#question").val();
+		alert("save clicked");
 		var answer1=$("#answer1").val();
 		var answer2=$("#answer2").val();
 		var answer3=$("#answer3").val();
 		var answer4=$("#answer4").val();
-		var surveyId=$("#survey-id").val();
+		var surveyId=$("#survey-id").html();
+	
 		
-		$.ajax({  
-		     type : "GET",   
-		     url : "/saveQuestionAnswer",   
-		     data : "question=" + question + "&answer1=" + answer1 + "&answer2="  
-		       + answer2 + "&answer3=" + answer3 + "&answer4=" + answer4+
-		       "&surveyId=" + surveyId,
-		     success : function(response) {  
-		    	 alert(response);   
-		     },  
-		     error : function(e) {  
-		      alert('Error: ' + e);   
-		     }  
-		    });  
+			$.ajax({  
+			     type : "POST",   
+			     url : "saveQuestionAnswer",   
+			     data : "question=" + question + "&answer1=" + answer1 + "&answer2="  
+			       + answer2 + "&answer3=" + answer3 + "&answer4=" + answer4+ "&surveyId=" + surveyId,
+			     success : function(response) {  
+//			    	 alert(response);   
+			     },  
+			     error : function(e) {  
+//			      alert('Error: ' + e);   
+			     }  
+			    }); 
+		
+		 
 	});
 
 	var NoOfInputFiled=2;//default number of input fields
