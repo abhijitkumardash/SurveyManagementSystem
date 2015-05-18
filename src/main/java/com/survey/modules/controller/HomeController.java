@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -55,13 +56,13 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value={"/saveQuestionAnswer"},method = RequestMethod.POST)
-	public @ResponseBody ModelAndView saveQuestionAnswer(@RequestParam("question") String questionTitle,
+	public @ResponseBody int  saveQuestionAnswer(@RequestParam("question") String questionTitle,
 										   @RequestParam("answer1") String answer1,
 										   @RequestParam("answer2") String answer2,
 										   @RequestParam("answer3") String answer3,
 										   @RequestParam("answer4") String answer4,
 										   @RequestParam("surveyId") int surveyId){
-		
+	
 		ModelAndView model = new ModelAndView();
 		
 //		if(answer4==""||answer4=="null"){
@@ -71,8 +72,8 @@ public class HomeController {
 		QuestionModel questionModel=new QuestionModel();
         questionModel.setQuestionTitle(questionTitle);
         questionManager.saveQuestion(questionModel,surveyId);
-     	model.setViewName("AddQuestion");
-		return model;
+        return surveyId;
+
  
 	}
 	@RequestMapping(value={"/addSurveyTitle"},method = RequestMethod.GET)
@@ -80,8 +81,6 @@ public class HomeController {
 		
 		ModelAndView model = new ModelAndView();
 		model.setViewName("AddSurvey");
-//		int a=1;
-//		model.setViewName("redirect:" + "survey/"+a);
 		return model;
 	}
 	
@@ -96,16 +95,14 @@ public class HomeController {
         surveyModel.setSurveyTitle(surveyTitle);
         surveyManager.saveSurvey(surveyModel);
 
-//     int  surveyId=surveyModel.getSurveyId();
-//return surveyId;
-    model.addObject("surveyId", surveyModel.getSurveyId() );
+        model.addObject("surveyId", surveyModel.getSurveyId() );
 //		model.setViewName("redirect:" + "addQuestion");
-   model.setViewName("AddQuestion");
+        model.setViewName("AddQuestion");
 		return model;
       
 	}
 
-	@RequestMapping(value={"/survey/{questionId}"},method = RequestMethod.GET)
+	@RequestMapping(value={"/fsdfdfs{questionId}"},method = RequestMethod.GET)
 	public ModelAndView surveyDisplay(@PathVariable("questionId") int questionId ){
 		
 		ModelAndView model = new ModelAndView();
@@ -116,7 +113,7 @@ public class HomeController {
 		model.addObject("questionTitle",questionTitle);
 		System.out.println("questionId"+questionId);
 		
-		model.setViewName("Survey");
+		model.setViewName("SurveyPoll");
 		return model;
 	}
 	

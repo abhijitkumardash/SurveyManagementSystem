@@ -1,0 +1,13 @@
+/* line 1, ../sass/surveyPoll.scss */
+#survey-wrap {
+  vertical-align: center;
+  margin-left: 25%;
+  margin-top: 5%;
+  text-align: center;
+}
+
+/* line 9, ../sass/surveyPoll.scss */
+#survey-title {
+  border: 1px solid #fff;
+  border-radius: 25px;
+}

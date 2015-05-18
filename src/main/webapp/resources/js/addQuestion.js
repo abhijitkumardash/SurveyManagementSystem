@@ -2,26 +2,30 @@ $(document).ready(function(){
 	
 	$('#save-question-answer').click(function(){
 		var question= $("#question").val();
-		alert("save clicked");
+//		alert("save clicked");
 		var answer1=$("#answer1").val();
 		var answer2=$("#answer2").val();
 		var answer3=$("#answer3").val();
 		var answer4=$("#answer4").val();
 		var surveyId=$("#survey-id").html();
-	
-		
+
+		if(question!== null&& question!="" &&answer1!=""||answer2!=""){
+			
 			$.ajax({  
 			     type : "POST",   
 			     url : "saveQuestionAnswer",   
 			     data : "question=" + question + "&answer1=" + answer1 + "&answer2="  
 			       + answer2 + "&answer3=" + answer3 + "&answer4=" + answer4+ "&surveyId=" + surveyId,
-			     success : function(response) {  
-//			    	 alert(response);   
+			     success : function(surveyId) {  
+			    	// alert(surveyId); 
+			    	 $("#generated-link").html("GENERATED URL :  http://localhost:8080/modules/fsdfdfs"+surveyId);
 			     },  
 			     error : function(e) {  
 //			      alert('Error: ' + e);   
 			     }  
 			    }); 
+		}
+			
 		
 		 
 	});

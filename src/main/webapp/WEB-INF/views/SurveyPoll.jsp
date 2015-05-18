@@ -5,13 +5,11 @@
 <head>
 <link href="resources/css/materialize.css" rel="stylesheet">
 <link href="resources/css/materialize.min.css" rel="stylesheet">
-<link href="resources/css/addSurvey.css" rel="stylesheet">
-
+<link href="resources/css/surveyPoll.css" rel="stylesheet">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<script type="text/javascript" src="resources/js/addSurvey.js"></script>
 <script src="resources/js/materialize.js"></script>
 <script src="resources/js/materialize.min.js"></script>
-<title>Insert title here</title>
+<title>Survey Poll</title>
 </head>
 <body>
 
@@ -19,19 +17,25 @@
         <div class="col s12 m6" id="survey-wrap">
         
           <div class="card blue-grey darken-1">
+           <form action="#">
             <div class="card-content white-text">
-              <span class="card-title">Survey Title ${surveytitle}</span>
-              <p>Question ${questionTitle}</p>
-              <ul>
-              	<li>Answer1 ${answer1}</li>
-              	<li>Answer2 ${answer2}</li>
-              	<li>Answer3 ${answer3}</li>
-              	
-              	
-              </ul>
+              <span class="card-title">Survey Title: ${surveytitle}</span>
+              <p>Question: ${questionTitle}</p>
+              
+    <p>
+      <input name="group1" type="radio" id="answer1" />
+      <label for="answer1">Answer1: ${answer1}</label>
+    </p>
+    <p>
+      <input name="group1" type="radio" id="answer2" />
+      <label for="answer2">Answer2 :  ${answer2}</label>
+    </p>
+   
+     
+  </form>
             </div>
                      </div>
         </div>
-      </div>
+
 </body>
 </html>
