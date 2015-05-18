@@ -54,7 +54,7 @@ public class HomeController {
 
 	}
 	
-	@RequestMapping(value={"/saveQuestionAnswer"},method = RequestMethod.GET)
+	@RequestMapping(value={"/saveQuestionAnswer"},method = RequestMethod.POST)
 	public @ResponseBody ModelAndView saveQuestionAnswer(@RequestParam("question") String questionTitle,
 										   @RequestParam("answer1") String answer1,
 										   @RequestParam("answer2") String answer2,
@@ -63,8 +63,7 @@ public class HomeController {
 										   @RequestParam("surveyId") int surveyId){
 		
 		ModelAndView model = new ModelAndView();
-		System.out.println(questionTitle+"ques");
-		System.out.println(answer3);
+		
 //		if(answer4==""||answer4=="null"){
 //			System.out.println("empty answer4");
 //		}
@@ -72,8 +71,7 @@ public class HomeController {
 		QuestionModel questionModel=new QuestionModel();
         questionModel.setQuestionTitle(questionTitle);
         questionManager.saveQuestion(questionModel,surveyId);
-        System.out.println(surveyId+"&&&&&"+questionModel.getQuestionTitle());
-		model.setViewName("AddQuestion");
+     	model.setViewName("AddQuestion");
 		return model;
  
 	}
@@ -96,26 +94,17 @@ public class HomeController {
 		SurveyManager surveyManager=new SurveyManager();
 		SurveyModel surveyModel=new SurveyModel();
         surveyModel.setSurveyTitle(surveyTitle);
-       System.out.println(surveyTitle+"&&&&&&&&&&&&&");
         surveyManager.saveSurvey(surveyModel);
-      System.out.println(surveyModel.getSurveyId() );
 
 //     int  surveyId=surveyModel.getSurveyId();
 //return surveyId;
     model.addObject("surveyId", surveyModel.getSurveyId() );
-		model.setViewName("redirect:" + "addQuestion");
-//   model.setViewName("AddQuestion");
+//		model.setViewName("redirect:" + "addQuestion");
+   model.setViewName("AddQuestion");
 		return model;
       
 	}
-	
-//	@RequestMapping(value={"/survey"},method = RequestMethod.GET)
-//	public ModelAndView surveyDisplay(){
-//		
-//		ModelAndView model = new ModelAndView();
-//		model.setViewName("Survey");
-//		return model;
-//	}
+
 	@RequestMapping(value={"/survey/{questionId}"},method = RequestMethod.GET)
 	public ModelAndView surveyDisplay(@PathVariable("questionId") int questionId ){
 		

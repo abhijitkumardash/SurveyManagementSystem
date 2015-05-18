@@ -27,15 +27,15 @@
      <!-- For adding Question and answer -->     
      
      <ul id="question-answer-container">
-     <p class="survey-id">Survey ID :${surveyId}</p>
+     <p >Survey ID :<i id="survey-id" >${surveyId}</i></p>
      	<li id="question-wrap">
      		<label>Question:</label>
-     		<input type="text" placeholder="Enter the question" id="question" name="question">
+     		<input type="text" placeholder="Enter the question" id="question" name="question" required>
      	</li>
      	<ul id="answer-wrap">
      		<li><label>Answers:</label></li>
      		<li class="right-align">
-     			<a class="btn-floating btn-small waves-effect waves-light green" id="addInputField" title="add a new input field">
+     			<a class="btn-floating btn-small waves-effect waves-light green" id="addInputField" title="add a new input field" >
 				  <i class="mdi-content-add"></i>
 				 </a>
 				 <a class="btn-floating btn-small waves-effect waves-light red" id="removeInputField" title="remove last input field">
