@@ -53,7 +53,7 @@
      	<a class="waves-effect waves-light btn" id="save-question-answer">Save</a>
 			<a class="waves-effect waves-light btn red">Cancel</a>
      	</li>
-     	
+     	<p id="generated-link"/></p>
      	
      </ul>
 
