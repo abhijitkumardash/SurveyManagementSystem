@@ -102,7 +102,7 @@ public class HomeController {
       
 	}
 
-	@RequestMapping(value={"/fsdfdfs{questionId}"},method = RequestMethod.GET)
+	@RequestMapping(value={"/{questionId}"},method = RequestMethod.GET)
 	public ModelAndView surveyDisplay(@PathVariable("questionId") int questionId ){
 		
 		ModelAndView model = new ModelAndView();

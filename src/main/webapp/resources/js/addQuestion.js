@@ -18,7 +18,7 @@ $(document).ready(function(){
 			       + answer2 + "&answer3=" + answer3 + "&answer4=" + answer4+ "&surveyId=" + surveyId,
 			     success : function(surveyId) {  
 			    	// alert(surveyId); 
-			    	 $("#generated-link").html("GENERATED URL :  http://localhost:8080/modules/fsdfdfs"+surveyId);
+			    	 $("#generated-link").html("GENERATED URL :  http://localhost:8080/modules/"+surveyId);
 			     },  
 			     error : function(e) {  
 //			      alert('Error: ' + e);   
