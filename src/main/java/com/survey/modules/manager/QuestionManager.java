@@ -2,7 +2,7 @@ package com.survey.modules.manager;
 
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
-import org.slf4j.LoggerFactory;
+
 
 import com.survey.modules.controller.HomeController;
 import com.survey.modules.dao.QuestionDAO;
