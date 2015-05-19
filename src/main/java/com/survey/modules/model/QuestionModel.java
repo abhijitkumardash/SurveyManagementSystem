@@ -3,7 +3,10 @@ package com.survey.modules.model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -11,15 +14,16 @@ import javax.persistence.Table;
 public class QuestionModel {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="question_id")
 	private int questionId;
 	
 	@Column(name="question_title")
 	private String questionTitle;
 	
-	@Column(name="survey_id")
-	private int surveyId;
+	@ManyToOne
+   	@JoinColumn(name="survey_id")
+	private SurveyModel survey;
 
 	public int getQuestionId() {
 		return questionId;
@@ -37,12 +41,14 @@ public class QuestionModel {
 		this.questionTitle = questionTitle;
 	}
 
-	public int getSurveyId() {
-		return surveyId;
+	public SurveyModel getSurvey() {
+		return survey;
 	}
 
-	public void setSurveyId(int surveyId) {
-		this.surveyId = surveyId;
+	public void setSurvey(SurveyModel survey) {
+		this.survey = survey;
 	}
+
+	
 	
 }

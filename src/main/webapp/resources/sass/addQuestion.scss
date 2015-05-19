@@ -1,0 +1,40 @@
+#left-container{
+	width:20%;
+	margin-left:0px;
+	margin-top:20px;
+	border:1px solid #000;
+	display:inline-block;
+	position:fixed;
+}
+#question-answer-container{
+	margin-left:22%;
+	margin-top:20px;
+	width:70%;
+	border:1px solid #000;
+	display:inline-block;
+	
+	  
+	  input{
+		  border:1px solid green;
+		  border-radius:15px;
+		  height:30px;
+		  text-align:center;  
+	  }
+	
+#answer-wrap{
+
+	margin-top:10px;
+	border-top:1px solid #a0a0a0;
+	padding-top:20px;
+
+
+	input{
+		border:1px solid green;
+		width:92%;
+		margin-left:20px;
+		text-align:center;  
+		background-color:#3EA876;
+		color:#fff;
+	}
+}
+}
