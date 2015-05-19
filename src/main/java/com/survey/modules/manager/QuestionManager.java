@@ -1,7 +1,6 @@
 package com.survey.modules.manager;
 
 import org.hibernate.HibernateException;
-
 import com.survey.modules.dao.QuestionDAOImpl;
 import com.survey.modules.dao.SurveyDAOImpl;
 import com.survey.modules.model.QuestionModel;
