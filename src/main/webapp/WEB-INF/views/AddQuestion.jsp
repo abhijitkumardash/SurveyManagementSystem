@@ -27,7 +27,7 @@
      <!-- For adding Question and answer -->     
      
      <ul id="question-answer-container">
-     <p >Survey ID :<i id="survey-id" >${surveyId}</i></p>
+     <p>Survey ID :<i id="survey-id" >${surveyId}</i></p>
      	<li id="question-wrap">
      		<label>Question:</label>
      		<input type="text" placeholder="Enter the question" id="question" name="question" required>
@@ -50,8 +50,9 @@
 	     	</li>
 	
 		</ul>
-     	<a class="waves-effect waves-light btn" id="save-question-answer">Save</a>
+     		<a class="waves-effect waves-light btn" id="save-question-answer">Save</a>
 			<a class="waves-effect waves-light btn red">Cancel</a>
+			<a class="waves-effect waves-light btn" id="addAnother-question-answer">Add another question</a>
      	</li>
      	<p id="generated-link"/></p>
      	

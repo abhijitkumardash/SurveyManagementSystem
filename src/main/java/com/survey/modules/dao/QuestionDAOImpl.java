@@ -8,6 +8,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.criterion.Restrictions;
 
 import com.survey.modules.model.QuestionModel;
 
@@ -83,6 +84,13 @@ public class QuestionDAOImpl implements QuestionDAOInterface {
 		for (QuestionModel entity : entityList) {
 				deleteQuestion(entity);
 		}
+	}
+	@SuppressWarnings("unchecked")
+	public List<QuestionModel> getQuestionListBySurveyId(int surveyId){
+		Criteria cr= getCurrentSession().createCriteria(QuestionModel.class);
+		cr.add(Restrictions.eq( "survey.surveyId",surveyId));
+		List<QuestionModel> questonList=cr.list();
+		return questonList;
 	}
 
 

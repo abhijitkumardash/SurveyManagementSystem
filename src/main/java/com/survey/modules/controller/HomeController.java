@@ -2,8 +2,11 @@ package com.survey.modules.controller;
 
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -17,6 +20,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.survey.domain.Answer;
+import com.survey.domain.Question;
+import com.survey.modules.dao.HibernateUtil;
 import com.survey.modules.manager.QuestionManager;
 import com.survey.modules.model.QuestionModel;
 import com.survey.modules.manager.*;
@@ -55,7 +61,7 @@ public class HomeController {
 
 	}
 	
-	@RequestMapping(value={"/saveQuestionAnswer"},method = RequestMethod.POST)
+	/*@RequestMapping(value={"/saveQuestionAnswer"},method = RequestMethod.POST)
 	public @ResponseBody int  saveQuestionAnswer(@RequestParam("question") String questionTitle,
 										   @RequestParam("answer1") String answer1,
 										   @RequestParam("answer2") String answer2,
@@ -74,6 +80,27 @@ public class HomeController {
         questionManager.saveQuestion(questionModel,surveyId);
         return surveyId;
 
+ 
+	}*/
+	@RequestMapping( value={"/saveQuestionAnswer"},method = RequestMethod.POST)
+	public @ResponseBody Question  saveQuestionAnswer(@RequestBody Question question){
+//		System.out.println("Question:------>>>>"+question.toString());
+		System.out.println("dsfesdfdsf");
+//		Session currentSession = HibernateUtil.getSessionFactory().openSession();
+//		Transaction currentTransaction = currentSession.beginTransaction();
+//		for (Answer p: question.answers ) {
+//			currentSession.save(p);
+//			}
+//		
+//		
+//	  QuestionManager questionManager=new QuestionManager();
+//		QuestionModel questionModel=new QuestionModel();
+//        questionModel.setQuestionTitle(question.getQuestion());
+//        questionManager.saveQuestion(questionModel,question.getSurveyId());
+        return question;
+
+        
+        
  
 	}
 	@RequestMapping(value={"/addSurveyTitle"},method = RequestMethod.GET)
@@ -102,17 +129,25 @@ public class HomeController {
       
 	}
 
-	@RequestMapping(value={"/{questionId}"},method = RequestMethod.GET)
-	public ModelAndView surveyDisplay(@PathVariable("questionId") int questionId ){
+	@RequestMapping(value={"/{surveyId}"},method = RequestMethod.GET)
+	public ModelAndView surveyDisplay(@PathVariable("surveyId") int surveyId ){
 		
 		ModelAndView model = new ModelAndView();
-		System.out.println("questionId b4 save "+questionId);
+	
 		QuestionManager questionManager=new QuestionManager();
-		QuestionModel questionModel=questionManager.findQuestionById(questionId);
-		String questionTitle=questionModel.getQuestionTitle();
-		model.addObject("questionTitle",questionTitle);
-		System.out.println("questionId"+questionId);
+//		QuestionModel questionModel=questionManager.findQuestionById(surveyId);
+//		String questionTitle=questionModel.getQuestionTitle();
+//		model.addObject("questionTitle",questionTitle);
 		
+		List<QuestionModel> questionList=questionManager.getQuestionListBySurveyId(surveyId);
+		for(QuestionModel item:questionList){
+			System.out.println(item.getQuestionTitle()+"inside ctrlr");
+		        
+		}
+		model.addObject("questionList", questionList);
+
+		model.addObject("answer1Id",2);
+		model.addObject("answer2Id",1);
 		model.setViewName("SurveyPoll");
 		return model;
 	}

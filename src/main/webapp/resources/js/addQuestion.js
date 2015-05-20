@@ -1,41 +1,45 @@
+
 $(document).ready(function(){
 	
 	$('#save-question-answer').click(function(){
-		var question= $("#question").val();
-//		alert("save clicked");
-		var answer1=$("#answer1").val();
-		var answer2=$("#answer2").val();
-		var answer3=$("#answer3").val();
-		var answer4=$("#answer4").val();
-		var surveyId=$("#survey-id").html();
-
-		if(question!== null&& question!="" &&answer1!=""||answer2!=""){
-			
-			$.ajax({  
-			     type : "POST",   
-			     url : "saveQuestionAnswer",   
-			     data : "question=" + question + "&answer1=" + answer1 + "&answer2="  
-			       + answer2 + "&answer3=" + answer3 + "&answer4=" + answer4+ "&surveyId=" + surveyId,
-			     success : function(surveyId) {  
-			    	// alert(surveyId); 
-			    	 $("#generated-link").html("GENERATED URL :  http://localhost:8080/modules/"+surveyId);
-			     },  
-			     error : function(e) {  
-//			      alert('Error: ' + e);   
-			     }  
-			    }); 
-		}
-			
+		var question = {};
+		question.question= $("#question").val();
 		
-		 
+		question.answers = [];
+		question.answers.push($("#answer1").val());
+		question.answers.push($("#answer2").val());
+		question.answers.push($("#answer3").val());
+		question.answers.push($("#answer4").val());
+		
+		question.surveyId=$("#survey-id").html();
+		
+var surveyId=$("#survey-id").html();
+		
+		$.ajax({  
+			type: 'POST',
+			url: "saveQuestionAnswer", 
+			contentType: "application/json",
+			data:JSON.stringify(question),
+		     success : function(data) {  
+		    	 console.log(data);
+		    	$("#generated-link").html("GENERATED URL :  http://localhost:8080/modules/"+$("#survey-id").html());
+		    	$("#survey-id").html(surveyId);
+			    $('#question-answer-container').find('input:text').val('');
+			    
+		     },  
+		     error : function(e) {  
+//		      alert('Error: ' + e);   
+		     }  
+		    }); 
 	});
+	
+
 
 	var NoOfInputFiled=2;//default number of input fields
 	
 	$("#addInputField").click(function(){
 	
 		if(NoOfInputFiled<4){
-			alert("in loop");
 			NoOfInputFiled++;
 			var currentInputFieldId="answer"+NoOfInputFiled;
 			var newdiv = document.createElement('li');

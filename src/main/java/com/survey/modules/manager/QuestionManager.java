@@ -1,5 +1,7 @@
 package com.survey.modules.manager;
 
+import java.util.List;
+
 import org.hibernate.HibernateException;
 
 import com.survey.modules.dao.QuestionDAOImpl;
@@ -87,6 +89,24 @@ public class QuestionManager {
 		finally{
 			qDAO.closeCurrentSession();
 			return questionModel;
+		}
+	}
+	@SuppressWarnings("finally")
+	public List getQuestionListBySurveyId(int surveyId){
+		List<QuestionModel> questionList=null;
+		try{
+			
+			qDAO.openCurrentSessionwithTransaction();
+			 questionList=qDAO.getQuestionListBySurveyId(surveyId);
+			
+		}
+		catch(HibernateException e){
+			e.getStackTrace();
+			qDAO.getCurrentTransaction().rollback();
+		}
+		finally{
+			qDAO.closeCurrentSession();
+			return questionList;
 		}
 	}
 	
