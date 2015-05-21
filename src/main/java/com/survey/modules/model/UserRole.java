@@ -11,7 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "user_roles", catalog = "spring_social_db")
+@Table(name = "user_roles")
 public class UserRole {
 
  @Id

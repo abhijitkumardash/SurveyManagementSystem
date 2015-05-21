@@ -17,7 +17,8 @@ public class LoginDaoImpl implements LoginDao{
  public void setSessionFactory(SessionFactory sessionFactory){
      this.sessionFactory = sessionFactory;
  }
- public Users findByUserName(String username) { Session session = this.sessionFactory.getCurrentSession();
+ public Users findByUserName(String username) { 
+	 Session session = this.sessionFactory.getCurrentSession();
   Users user = (Users) session.load(Users.class, new String(username));
   return user;
  }

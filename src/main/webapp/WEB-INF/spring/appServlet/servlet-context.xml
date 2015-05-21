@@ -31,9 +31,9 @@
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://localhost:3306/spring_social_db" />
+		<property name="url" value="jdbc:mysql://localhost:3306/testDb" />
 		<property name="username" value="root" />
-		<property name="password" value="password" />
+		<property name="password" value="root" />
 	</bean>
 	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
@@ -42,6 +42,8 @@
 			<list>
 				<value>com.survey.modules.model.Users</value>
 				<value>com.survey.modules.model.UserRole</value>
+				<value>com.survey.modules.model.QuestionModel</value>
+				<value>com.survey.modules.model.SurveyModel</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
@@ -58,13 +60,28 @@
 	</bean>
 	<bean id="userRoleDao" class="com.survey.modules.dao.UserRoleDaoImpl">
 		<property name="sessionFactory"	ref="sessionFactory" />
-		
+	</bean>
+	<bean id="questionDao" class="com.survey.modules.dao.QuestionDAOImpl">
+		<property name="sessionFactory"	ref="sessionFactory" />
+	</bean>
+	<bean id="surveyDao" class="com.survey.modules.dao.SurveyDAOImpl">
+		<property name="sessionFactory"	ref="sessionFactory" />
 	</bean>
 	<bean id="usersService"
 		class="com.survey.modules.service.UsersServiceImpl">
 		<property name="loginDao" ref="loginDao"></property>
 		<property name="userRoleDao" ref="userRoleDao"></property>
 	</bean>
+	<bean id="surveyManager"
+		class="com.survey.modules.manager.SurveyManager">
+		<property name="surveyDao" ref="surveyDao"></property>
+	</bean>
+	<bean id="questionManager"
+		class="com.survey.modules.manager.QuestionManager">
+		<property name="questionDao" ref="questionDao"></property>
+		<property name="surveyManager" ref="surveyManager"></property>
+	</bean>
+	
 	
 	<bean id="txManager"
 		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
