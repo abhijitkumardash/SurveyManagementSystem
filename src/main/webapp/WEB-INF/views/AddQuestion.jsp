@@ -3,6 +3,10 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+
+  <meta name="_csrf" content="${_csrf.token}"/>
+  <meta name="_csrf_header" content="${_csrf.headerName}"/>
+
 <link href="resources/css/materialize.css" rel="stylesheet">
 <link href="resources/css/materialize.min.css" rel="stylesheet">
 <link href="resources/css/addQuestion.css" rel="stylesheet">
@@ -25,12 +29,12 @@
       <li class="collection-item"><a href="#!" class="collection-item">Comment Box</a></li>
     </ul>
      <!-- For adding Question and answer -->     
-     
+      
      <ul id="question-answer-container">
-     <p>Survey ID :<i id="survey-id" >${surveyId}</i></p>
+     	<li >Survey ID :<i id="survey-id" >${surveyId}</i></li>
      	<li id="question-wrap">
      		<label>Question:</label>
-     		<input type="text" placeholder="Enter the question" id="question" name="question" required>
+     		<input type="text" placeholder="Enter the question" id="question" name="question" required/>
      	</li>
      	<ul id="answer-wrap">
      		<li><label>Answers:</label></li>
@@ -50,15 +54,15 @@
 	     	</li>
 	
 		</ul>
-     		<a class="waves-effect waves-light btn" id="save-question-answer">Save</a>
+		 	<a class="waves-effect waves-light btn"  id="save-question-answer" >Save</a>
 			<a class="waves-effect waves-light btn red">Cancel</a>
-			<a class="waves-effect waves-light btn" id="addAnother-question-answer">Add another question</a>
+			
      	</li>
      	<p id="generated-link"/></p>
      	
      </ul>
 
-            
+   
 
 </body>
 </html>

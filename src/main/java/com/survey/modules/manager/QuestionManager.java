@@ -3,109 +3,108 @@ package com.survey.modules.manager;
 import java.util.List;
 
 import org.hibernate.HibernateException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import com.survey.modules.dao.QuestionDAOImpl;
-import com.survey.modules.dao.SurveyDAOImpl;
+import com.survey.modules.dao.QuestionDAOInterface;
 import com.survey.modules.model.QuestionModel;
 import com.survey.modules.model.SurveyModel;
-
-public class QuestionManager {
+@Service
+public class QuestionManager implements QuestionManagerInterface{
 	
-	private QuestionDAOImpl qDAO ;
-
-
-	public QuestionManager() {
-		qDAO=new QuestionDAOImpl();
+	
+	private QuestionDAOInterface questionDao ;
+	
+	@Autowired
+	private SurveyManagerInterface surveyManager;
+	
+	public void setSurveyManager(SurveyManagerInterface surveyManager) {
+		this.surveyManager = surveyManager;
 	}
 
+	 public void setQuestionDao(QuestionDAOInterface questionDao) {
+		this.questionDao = questionDao;
+	}
+
+
+	@Transactional
 	public void saveQuestion(QuestionModel quesObj, int surveyId){
 		
 		try{
-			
-			qDAO.openCurrentSessionwithTransaction();
 			SurveyModel surveyObj=new SurveyModel();
-			
-		SurveyDAOImpl sDAO=new SurveyDAOImpl();
-		
-		SurveyManager smgr=new SurveyManager();
-		surveyObj=smgr.findSurveyById(surveyId);
-		quesObj.setSurvey(surveyObj);
-		qDAO.saveQuestion(quesObj);
-		qDAO.getCurrentTransaction().commit();
+			surveyObj=surveyManager.findSurveyById(surveyId);
+			quesObj.setSurvey(surveyObj);
+			questionDao.saveQuestion(quesObj);
+	
 		}
 		catch(HibernateException e){
 			e.getStackTrace();
 			System.out.println("in catch");
-			qDAO.getCurrentTransaction().rollback();
+		
 		}
-		finally{
-			qDAO.closeCurrentSessionwithTransaction();
-		}
+		
 	}
 
-	
+	@Transactional
 	public void updateQuestion(QuestionModel quesObj){
 		
 		try{
-			qDAO.openCurrentSessionwithTransaction();
-			qDAO.updateQuestion(quesObj);
-			qDAO.getCurrentTransaction().commit();
+			
+			questionDao.updateQuestion(quesObj);
+			
 		}
 		catch(HibernateException e){
 			e.getStackTrace();
-			qDAO.getCurrentTransaction().rollback();
 		}
-		finally{
-			qDAO.closeCurrentSessionwithTransaction();
-		}
+		
 	}
-	
+	@Transactional
 	public void deleteQuestion(QuestionModel quesObj){
 		try{
-			qDAO.openCurrentSessionwithTransaction();
-			qDAO.deleteQuestion(quesObj);
-			qDAO.getCurrentTransaction().commit();
+			
+			questionDao.deleteQuestion(quesObj);
+		
 		}
 		catch(HibernateException e){
 			e.getStackTrace();
-			qDAO.getCurrentTransaction().rollback();
+			
 		}
-		finally{
-			qDAO.closeCurrentSessionwithTransaction();
-		}
+		
 	}
-	
+	@Transactional
 	@SuppressWarnings("finally")
 	public QuestionModel findQuestionById(int questionId){
 		QuestionModel questionModel=null;
 		try{
-			qDAO.openCurrentSessionwithTransaction();
-			questionModel=qDAO.findQuestionById(questionId);
+			
+			questionModel=questionDao.findQuestionById(questionId);
 		}
 		catch(HibernateException e){
 			e.getStackTrace();
-			qDAO.getCurrentTransaction().rollback();
+			
 		}
 		finally{
-			qDAO.closeCurrentSession();
+		
 			return questionModel;
 		}
 	}
+	@Transactional
 	@SuppressWarnings("finally")
 	public List getQuestionListBySurveyId(int surveyId){
 		List<QuestionModel> questionList=null;
 		try{
 			
-			qDAO.openCurrentSessionwithTransaction();
-			 questionList=qDAO.getQuestionListBySurveyId(surveyId);
+		
+			 questionList=questionDao.getQuestionListBySurveyId(surveyId);
 			
 		}
 		catch(HibernateException e){
 			e.getStackTrace();
-			qDAO.getCurrentTransaction().rollback();
+		
 		}
 		finally{
-			qDAO.closeCurrentSession();
+		
 			return questionList;
 		}
 	}

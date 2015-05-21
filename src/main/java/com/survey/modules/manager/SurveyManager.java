@@ -1,63 +1,59 @@
 package com.survey.modules.manager;
 
 import org.hibernate.HibernateException;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import com.survey.modules.dao.SurveyDAOImpl;
+import com.survey.modules.dao.SurveyDAOInterface;
 import com.survey.modules.model.SurveyModel;
 
-
-public class SurveyManager {
-	private SurveyDAOImpl sDAO ;
-
-
-	public SurveyManager() {
-		sDAO=new SurveyDAOImpl();
-	}
+@Service
+public class SurveyManager implements SurveyManagerInterface {
 	
+	private SurveyDAOInterface surveyDao ;
+	
+	public void setSurveyDao(SurveyDAOInterface surveyDao) {
+		this.surveyDao = surveyDao;
+	}
 
+	@Override
+    @Transactional
 	public void saveSurvey(SurveyModel surveyObj){
 		
 		try{
-			sDAO.openCurrentSessionwithTransaction();
-			sDAO.saveSurvey(surveyObj);
-			sDAO.getCurrentTransaction().commit();
+			surveyDao.saveSurvey(surveyObj);
 		}
 		catch(HibernateException e){
 			e.getStackTrace();
-			sDAO.getCurrentTransaction().rollback();
-		}
-		finally{
-			sDAO.closeCurrentSessionwithTransaction();
 		}
 	}
+	@Override
+    @Transactional
 	public void updateSurvey(SurveyModel surveyObj){
 		
 		try{
-			sDAO.openCurrentSessionwithTransaction();
-			sDAO.updateSurvey(surveyObj);
-			sDAO.getCurrentTransaction().commit();
+			surveyDao.updateSurvey(surveyObj);
 		}
 		catch(HibernateException e){
 			e.getStackTrace();
-			sDAO.getCurrentTransaction().rollback();
 		}
-		finally{
-			sDAO.closeCurrentSessionwithTransaction();
-		}
+		
 	}
+	@Override
+    @Transactional
 	@SuppressWarnings("finally")
 	public SurveyModel findSurveyById(int surveyId){
+		
 		SurveyModel surveyModel=null;
 		try{
-			sDAO.openCurrentSessionwithTransaction();
-			surveyModel=sDAO.findSurveyById(surveyId);
+			surveyModel=surveyDao.findSurveyById(surveyId);
 		}
 		catch(HibernateException e){
 			e.getStackTrace();
-			sDAO.getCurrentTransaction().rollback();
+			
 		}
 		finally{
-			sDAO.closeCurrentSessionwithTransaction();
+			
 			return surveyModel;
 		}
 	}

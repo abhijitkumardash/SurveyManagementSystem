@@ -2,39 +2,39 @@
 $(document).ready(function(){
 	
 	$('#save-question-answer').click(function(){
+		
 		var question = {};
-		question.question= $("#question").val();
-		
-		question.answers = [];
-		question.answers.push($("#answer1").val());
-		question.answers.push($("#answer2").val());
-		question.answers.push($("#answer3").val());
-		question.answers.push($("#answer4").val());
-		
-		question.surveyId=$("#survey-id").html();
-		
-var surveyId=$("#survey-id").html();
-		
-		$.ajax({  
-			type: 'POST',
-			url: "saveQuestionAnswer", 
-			contentType: "application/json",
-			data:JSON.stringify(question),
-		     success : function(data) {  
-		    	 console.log(data);
-		    	$("#generated-link").html("GENERATED URL :  http://localhost:8080/modules/"+$("#survey-id").html());
-		    	$("#survey-id").html(surveyId);
-			    $('#question-answer-container').find('input:text').val('');
-			    
-		     },  
-		     error : function(e) {  
-//		      alert('Error: ' + e);   
-		     }  
-		    }); 
-	});
+        question.question= $("#question").val();
+        question.answers = [];
+        question.answers.push($("#answer1").val())
+        question.answers.push($("#answer2").val());
+        question.answers.push($("#answer3").val());
+        question.answers.push($("#answer4").val());
+        question.surveyId=$("#survey-id").html();
+        
+		var surveyId=$("#survey-id").html();
+		var token = $("meta[name='_csrf']").attr("content");
+		var header = $("meta[name='_csrf_header']").attr("content");
+
+        $.ajax({ 
+            type: 'POST',
+            url: "saveQuestionAnswer",
+            contentType: "application/json",
+            data:JSON.stringify(question),
+            beforeSend: function(xhr){
+	           xhr.setRequestHeader(header, token);
+	        },
+             success : function(data) { 
+                $("#generated-link").html("GENERATED URL :  http://localhost:8080/modules/"+$("#survey-id").html());
+                $("#survey-id").html(surveyId);
+                $('#question-answer-container').find('input:text').val('');
+             }, 
+             error : function(e) { 
+//              alert('Error: ' + e);  
+             } 
+            });
+    });
 	
-
-
 	var NoOfInputFiled=2;//default number of input fields
 	
 	$("#addInputField").click(function(){

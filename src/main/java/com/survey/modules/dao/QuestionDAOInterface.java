@@ -14,4 +14,6 @@ public interface QuestionDAOInterface {
  public List<QuestionModel> QuestionList();
  public void deleteAll();
  public List<QuestionModel> getQuestionListBySurveyId(int surveyId);
+ 
+ 
 }
