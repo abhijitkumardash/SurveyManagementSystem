@@ -27,7 +27,6 @@ public class UsersServiceImpl implements UsersService{
 	        this.loginDao = loginDao;
 	    }
 	 
-	    @Override
 	    @Transactional
 	    public void addUser(Users user) {
 	        this.loginDao.addUser(user);
@@ -36,25 +35,21 @@ public class UsersServiceImpl implements UsersService{
 	        userrole.setUser(user);
 	        this.userRoleDao.addRole(userrole);
 	    }
-	    @Override
 	    @Transactional
 	    public void updateUser(Users user) {
 	        this.loginDao.updateUser(user);
 	    }
 	    
-	    @Override
 	    @Transactional
 	    public List<Users> listUsers() {
 	        return this.loginDao.listUsers();
 	    }
 	 
-	    @Override
 	    @Transactional
 	    public Users findByUserName(String username) {
 	        return this.loginDao.findByUserName(username);
 	    }
 	 
-	    @Override
 	    @Transactional
 	    public void removeUser(String username) {
 	        this.loginDao.removeUser(username);

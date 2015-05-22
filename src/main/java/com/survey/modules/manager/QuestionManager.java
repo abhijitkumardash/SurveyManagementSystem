@@ -20,13 +20,14 @@ public class QuestionManager implements QuestionManagerInterface{
 	private SurveyManagerInterface surveyManager;
 	
 	public void setSurveyManager(SurveyManagerInterface surveyManager) {
+		
 		this.surveyManager = surveyManager;
 	}
 
 	 public void setQuestionDao(QuestionDAOInterface questionDao) {
-		this.questionDao = questionDao;
+		
+		 this.questionDao = questionDao;
 	}
-
 
 	@Transactional
 	public void saveQuestion(QuestionModel quesObj, int surveyId){
@@ -36,12 +37,10 @@ public class QuestionManager implements QuestionManagerInterface{
 			surveyObj=surveyManager.findSurveyById(surveyId);
 			quesObj.setSurvey(surveyObj);
 			questionDao.saveQuestion(quesObj);
-	
 		}
 		catch(HibernateException e){
 			e.getStackTrace();
 			System.out.println("in catch");
-		
 		}
 		
 	}
@@ -50,61 +49,53 @@ public class QuestionManager implements QuestionManagerInterface{
 	public void updateQuestion(QuestionModel quesObj){
 		
 		try{
-			
 			questionDao.updateQuestion(quesObj);
-			
 		}
 		catch(HibernateException e){
 			e.getStackTrace();
 		}
 		
 	}
+	
 	@Transactional
 	public void deleteQuestion(QuestionModel quesObj){
-		try{
-			
-			questionDao.deleteQuestion(quesObj);
 		
+		try{
+			questionDao.deleteQuestion(quesObj);
 		}
 		catch(HibernateException e){
 			e.getStackTrace();
-			
 		}
 		
 	}
 	@Transactional
 	@SuppressWarnings("finally")
 	public QuestionModel findQuestionById(int questionId){
+		
 		QuestionModel questionModel=null;
 		try{
-			
 			questionModel=questionDao.findQuestionById(questionId);
 		}
 		catch(HibernateException e){
 			e.getStackTrace();
-			
 		}
 		finally{
-		
 			return questionModel;
 		}
 	}
+	
 	@Transactional
 	@SuppressWarnings("finally")
-	public List getQuestionListBySurveyId(int surveyId){
+	public List<QuestionModel> getQuestionListBySurveyId(int surveyId){
+		
 		List<QuestionModel> questionList=null;
 		try{
-			
-		
-			 questionList=questionDao.getQuestionListBySurveyId(surveyId);
-			
+			questionList=questionDao.getQuestionListBySurveyId(surveyId);
 		}
 		catch(HibernateException e){
 			e.getStackTrace();
-		
 		}
 		finally{
-		
 			return questionList;
 		}
 	}

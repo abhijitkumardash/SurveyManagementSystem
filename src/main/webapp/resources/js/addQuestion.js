@@ -1,43 +1,66 @@
 
 $(document).ready(function(){
 	
-	$('#save-question-answer').click(function(){
+	var token = $("meta[name='_csrf']").attr("content");
+	var header = $("meta[name='_csrf_header']").attr("content");
+	
+	function getQuestionAnswer(){
 		
 		var question = {};
         question.question= $("#question").val();
         question.answers = [];
         var i=1;
         while(i<=4){
-        	
         	question.answers.push($("#answer"+i).val())
         	i++;
         }
 
         question.surveyId=$("#survey-id").html();
-        
-		var surveyId=$("#survey-id").html();
-		var token = $("meta[name='_csrf']").attr("content");
-		var header = $("meta[name='_csrf_header']").attr("content");
-        $.ajax({ 
+        var surveyId=$("#survey-id").html();
+		return question;
+	}
+	
+	$('#save-question-answer').click(function(){
+		
+		$.ajax({ 
             type: 'POST',
             url: "saveQuestionAnswer",
             contentType: "application/json",
-            data:JSON.stringify(question),
-            
+            data:JSON.stringify(getQuestionAnswer()),
             beforeSend: function(xhr){
 	           xhr.setRequestHeader(header, token);
 	        },
              success : function(data) { 
-                $("#generated-link").html("GENERATED URL :  http://localhost:8080/modules/"
-                		+$("#survey-id").html());
-                $("#survey-id").html(surveyId);
+                window.location.replace("/modules/survey="+$("#survey-id").html()); 
+             }, 
+             error : function(e) { 
+              console.log('Error: ' + e);  
+             } 
+        });
+    });
+	
+	$('#addAnother-question-answer').click(function(){
+
+		$.ajax({ 
+            type: 'POST',
+            url: "saveQuestionAnswer",
+            contentType: "application/json",
+            data:JSON.stringify(getQuestionAnswer()),
+            beforeSend: function(xhr){
+	           xhr.setRequestHeader(header, token);
+	        },
+             success : function(data) { 
+            	 alert(data);
+                $("#generated-link").html("GENERATED URL :  http://localhost:8080/modules/survey="+$("#survey-id").html());
                 $('#question-answer-container').find('input:text').val('');
              }, 
+             
              error : function(e) { 
               alert('Post object fail .Error: ' + e);  
              } 
-            });
-    });
+        });
+	});
+	
 	
 	var NoOfInputField=2;//default number of input fields
 	
