@@ -1,7 +1,10 @@
 
 $(document).ready(function(){
 	
-	$('#save-question-answer').click(function(){
+	var token = $("meta[name='_csrf']").attr("content");
+	var header = $("meta[name='_csrf_header']").attr("content");
+	
+	function getQuestionAnswer(){
 		
 		var question = {};
         question.question= $("#question").val();
@@ -12,28 +15,50 @@ $(document).ready(function(){
         question.answers.push($("#answer4").val());
         question.surveyId=$("#survey-id").html();
         
-		var surveyId=$("#survey-id").html();
-		var token = $("meta[name='_csrf']").attr("content");
-		var header = $("meta[name='_csrf_header']").attr("content");
-
-        $.ajax({ 
+        var surveyId=$("#survey-id").html();
+		return question;
+	}
+	
+	$('#save-question-answer').click(function(){
+		
+		$.ajax({ 
             type: 'POST',
             url: "saveQuestionAnswer",
             contentType: "application/json",
-            data:JSON.stringify(question),
+            data:JSON.stringify(getQuestionAnswer()),
             beforeSend: function(xhr){
 	           xhr.setRequestHeader(header, token);
 	        },
              success : function(data) { 
+                window.location.replace("/modules/"+$("#survey-id").html()); 
+             }, 
+             error : function(e) { 
+              console.log('Error: ' + e);  
+             } 
+        });
+    });
+	
+	$('#addAnother-question-answer').click(function(){
+
+		$.ajax({ 
+            type: 'POST',
+            url: "saveQuestionAnswer",
+            contentType: "application/json",
+            data:JSON.stringify(getQuestionAnswer()),
+            beforeSend: function(xhr){
+	           xhr.setRequestHeader(header, token);
+	        },
+             success : function(data) { 
+            	 alert(data);
                 $("#generated-link").html("GENERATED URL :  http://localhost:8080/modules/"+$("#survey-id").html());
-                $("#survey-id").html(surveyId);
                 $('#question-answer-container').find('input:text').val('');
              }, 
              error : function(e) { 
-//              alert('Error: ' + e);  
+            	 console.log('Error: ' + e);   
              } 
-            });
-    });
+        });
+	});
+	
 	
 	var NoOfInputFiled=2;//default number of input fields
 	

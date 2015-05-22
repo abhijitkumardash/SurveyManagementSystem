@@ -10,6 +10,6 @@ public interface QuestionManagerInterface {
 	public void updateQuestion(QuestionModel quesObj);
 	public void deleteQuestion(QuestionModel quesObj);
 	public QuestionModel findQuestionById(int questionId);
-	public List getQuestionListBySurveyId(int surveyId);
+	public List<QuestionModel> getQuestionListBySurveyId(int surveyId);
 	
 }

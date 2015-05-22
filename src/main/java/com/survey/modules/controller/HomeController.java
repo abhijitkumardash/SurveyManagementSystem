@@ -1,6 +1,7 @@
 package com.survey.modules.controller;
 
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -138,8 +139,8 @@ public class HomeController {
         questionModel.setQuestionTitle(question.getQuestion());
         questionManager.saveQuestion(questionModel,question.getSurveyId());
         return question;
-
-      }
+	}
+	
 	@RequestMapping(value={"/addSurveyTitle"},method = RequestMethod.GET)
 	public ModelAndView addSurveyTitle(){
 		
@@ -149,14 +150,11 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value={"/saveSurveyTitle"},method = RequestMethod.POST)
-	public @ResponseBody ModelAndView saveSurveyTitle( @RequestParam("surveyTitle") String surveyTitle){
+	public @ResponseBody ModelAndView saveSurveyTitle(@ModelAttribute SurveyModel surveyModel){	
 		
 		ModelAndView model = new ModelAndView();
-		System.out.println("*********inside save survey title ");
-		SurveyModel surveyModel=new SurveyModel();
-        surveyModel.setSurveyTitle(surveyTitle);
-        surveyManager.saveSurvey(surveyModel);
 
+        surveyManager.saveSurvey(surveyModel);
         model.addObject("surveyId", surveyModel.getSurveyId() );
 //		model.setViewName("redirect:" + "addQuestion");
         model.setViewName("AddQuestion");
@@ -170,14 +168,11 @@ public class HomeController {
 		
 		ModelAndView model = new ModelAndView();
 	
-//		QuestionModel questionModel=questionManager.findQuestionById(surveyId);
-//		String questionTitle=questionModel.getQuestionTitle();
-//		model.addObject("questionTitle",questionTitle);
-		
+		@SuppressWarnings("unchecked")
 		List<QuestionModel> questionList=questionManager.getQuestionListBySurveyId(surveyId);
 		for(QuestionModel item:questionList){
 			System.out.println(item.getQuestionTitle()+"inside ctrlr");
-		        
+			
 		}
 		model.addObject("questionList", questionList);
 
