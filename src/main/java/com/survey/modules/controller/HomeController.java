@@ -1,6 +1,7 @@
 package com.survey.modules.controller;
 
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -16,10 +17,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.survey.domain.Question;
 import com.survey.modules.manager.QuestionManager;
 import com.survey.modules.manager.QuestionManagerInterface;
 import com.survey.modules.manager.SurveyManagerInterface;
+import com.survey.modules.model.Question;
 import com.survey.modules.model.QuestionModel;
 import com.survey.modules.model.SurveyModel;
 import com.survey.modules.model.Users;
@@ -158,8 +159,8 @@ public class HomeController {
         surveyManager.saveSurvey(surveyModel);
 
         model.addObject("surveyId", surveyModel.getSurveyId() );
-//		model.setViewName("redirect:" + "addQuestion");
-        model.setViewName("AddQuestion");
+		model.setViewName("redirect:" + "addQuestion");
+//        model.setViewName("AddQuestion");
 		return model;
       
 	}
