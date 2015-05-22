@@ -27,20 +27,6 @@ public class AnswerModel {
 	@ManyToOne
    	@JoinColumn(name="question_id")
 	private QuestionModel question;
-	
-	
-	@ManyToOne
-   	@JoinColumn(name="survey_id")
-	private SurveyModel survey;
-
-	public SurveyModel getSurvey() {
-		return survey;
-	}
-
-
-	public void setSurvey(SurveyModel survey) {
-		this.survey = survey;
-	}
 
 
 	public int getAnswerId() {

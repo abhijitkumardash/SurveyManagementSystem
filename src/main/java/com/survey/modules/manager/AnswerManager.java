@@ -1,93 +1,109 @@
 package com.survey.modules.manager;
 
-import org.hibernate.HibernateException;
+import java.util.List;
 
-import com.survey.modules.dao.AnswerDAO;
+import javax.transaction.Transactional;
+
+import org.hibernate.HibernateException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.survey.modules.dao.AnswerDAOInterface;
 import com.survey.modules.model.AnswerModel;
-import com.survey.modules.model.SurveyModel;
 import com.survey.modules.model.QuestionModel;
 
-public class AnswerManager {
+@Service
+public class AnswerManager implements AnswerManagerInterface {
 
-	private AnswerDAO answerDAO;
+	private AnswerDAOInterface answerDAO;
 
-	public AnswerManager() {
-
-		answerDAO = new AnswerDAO();
+	public void setAnswerDAO(AnswerDAOInterface answerDAO) {
+		this.answerDAO = answerDAO;
 	}
 
-	public void saveAnswer(AnswerModel answerObj, int questionID, int surveyId) {
+	@Autowired
+	private QuestionManagerInterface questionManager;
+
+	public void setQuestionManager(QuestionManagerInterface questionManager) {
+		this.questionManager = questionManager;
+	}
+
+	@Transactional
+	public void saveAnswer(AnswerModel answerObj, int questionID) {
 
 		try {
-
-			answerDAO.openCurrentSessionwithTransaction();
 			QuestionModel questionObj = new QuestionModel();
-			SurveyModel surveyObj = new SurveyModel();
-
-//			QuestionDAOImpl questionDAO = new QuestionDAOImpl();
-//			SurveyDAOImpl sDAO = new SurveyDAOImpl();
-
-			SurveyManager smgr = new SurveyManager();
-			surveyObj = smgr.findSurveyById(surveyId);
-			answerObj.setSurvey(surveyObj);
-
-			QuestionManager qmgr = new QuestionManager();
-			questionObj = qmgr.findQuestionById(questionID);
+			questionObj = questionManager.findQuestionById(questionID);
+			
+			System.out.println("Answer params"+answerObj.getAnswerDesc());
+			System.out.println("Answer params"+answerObj.getQuestion().getQuestionId());
+			System.out.println("Answer params"+answerObj.getQuestion().getQuestionTitle());
+			System.out.println(questionObj);
 			answerObj.setQuestion(questionObj);
-
+			System.out.println(answerObj.getQuestion());
+			System.out.println("After set Q");
 			answerDAO.saveAnswer(answerObj);
 
-			answerDAO.getCurrentTransaction().commit();
-			
 		} catch (HibernateException e) {
 			e.getStackTrace();
 			System.out.println("in catch");
-			answerDAO.getCurrentTransaction().rollback();
-		} finally {
-			answerDAO.closeCurrentSessionwithTransaction();
+
 		}
+
 	}
 
+	@Transactional
 	public void updateAnswer(AnswerModel answerObj) {
-
 		try {
-			answerDAO.openCurrentSessionwithTransaction();
+
 			answerDAO.updateAnswer(answerObj);
-			answerDAO.getCurrentTransaction().commit();
+
 		} catch (HibernateException e) {
 			e.getStackTrace();
-			answerDAO.getCurrentTransaction().rollback();
-		} finally {
-			answerDAO.closeCurrentSessionwithTransaction();
 		}
+
 	}
 
+	@Transactional
 	public void deleteAnswer(AnswerModel answerObj) {
 		try {
-			answerDAO.openCurrentSessionwithTransaction();
+
 			answerDAO.deleteAnswer(answerObj);
-			answerDAO.getCurrentTransaction().commit();
+
 		} catch (HibernateException e) {
 			e.getStackTrace();
-			answerDAO.getCurrentTransaction().rollback();
-		} finally {
-			answerDAO.closeCurrentSessionwithTransaction();
 		}
+
 	}
 
 	@SuppressWarnings("finally")
 	public AnswerModel findAnswerById(int answerId) {
 		AnswerModel answerModel = null;
 		try {
-			answerDAO.openCurrentSessionwithTransaction();
+
 			answerModel = answerDAO.findAnswerById(answerId);
 		} catch (HibernateException e) {
 			e.getStackTrace();
-			answerDAO.getCurrentTransaction().rollback();
+
 		} finally {
-			answerDAO.closeCurrentSession();
+
 			return answerModel;
 		}
 	}
 
+	@SuppressWarnings({ "finally", "rawtypes" })
+	public List getAnswerListByQuestionId(int questionId) {
+		List<AnswerModel> answerList = null;
+		try {
+
+			answerList = answerDAO.getAnswerListByQuestionId(questionId);
+
+		} catch (HibernateException e) {
+			e.getStackTrace();
+
+		} finally {
+
+			return answerList;
+		}
+	}
 }

@@ -22,20 +22,20 @@
             <div class="card-content white-text">
               <div class="card-title center-align">Create a new Survey</div>
               <p class="error-msg"></p>
-              <input type="text" placeholder="Enter Survey Title" id="survey-title" name="surveyTitle" class="valign"/>
+              <input type="text" placeholder="Enter Survey Title" id="survey-title" name="surveyTitle" class="valign" required/>
             </div>
             <div class="card-action">
+            <input type="hidden" name="${_csrf.parameterName}"
+							value="${_csrf.token}" />
            		  <button class=" waves-light btn center-align grey lighten-4" id="survey-create" type="submit" value="submit" ><i>Create</i>
 		</button> 
-		<!--  <a class=" waves-light btn center-align grey lighten-4" id="survey-create"  ><i>Create</i>--> 
-		</a>
+		<!--  <a class=" waves-light btn center-align grey lighten-4" id="survey-create"  ><i>Create</i>	</a>--> 
+	
             </div>
-         
+         </div>
         </form> 
           </div>
         </div>
-        
-     
- </div>
+       
 </body>
 </html>

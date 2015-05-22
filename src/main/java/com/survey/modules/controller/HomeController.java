@@ -1,49 +1,131 @@
 package com.survey.modules.controller;
 
-import java.text.DateFormat;
-import java.util.Date;
-import java.util.Locale;
+import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.survey.modules.manager.AnswerManagerInterface;
 import com.survey.modules.manager.QuestionManager;
+import com.survey.modules.manager.QuestionManagerInterface;
+import com.survey.modules.manager.SurveyManagerInterface;
+import com.survey.modules.model.AnswerModel;
+import com.survey.modules.model.Question;
 import com.survey.modules.model.QuestionModel;
-import com.survey.modules.manager.*;
-import com.survey.modules.model.*;
+import com.survey.modules.model.SurveyModel;
+import com.survey.modules.model.Users;
+import com.survey.modules.service.UsersService;
 
-/**
- * Handles requests for the application home page.
- */
 @Controller
 public class HomeController {
+	@Autowired
+	private UsersService usersService;
 	
-	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
+	@Autowired
+	private SurveyManagerInterface surveyManager;
+
+	@Autowired
+	private QuestionManagerInterface questionManager;
 	
-	/**
-	 * Simply selects the home view to render by returning its name.
-	 */
+	@Autowired
+	private AnswerManagerInterface answerManager;
+	
+	public void setQuestionManager(QuestionManager questionManager) {
+		this.questionManager = questionManager;
+	}
+
+	public void setUsersService(UsersService usersService) {
+		this.usersService = usersService;
+	}
+	
+	public void setSurveyManager(SurveyManagerInterface surveyManager) {
+		this.surveyManager = surveyManager;
+	}
+
+
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Locale locale, Model model) {
-		logger.info("Welcome home! The client locale is {}.", locale);
-		
-		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-		
-		String formattedDate = dateFormat.format(date);
-		
-		model.addAttribute("serverTime", formattedDate );
-  		
-		return "home";
+	public ModelAndView welcomePage() {
+
+		ModelAndView model = new ModelAndView();
+		model.setViewName("login");
+		return model;
+
+	}
+	
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	public ModelAndView login(@ModelAttribute Users users,
+			@RequestParam(value = "error", required = false) String error,
+			@RequestParam(value = "logout", required = false) String logout) {
+		ModelAndView model = new ModelAndView();
+		model.setViewName("login");
+		return model;
+
+	}
+
+	@RequestMapping("/user**")
+	public String getUserProfile() {
+		return "user";
+	}
+
+	@RequestMapping("/403")
+	public @ResponseBody ModelAndView getAccessDenied() {
+		Authentication auth = SecurityContextHolder.getContext()
+				.getAuthentication();
+		String username = "";
+		if (!(auth instanceof AnonymousAuthenticationToken)) {
+			UserDetails userDetail = (UserDetails) auth.getPrincipal();
+			username = userDetail.getUsername();
+		}
+
+		return new ModelAndView("403", "username", username);
+	}
+	@RequestMapping(value = { "/signup" }, method = RequestMethod.GET)
+	public ModelAndView signupPage() {
+
+		ModelAndView model = new ModelAndView();
+		model.setViewName("signup");
+		return model;
+
+	}
+	
+	@RequestMapping(value = "/signup", method = RequestMethod.POST)
+	public ModelAndView register(@ModelAttribute Users user,
+			@RequestParam("confirm-password") String confirmPassword) {
+		ModelAndView modelView = new ModelAndView();
+		Boolean flagSave = true;
+
+		if (!(user.getPassword().equals(confirmPassword))) {
+			flagSave = false;
+			modelView.addObject("error", "Password Mismatch!!");
+			modelView.setViewName("signup");
+
+		}
+		if (flagSave == true) {
+			try{
+			this.usersService.addUser(user);
+			modelView.addObject("error", "Registered Successfully!!");
+			modelView.setViewName("login");
+			}
+			catch (Exception e){
+				 e.printStackTrace();
+				 modelView.addObject("error", "Already Registerd in same Email!!");
+				 modelView.addObject("forgot_password", "Forgot Password?");
+				 modelView.setViewName("signup");
+			}
+		}
+		return modelView;
 	}
 	@RequestMapping(value = {"/addQuestion" }, method = RequestMethod.GET)
 	public ModelAndView homePage() {
@@ -53,83 +135,78 @@ public class HomeController {
 		return model;
 
 	}
-	
-	@RequestMapping(value={"/saveQuestionAnswer"},method = RequestMethod.GET)
-	public @ResponseBody ModelAndView saveQuestionAnswer(@RequestParam("question") String questionTitle,
-										   @RequestParam("answer1") String answer1,
-										   @RequestParam("answer2") String answer2,
-										   @RequestParam("answer3") String answer3,
-										   @RequestParam("answer4") String answer4,
-										   @RequestParam("surveyId") int surveyId){
+
+	@RequestMapping( value={"/saveQuestionAnswer"},method = RequestMethod.POST)
+	public @ResponseBody void saveQuestionAnswer(@RequestBody Question question){
 		
-		ModelAndView model = new ModelAndView();
-		System.out.println(questionTitle+"ques");
-		System.out.println(answer3);
-//		if(answer4==""||answer4=="null"){
-//			System.out.println("empty answer4");
-//		}
-	    QuestionManager questionManager=new QuestionManager();
 		QuestionModel questionModel=new QuestionModel();
-        questionModel.setQuestionTitle(questionTitle);
-        questionManager.saveQuestion(questionModel,surveyId);
-        System.out.println(surveyId+"&&&&&"+questionModel.getQuestionTitle());
-		model.setViewName("AddQuestion");
-		return model;
- 
-	}
+        questionModel.setQuestionTitle(question.getQuestion());
+        questionManager.saveQuestion(questionModel,question.getSurveyId());
+        
+        QuestionModel tempQuesObject=new QuestionModel();
+		tempQuesObject.setQuestionId(questionModel.getQuestionId());
+		tempQuesObject.setQuestionTitle(question.getQuestion());
+		
+		List<String> answerModelList=question.getAnswers();
+		AnswerModel answerModel = new AnswerModel();
+		for(int i=0;i<answerModelList.size();i++)
+		{
+			answerModel.setAnswerDesc(answerModelList.get(i));
+			answerModel.setQuestion(tempQuesObject);
+			System.out.println(tempQuesObject.getQuestionId());
+			System.out.println(tempQuesObject.getQuestionTitle());			
+			answerManager.saveAnswer(answerModel ,tempQuesObject.getQuestionId());
+		}
+        
+      }
 	@RequestMapping(value={"/addSurveyTitle"},method = RequestMethod.GET)
 	public ModelAndView addSurveyTitle(){
 		
 		ModelAndView model = new ModelAndView();
 		model.setViewName("AddSurvey");
-//		int a=1;
-//		model.setViewName("redirect:" + "survey/"+a);
 		return model;
 	}
 	
 	@RequestMapping(value={"/saveSurveyTitle"},method = RequestMethod.POST)
 	public @ResponseBody ModelAndView saveSurveyTitle( @RequestParam("surveyTitle") String surveyTitle){
 		
-	
 		ModelAndView model = new ModelAndView();
-		
-		SurveyManager surveyManager=new SurveyManager();
+		System.out.println("*********inside save survey title ");
 		SurveyModel surveyModel=new SurveyModel();
         surveyModel.setSurveyTitle(surveyTitle);
-       System.out.println(surveyTitle+"&&&&&&&&&&&&&");
         surveyManager.saveSurvey(surveyModel);
-      System.out.println(surveyModel.getSurveyId() );
 
-//     int  surveyId=surveyModel.getSurveyId();
-//return surveyId;
-    model.addObject("surveyId", surveyModel.getSurveyId() );
-		model.setViewName("redirect:" + "addQuestion");
-//   model.setViewName("AddQuestion");
+        model.addObject("surveyId", surveyModel.getSurveyId() );
+//		model.setViewName("redirect:" + "addQuestion");
+        model.setViewName("AddQuestion");
 		return model;
       
 	}
+
 	
-//	@RequestMapping(value={"/survey"},method = RequestMethod.GET)
-//	public ModelAndView surveyDisplay(){
-//		
-//		ModelAndView model = new ModelAndView();
-//		model.setViewName("Survey");
-//		return model;
-//	}
-	@RequestMapping(value={"/survey/{questionId}"},method = RequestMethod.GET)
-	public ModelAndView surveyDisplay(@PathVariable("questionId") int questionId ){
+	@RequestMapping(value={"/{surveyId}"},method = RequestMethod.GET)
+	public ModelAndView surveyDisplay(@PathVariable("surveyId") int surveyId ){
 		
 		ModelAndView model = new ModelAndView();
-		System.out.println("questionId b4 save "+questionId);
-		QuestionManager questionManager=new QuestionManager();
-		QuestionModel questionModel=questionManager.findQuestionById(questionId);
-		String questionTitle=questionModel.getQuestionTitle();
-		model.addObject("questionTitle",questionTitle);
-		System.out.println("questionId"+questionId);
+	
+//		QuestionModel questionModel=questionManager.findQuestionById(surveyId);
+//		String questionTitle=questionModel.getQuestionTitle();
+//		model.addObject("questionTitle",questionTitle);
 		
-		model.setViewName("Survey");
+		@SuppressWarnings("unchecked")
+		List<QuestionModel> questionList=questionManager.getQuestionListBySurveyId(surveyId);
+		for(QuestionModel item:questionList){
+			System.out.println(item.getQuestionTitle()+"inside ctrlr");
+		        
+		}
+		model.addObject("questionList", questionList);
+
+		model.addObject("answer1Id",1);
+		model.addObject("answer2Id",2);
+		model.setViewName("SurveyPoll");
 		return model;
 	}
 	
 	
+		
 }
