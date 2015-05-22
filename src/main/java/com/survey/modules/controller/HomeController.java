@@ -17,10 +17,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.survey.domain.Question;
+import com.survey.modules.manager.AnswerManagerInterface;
 import com.survey.modules.manager.QuestionManager;
 import com.survey.modules.manager.QuestionManagerInterface;
 import com.survey.modules.manager.SurveyManagerInterface;
+import com.survey.modules.model.AnswerModel;
+import com.survey.modules.model.Question;
 import com.survey.modules.model.QuestionModel;
 import com.survey.modules.model.SurveyModel;
 import com.survey.modules.model.Users;
@@ -37,6 +39,8 @@ public class HomeController {
 	@Autowired
 	private QuestionManagerInterface questionManager;
 	
+	@Autowired
+	private AnswerManagerInterface answerManager;
 	
 	public void setQuestionManager(QuestionManager questionManager) {
 		this.questionManager = questionManager;
@@ -133,14 +137,24 @@ public class HomeController {
 	}
 
 	@RequestMapping( value={"/saveQuestionAnswer"},method = RequestMethod.POST)
-	public @ResponseBody Question  saveQuestionAnswer(@RequestBody Question question){
+	public @ResponseBody void saveQuestionAnswer(@RequestBody Question question){
 		
 		QuestionModel questionModel=new QuestionModel();
         questionModel.setQuestionTitle(question.getQuestion());
         questionManager.saveQuestion(questionModel,question.getSurveyId());
-        return question;
-	}
-	
+		
+		List<String> answerModelList=question.getAnswers();
+		AnswerModel answerModel = new AnswerModel();
+		for(int i=0;i<answerModelList.size();i++)
+		{
+			if(answerModelList.get(i)!=null && answerModelList.get(i)!=""){
+				answerModel.setAnswerDesc(answerModelList.get(i));
+				answerModel.setQuestion(questionModel);
+				answerManager.saveAnswer(answerModel ,questionModel.getQuestionId());
+			}
+		}
+      }
+
 	@RequestMapping(value={"/addSurveyTitle"},method = RequestMethod.GET)
 	public ModelAndView addSurveyTitle(){
 		
@@ -163,12 +177,11 @@ public class HomeController {
 	}
 
 	
-	@RequestMapping(value={"/{surveyId}"},method = RequestMethod.GET)
+	@RequestMapping(value={"/survey={surveyId}"},method = RequestMethod.GET)
 	public ModelAndView surveyDisplay(@PathVariable("surveyId") int surveyId ){
 		
 		ModelAndView model = new ModelAndView();
-	
-		@SuppressWarnings("unchecked")
+
 		List<QuestionModel> questionList=questionManager.getQuestionListBySurveyId(surveyId);
 		for(QuestionModel item:questionList){
 			System.out.println(item.getQuestionTitle()+"inside ctrlr");
@@ -176,8 +189,8 @@ public class HomeController {
 		}
 		model.addObject("questionList", questionList);
 
-		model.addObject("answer1Id",2);
-		model.addObject("answer2Id",1);
+		model.addObject("answer1Id",1);
+		model.addObject("answer2Id",2);
 		model.setViewName("SurveyPoll");
 		return model;
 	}

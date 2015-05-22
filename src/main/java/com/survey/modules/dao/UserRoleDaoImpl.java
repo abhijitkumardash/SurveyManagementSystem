@@ -49,17 +49,16 @@ public class UserRoleDaoImpl implements UserRoleDao {
 		}
 	}
 
-	@Override
 	public List<Users> findByRole(String role) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
 	public void removeUserRole(Users user, String role) {
 		// TODO Auto-generated method stub
 		
 	}
+
     
 
 }
