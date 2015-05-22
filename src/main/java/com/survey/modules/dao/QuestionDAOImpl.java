@@ -47,8 +47,8 @@ public class QuestionDAOImpl implements QuestionDAOInterface {
 	public List<QuestionModel> QuestionList(){
 		  Session session = this.sessionFactory.getCurrentSession();
 		Criteria cr=session.createCriteria(QuestionModel.class);
-		List<QuestionModel> questonList=cr.list();
-		return questonList;
+		List<QuestionModel> questionList=cr.list();
+		return questionList;
 	}
 	
 	public void deleteAll(){
@@ -63,8 +63,8 @@ public class QuestionDAOImpl implements QuestionDAOInterface {
 		  Session session = this.sessionFactory.getCurrentSession();
 		Criteria cr= session.createCriteria(QuestionModel.class);
 		cr.add(Restrictions.eq( "survey.surveyId",surveyId));
-		List<QuestionModel> questonList=cr.list();
-		return questonList;
+		List<QuestionModel> questionList=cr.list();
+		return questionList;
 	}
 
 
