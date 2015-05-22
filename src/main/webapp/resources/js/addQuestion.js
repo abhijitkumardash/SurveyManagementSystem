@@ -6,44 +6,48 @@ $(document).ready(function(){
 		var question = {};
         question.question= $("#question").val();
         question.answers = [];
-        question.answers.push($("#answer1").val())
-        question.answers.push($("#answer2").val());
-        question.answers.push($("#answer3").val());
-        question.answers.push($("#answer4").val());
+        var i=1;
+        while(i<=4){
+        	
+        	question.answers.push($("#answer"+i).val())
+        	i++;
+        }
+
         question.surveyId=$("#survey-id").html();
         
 		var surveyId=$("#survey-id").html();
 		var token = $("meta[name='_csrf']").attr("content");
 		var header = $("meta[name='_csrf_header']").attr("content");
-
         $.ajax({ 
             type: 'POST',
             url: "saveQuestionAnswer",
             contentType: "application/json",
             data:JSON.stringify(question),
+            
             beforeSend: function(xhr){
 	           xhr.setRequestHeader(header, token);
 	        },
              success : function(data) { 
-                $("#generated-link").html("GENERATED URL :  http://localhost:8080/modules/"+$("#survey-id").html());
+                $("#generated-link").html("GENERATED URL :  http://localhost:8080/modules/"
+                		+$("#survey-id").html());
                 $("#survey-id").html(surveyId);
                 $('#question-answer-container').find('input:text').val('');
              }, 
              error : function(e) { 
-//              alert('Error: ' + e);  
+              alert('Post object fail .Error: ' + e);  
              } 
             });
     });
 	
-	var NoOfInputFiled=2;//default number of input fields
+	var NoOfInputField=2;//default number of input fields
 	
 	$("#addInputField").click(function(){
-	
-		if(NoOfInputFiled<4){
-			NoOfInputFiled++;
-			var currentInputFieldId="answer"+NoOfInputFiled;
+		if(NoOfInputField<4){
+			NoOfInputField++;
+			var currentInputFieldId="answer"+NoOfInputField;
 			var newdiv = document.createElement('li');
-			var str ="<input type='text' placeholder='Enter the answer' name='answer' id="+currentInputFieldId;
+			var str ="<input type='text' placeholder='Enter the answer' name='answer' id="+
+				currentInputFieldId;
 			newdiv.innerHTML =str+">";
 			document.getElementById('answer-wrap').appendChild(newdiv);
 		}
@@ -54,9 +58,9 @@ $(document).ready(function(){
 	
 	$( "#removeInputField" ).click(function() {
 	
-		if(NoOfInputFiled>2){
+		if(NoOfInputField>2){
 			$('#addInputField').show();
-			NoOfInputFiled--;
+			NoOfInputField--;
 			$( "input" ).last().remove();
 		}
 	
