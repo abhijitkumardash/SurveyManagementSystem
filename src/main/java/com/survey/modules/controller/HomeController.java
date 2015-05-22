@@ -151,13 +151,12 @@ public class HomeController {
 		AnswerModel answerModel = new AnswerModel();
 		for(int i=0;i<answerModelList.size();i++)
 		{
-			answerModel.setAnswerDesc(answerModelList.get(i));
-			answerModel.setQuestion(tempQuesObject);
-			System.out.println(tempQuesObject.getQuestionId());
-			System.out.println(tempQuesObject.getQuestionTitle());			
-			answerManager.saveAnswer(answerModel ,tempQuesObject.getQuestionId());
+			if(answerModelList.get(i)!=null && answerModelList.get(i)!=""){
+				answerModel.setAnswerDesc(answerModelList.get(i));
+				answerModel.setQuestion(tempQuesObject);
+				answerManager.saveAnswer(answerModel ,tempQuesObject.getQuestionId());
+			}
 		}
-        
       }
 	@RequestMapping(value={"/addSurveyTitle"},method = RequestMethod.GET)
 	public ModelAndView addSurveyTitle(){
@@ -171,7 +170,6 @@ public class HomeController {
 	public @ResponseBody ModelAndView saveSurveyTitle( @RequestParam("surveyTitle") String surveyTitle){
 		
 		ModelAndView model = new ModelAndView();
-		System.out.println("*********inside save survey title ");
 		SurveyModel surveyModel=new SurveyModel();
         surveyModel.setSurveyTitle(surveyTitle);
         surveyManager.saveSurvey(surveyModel);

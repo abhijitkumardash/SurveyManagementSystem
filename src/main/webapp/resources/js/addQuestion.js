@@ -6,23 +6,18 @@ $(document).ready(function(){
 		var question = {};
         question.question= $("#question").val();
         question.answers = [];
-        i=1;
-        while($("#answer"+i).val()!=null||($("#answer"+i).val()!=" ")){
+        var i=1;
+        while(i<=4){
+        	
         	question.answers.push($("#answer"+i).val())
         	i++;
-        	
-        	if(i==3)
-        		break;
-//        	question.answers.push($("#answer2").val());
-//        	question.answers.push($("#answer3").val());
-//        	question.answers.push($("#answer4").val());
         }
+
         question.surveyId=$("#survey-id").html();
         
 		var surveyId=$("#survey-id").html();
 		var token = $("meta[name='_csrf']").attr("content");
 		var header = $("meta[name='_csrf_header']").attr("content");
-		alert(JSON.stringify(question));
         $.ajax({ 
             type: 'POST',
             url: "saveQuestionAnswer",
@@ -39,7 +34,7 @@ $(document).ready(function(){
                 $('#question-answer-container').find('input:text').val('');
              }, 
              error : function(e) { 
-              alert('Error: ' + e);  
+              alert('Post object fail .Error: ' + e);  
              } 
             });
     });

@@ -34,16 +34,8 @@ public class AnswerManager implements AnswerManagerInterface {
 		try {
 			QuestionModel questionObj = new QuestionModel();
 			questionObj = questionManager.findQuestionById(questionID);
-			
-			System.out.println("Answer params"+answerObj.getAnswerDesc());
-			System.out.println("Answer params"+answerObj.getQuestion().getQuestionId());
-			System.out.println("Answer params"+answerObj.getQuestion().getQuestionTitle());
-			System.out.println(questionObj);
 			answerObj.setQuestion(questionObj);
-			System.out.println(answerObj.getQuestion());
-			System.out.println("After set Q");
 			answerDAO.saveAnswer(answerObj);
-
 		} catch (HibernateException e) {
 			e.getStackTrace();
 			System.out.println("in catch");
