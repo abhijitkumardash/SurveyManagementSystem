@@ -142,10 +142,6 @@ public class HomeController {
 		QuestionModel questionModel=new QuestionModel();
         questionModel.setQuestionTitle(question.getQuestion());
         questionManager.saveQuestion(questionModel,question.getSurveyId());
-        
-        QuestionModel tempQuesObject=new QuestionModel();
-		tempQuesObject.setQuestionId(questionModel.getQuestionId());
-		tempQuesObject.setQuestionTitle(question.getQuestion());
 		
 		List<String> answerModelList=question.getAnswers();
 		AnswerModel answerModel = new AnswerModel();
@@ -153,11 +149,12 @@ public class HomeController {
 		{
 			if(answerModelList.get(i)!=null && answerModelList.get(i)!=""){
 				answerModel.setAnswerDesc(answerModelList.get(i));
-				answerModel.setQuestion(tempQuesObject);
-				answerManager.saveAnswer(answerModel ,tempQuesObject.getQuestionId());
+				answerModel.setQuestion(questionModel);
+				answerManager.saveAnswer(answerModel ,questionModel.getQuestionId());
 			}
 		}
       }
+
 	@RequestMapping(value={"/addSurveyTitle"},method = RequestMethod.GET)
 	public ModelAndView addSurveyTitle(){
 		
@@ -167,13 +164,11 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value={"/saveSurveyTitle"},method = RequestMethod.POST)
-	public @ResponseBody ModelAndView saveSurveyTitle( @RequestParam("surveyTitle") String surveyTitle){
+	public @ResponseBody ModelAndView saveSurveyTitle(@ModelAttribute SurveyModel surveyModel){	
 		
 		ModelAndView model = new ModelAndView();
-		SurveyModel surveyModel=new SurveyModel();
-        surveyModel.setSurveyTitle(surveyTitle);
-        surveyManager.saveSurvey(surveyModel);
 
+        surveyManager.saveSurvey(surveyModel);
         model.addObject("surveyId", surveyModel.getSurveyId() );
 //		model.setViewName("redirect:" + "addQuestion");
         model.setViewName("AddQuestion");
@@ -182,20 +177,15 @@ public class HomeController {
 	}
 
 	
-	@RequestMapping(value={"/{surveyId}"},method = RequestMethod.GET)
+	@RequestMapping(value={"/survey={surveyId}"},method = RequestMethod.GET)
 	public ModelAndView surveyDisplay(@PathVariable("surveyId") int surveyId ){
 		
 		ModelAndView model = new ModelAndView();
-	
-//		QuestionModel questionModel=questionManager.findQuestionById(surveyId);
-//		String questionTitle=questionModel.getQuestionTitle();
-//		model.addObject("questionTitle",questionTitle);
-		
-		@SuppressWarnings("unchecked")
+
 		List<QuestionModel> questionList=questionManager.getQuestionListBySurveyId(surveyId);
 		for(QuestionModel item:questionList){
 			System.out.println(item.getQuestionTitle()+"inside ctrlr");
-		        
+			
 		}
 		model.addObject("questionList", questionList);
 

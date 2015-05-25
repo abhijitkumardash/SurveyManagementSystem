@@ -14,20 +14,23 @@
 <title>Survey title</title>
 </head>
 <body>
+  <div class="body"></div>
+  <div class="grad"></div>
+    
   <div class="row">
         <div class="col s8 m6" id="survey-wrap">
          <form action="saveSurveyTitle" method="post">
-          <div class="card blue-grey darken-1">
-          
+          <div class="card">
+          	 <img class="blackImg" /> 
             <div class="card-content white-text">
               <div class="card-title center-align">Create a new Survey</div>
               <p class="error-msg"></p>
               <input type="text" placeholder="Enter Survey Title" id="survey-title" name="surveyTitle" class="valign" required/>
             </div>
-            <div class="card-action">
+            <div class="card-action center-align">
             <input type="hidden" name="${_csrf.parameterName}"
 							value="${_csrf.token}" />
-           		  <button class=" waves-light btn center-align grey lighten-4" id="survey-create" type="submit" value="submit" ><i>Create</i>
+           		  <button class=" waves-light btn center-align " id="survey-create" type="submit" value="submit" ><i>Create</i>
 		</button> 
 		<!--  <a class=" waves-light btn center-align grey lighten-4" id="survey-create"  ><i>Create</i>	</a>--> 
 	

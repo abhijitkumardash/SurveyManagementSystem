@@ -16,22 +16,19 @@
 <script src="resources/js/materialize.js"></script>
 <script src="resources/js/materialize.min.js"></script>
 
+
 <title>Survey Creation</title>
 </head>
 
 <body>
-      <!-- Left Side Panel -->
-  
-    <ul class="collection " id="left-container">
-      <li class="collection-item"><a href="#!" class="collection-item">Multiple Choice</a></li>
-      <li class="collection-item"><a href="#!" class="collection-item">Dropdown</a></li>
-      <li class="collection-item"><a href="#!" class="collection-item">Matrix</a></li>
-      <li class="collection-item"><a href="#!" class="collection-item">Comment Box</a></li>
-    </ul>
-     <!-- For adding Question and answer -->     
-      
-     <ul id="question-answer-container">
-     	<li >Survey ID :<i id="survey-id" >${surveyId}</i></li>
+    <div class="body"></div>
+  	<div class="grad"></div>
+    
+   
+   <div  class="card large">
+     <img class="blackImg" /> 
+     <ul  id="question-answer-container">
+     	<li ><h5>Survey ID :<i id="survey-id" >${surveyId}</i></h5></li>
      	<li id="question-wrap">
      		<label>Question:</label>
      		<input type="text" placeholder="Enter the question" id="question" name="question" required/>
@@ -54,15 +51,18 @@
 	     	</li>
 	
 		</ul>
+		<div id="buttons-wrap">
 		 	<a class="waves-effect waves-light btn"  id="save-question-answer" >Save</a>
 			<a class="waves-effect waves-light btn red">Cancel</a>
-			
+			<a class="waves-effect waves-light btn"  id="addAnother-question-answer" >Add another Question</a>
+		</div>	
      	</li>
      	<p id="generated-link"/></p>
      	
      </ul>
 
-   
+  </div>
+
 
 </body>
 </html>

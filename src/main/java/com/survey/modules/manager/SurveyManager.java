@@ -15,9 +15,8 @@ public class SurveyManager implements SurveyManagerInterface {
 	public void setSurveyDao(SurveyDAOInterface surveyDao) {
 		this.surveyDao = surveyDao;
 	}
-
-
     @Transactional
+
 	public void saveSurvey(SurveyModel surveyObj){
 		
 		try{
@@ -27,7 +26,6 @@ public class SurveyManager implements SurveyManagerInterface {
 			e.getStackTrace();
 		}
 	}
-
     @Transactional
 	public void updateSurvey(SurveyModel surveyObj){
 		
@@ -39,7 +37,6 @@ public class SurveyManager implements SurveyManagerInterface {
 		}
 		
 	}
-
     @Transactional
 	@SuppressWarnings("finally")
 	public SurveyModel findSurveyById(int surveyId){
