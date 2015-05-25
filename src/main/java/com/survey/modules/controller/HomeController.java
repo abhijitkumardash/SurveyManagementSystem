@@ -184,19 +184,8 @@ public class HomeController {
 		ModelAndView model = new ModelAndView();
 
 		List<QuestionModel> questionList=questionManager.getQuestionListBySurveyId(surveyId);
-		System.out.println(questionList);
-		for(QuestionModel item:questionList){
-			System.out.println(item.getQuestionTitle()+":Question");
-//			for(AnswerModel ansItem:item.getAnswers()){
-//				System.out.println(ansItem.getAnswerDesc()+":Answer");
-//				
-//			}
-			
-		}
+		
 		model.addObject("questionList", questionList);
-
-//		model.addObject("answer1Id",1);
-//		model.addObject("answer2Id",2);
 		model.setViewName("SurveyPoll");
 		return model;
 	}
