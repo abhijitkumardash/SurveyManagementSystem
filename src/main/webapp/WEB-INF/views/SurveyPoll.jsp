@@ -15,7 +15,6 @@
 <title>Survey Poll</title>
 </head>
 <body>
-
   <div class="body"></div>
   <div class="grad"></div>		
 	<div class="row">
@@ -43,7 +42,5 @@
 		           
 	   </div>
 	</div>
-	       
-
 </body>
 </html>

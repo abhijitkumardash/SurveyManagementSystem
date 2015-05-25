@@ -1,7 +1,5 @@
 package com.survey.modules.manager;
 
-import org.springframework.transaction.annotation.Transactional;
-
 import com.survey.modules.model.PollModel;
 
 public interface PollManagerInterface {

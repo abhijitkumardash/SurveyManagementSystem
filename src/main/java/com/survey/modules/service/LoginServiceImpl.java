@@ -15,7 +15,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.survey.modules.dao.UserRoleDaoImpl;
 import com.survey.modules.dao.LoginDao;
 import com.survey.modules.model.UserRole;
 import com.survey.modules.model.Users;
@@ -25,7 +24,6 @@ public class LoginServiceImpl implements UserDetailsService {
 
  @Autowired
  private LoginDao loginDao;
- private UserRoleDaoImpl userRoleDao;
  
  public void setLoginDao(LoginDao loginDao) {
      this.loginDao = loginDao;

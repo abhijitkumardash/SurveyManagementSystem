@@ -13,8 +13,8 @@ public class Question implements Serializable {
 
 	private static final long serialVersionUID = -987074521702080901L;
 	
-	int surveyId;
-	String question;
+	private int surveyId;
+	private String question;
 	public List<String> answers;
 	
 	public int getSurveyId() {

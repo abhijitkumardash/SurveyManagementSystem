@@ -10,10 +10,10 @@ public class PollModel {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int pollId;
+	
 	private int surveyId;
 	private int questionId;
 	private int answerId;
-	
 	
 	public int getPollId() {
 		return pollId;
