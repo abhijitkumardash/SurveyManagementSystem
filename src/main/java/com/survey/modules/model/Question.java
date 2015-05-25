@@ -3,15 +3,8 @@ package com.survey.modules.model;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
-
-import com.survey.modules.model.QuestionModel;
-import com.survey.modules.model.SurveyModel;
 
 @Entity
 @JsonIgnoreProperties
