@@ -1,10 +1,12 @@
 package com.survey.modules.dao;
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -20,9 +22,9 @@ public class QuestionDAOImpl implements QuestionDAOInterface {
 	}
 	
 
-	public void saveQuestion(QuestionModel entity) {
+	public Serializable saveQuestion(QuestionModel entity) {
 		 Session session = this.sessionFactory.getCurrentSession();
-		 session.save(entity);
+		 return session.save(entity);
 		
 	}
 	
@@ -63,6 +65,7 @@ public class QuestionDAOImpl implements QuestionDAOInterface {
 		  Session session = this.sessionFactory.getCurrentSession();
 		Criteria cr= session.createCriteria(QuestionModel.class);
 		cr.add(Restrictions.eq( "survey.surveyId",surveyId));
+//		cr.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
 		List<QuestionModel> questonList=cr.list();
 		return questonList;
 	}
