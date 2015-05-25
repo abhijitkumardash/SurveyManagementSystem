@@ -21,9 +21,10 @@
 	 		<div class="card medium">
 				<img class="blackImg" /> 
 			    <form action="saveSurveyPoll" method="post">
+			     <span class="card-title">Survey Title:${question.survey.surveyTitle}</span>
 			   		<c:forEach items="${questionList}" var="question">
 			        	<div class="card-content white-text">
-			            <span class="card-title">Survey Title:${question.survey.surveyTitle}</span>
+			           
 			            <p>Question:${question.questionTitle}</p>
 			            <c:forEach items="${question.answers}" var="answer">
 				            <p>
@@ -35,9 +36,13 @@
 			           
 			   			</div>
 		   			</c:forEach>
-		   			<button id="poll-submit" type="submit">Done</button>
-		   			<button type="reset">Reset</button>
-		   			</form>
+		   			<button class="btn waves-effect waves-light" type="submit" name="action">Submit
+   						<i class="mdi-content-send right"></i>
+  					</button>
+  					<button class="btn waves-effect waves-light" type="reset" name="action">Reset choices
+   						<i class="mdi-content-send right"></i>
+  					</button>
+		   		</form>
 
 		    </div>
 		           
