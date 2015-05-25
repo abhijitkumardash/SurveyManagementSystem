@@ -5,6 +5,7 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -23,7 +24,7 @@ public class SurveyModel {
 	@Column(name="survey_title")
 	private String surveyTitle;
 	
-	@OneToMany(cascade = CascadeType.ALL,mappedBy="survey")
+	@OneToMany(fetch = FetchType.EAGER,mappedBy="survey")
 	private Set<QuestionModel> questions;
 	
 	public Set<QuestionModel> getQuestions() {
