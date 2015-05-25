@@ -32,8 +32,7 @@ $(document).ready(function(){
 	           xhr.setRequestHeader(header, token);
 	        },
              success : function(data) { 
-
-                window.location.replace("/modules/survey="+$("#survey-id").html()); 
+                window.location.replace("/SurveyManagementSystem/survey="+$("#survey-id").html()); 
              }, 
              error : function(e) { 
               console.log('Error: ' + e);  
@@ -52,7 +51,6 @@ $(document).ready(function(){
 	           xhr.setRequestHeader(header, token);
 	        },
              success : function(data) { 
-            	 alert(data);
                 $("#generated-link").html("GENERATED URL :  http://localhost:8080/modules/survey="+$("#survey-id").html());
 
                 $('#question-answer-container').find('input:text').val('');
