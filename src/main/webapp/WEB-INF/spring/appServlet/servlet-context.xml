@@ -44,6 +44,7 @@
 				<value>com.survey.modules.model.UserRole</value>
 				<value>com.survey.modules.model.QuestionModel</value>
 				<value>com.survey.modules.model.SurveyModel</value>
+				<value>com.survey.modules.model.AnswerModel</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
@@ -67,6 +68,9 @@
 	<bean id="surveyDao" class="com.survey.modules.dao.SurveyDAOImpl">
 		<property name="sessionFactory"	ref="sessionFactory" />
 	</bean>
+		<bean id="answerDao" class="com.survey.modules.dao.AnswerDAOImpl">
+		<property name="sessionFactory"	ref="sessionFactory" />
+	</bean>
 	<bean id="usersService"
 		class="com.survey.modules.service.UsersServiceImpl">
 		<property name="loginDao" ref="loginDao"></property>
@@ -80,6 +84,11 @@
 		class="com.survey.modules.manager.QuestionManager">
 		<property name="questionDao" ref="questionDao"></property>
 		<property name="surveyManager" ref="surveyManager"></property>
+	</bean>
+	<bean id="answerManager"
+		class="com.survey.modules.manager.AnswerManager">
+		<property name="answerDAO" ref="answerDao"></property>
+		<property name="questionManager" ref="questionManager"></property>
 	</bean>
 	
 	
