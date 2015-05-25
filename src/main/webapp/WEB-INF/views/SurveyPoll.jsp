@@ -29,12 +29,14 @@
 				            <p>
 
 							<input name="answers${question.questionId}" type="radio" id="${answer.answerId}" value="${answer.answerId}"/>
-						      <label for="${answer.answerId}" > ${answer.answerDesc}</label>
+						      <label for="${answer.answerId}"> ${answer.answerDesc}</label>
 						    </p>
 					    </c:forEach>
 			           
 			   			</div>
 		   			</c:forEach>
+		   			<button id="poll-submit" type="submit">Done</button>
+		   			<button type="reset">Reset</button>
 		   			</form>
 
 		    </div>
