@@ -52,6 +52,7 @@ $(document).ready(function(){
 	        },
              success : function(data) { 
                 $("#generated-link").html("GENERATED URL :  http://localhost:8080/modules/survey="+$("#survey-id").html());
+
                 $('#question-answer-container').find('input:text').val('');
              }, 
              
