@@ -1,5 +1,6 @@
 package com.survey.modules.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -24,7 +25,7 @@ public class AnswerModel {
 	private String answerDesc;
 	
 
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.ALL)  
    	@JoinColumn(name="question_id")
 	private QuestionModel question;
 

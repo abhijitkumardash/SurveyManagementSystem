@@ -141,7 +141,7 @@ public class HomeController {
 		
 		QuestionModel questionModel=new QuestionModel();
         questionModel.setQuestionTitle(question.getQuestion());
-        questionManager.saveQuestion(questionModel,question.getSurveyId());
+        Integer savedQuestionModelId = questionManager.saveQuestion(questionModel,question.getSurveyId());
 		
 		List<String> answerModelList=question.getAnswers();
 		AnswerModel answerModel = new AnswerModel();
@@ -150,6 +150,7 @@ public class HomeController {
 			if(answerModelList.get(i)!=null && answerModelList.get(i)!=""){
 				answerModel.setAnswerDesc(answerModelList.get(i));
 				answerModel.setQuestion(questionModel);
+				answerModel.getQuestion().setQuestionId(savedQuestionModelId);
 				answerManager.saveAnswer(answerModel ,questionModel.getQuestionId());
 			}
 		}
@@ -183,17 +184,23 @@ public class HomeController {
 		ModelAndView model = new ModelAndView();
 
 		List<QuestionModel> questionList=questionManager.getQuestionListBySurveyId(surveyId);
+		System.out.println(questionList);
 		for(QuestionModel item:questionList){
-			System.out.println(item.getQuestionTitle()+"inside ctrlr");
+			System.out.println(item.getQuestionTitle()+":Question");
+//			for(AnswerModel ansItem:item.getAnswers()){
+//				System.out.println(ansItem.getAnswerDesc()+":Answer");
+//				
+//			}
 			
 		}
 		model.addObject("questionList", questionList);
 
-		model.addObject("answer1Id",1);
-		model.addObject("answer2Id",2);
+//		model.addObject("answer1Id",1);
+//		model.addObject("answer2Id",2);
 		model.setViewName("SurveyPoll");
 		return model;
 	}
+	
 	
 	
 		

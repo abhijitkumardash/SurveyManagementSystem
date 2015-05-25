@@ -6,7 +6,7 @@ import com.survey.modules.model.QuestionModel;
 
 public interface QuestionManagerInterface {
 	
-	public void saveQuestion(QuestionModel quesObj, int surveyId);
+	public Integer saveQuestion(QuestionModel quesObj, int surveyId);
 	public void updateQuestion(QuestionModel quesObj);
 	public void deleteQuestion(QuestionModel quesObj);
 	public QuestionModel findQuestionById(int questionId);
