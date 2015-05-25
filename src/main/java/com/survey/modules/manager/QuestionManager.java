@@ -30,19 +30,19 @@ public class QuestionManager implements QuestionManagerInterface{
 	}
 
 	@Transactional
-	public void saveQuestion(QuestionModel quesObj, int surveyId){
+	public Integer saveQuestion(QuestionModel quesObj, int surveyId){
 		
 		try{
 			SurveyModel surveyObj=new SurveyModel();
 			surveyObj=surveyManager.findSurveyById(surveyId);
 			quesObj.setSurvey(surveyObj);
-			questionDao.saveQuestion(quesObj);
+			return (Integer)questionDao.saveQuestion(quesObj);
 		}
 		catch(HibernateException e){
 			e.getStackTrace();
 			System.out.println("in catch");
 		}
-		
+		return null;
 	}
 
 	@Transactional
