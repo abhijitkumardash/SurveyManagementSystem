@@ -32,7 +32,8 @@ $(document).ready(function(){
 	           xhr.setRequestHeader(header, token);
 	        },
              success : function(data) { 
-                window.location.replace("/SurveyManagementSystem/survey="+$("#survey-id").html()); 
+            	$("#generated-link").html("GENERATED URL :  http://localhost:8080/modules/survey="+$("#survey-id").html());
+//                window.location.replace("/SurveyManagementSystem/survey="+$("#survey-id").html()); 
              }, 
              error : function(e) { 
               console.log('Error: ' + e);  

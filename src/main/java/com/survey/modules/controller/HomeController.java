@@ -22,6 +22,7 @@ import com.survey.modules.manager.QuestionManager;
 import com.survey.modules.manager.QuestionManagerInterface;
 import com.survey.modules.manager.SurveyManagerInterface;
 import com.survey.modules.model.AnswerModel;
+import com.survey.modules.model.PollResult;
 import com.survey.modules.model.Question;
 import com.survey.modules.model.QuestionModel;
 import com.survey.modules.model.SurveyModel;
@@ -32,16 +33,16 @@ import com.survey.modules.service.UsersService;
 public class HomeController {
 	@Autowired
 	private UsersService usersService;
-	
+
 	@Autowired
 	private SurveyManagerInterface surveyManager;
 
 	@Autowired
 	private QuestionManagerInterface questionManager;
-	
+
 	@Autowired
 	private AnswerManagerInterface answerManager;
-	
+
 	public void setQuestionManager(QuestionManager questionManager) {
 		this.questionManager = questionManager;
 	}
@@ -49,11 +50,10 @@ public class HomeController {
 	public void setUsersService(UsersService usersService) {
 		this.usersService = usersService;
 	}
-	
+
 	public void setSurveyManager(SurveyManagerInterface surveyManager) {
 		this.surveyManager = surveyManager;
 	}
-
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ModelAndView welcomePage() {
@@ -63,7 +63,7 @@ public class HomeController {
 		return model;
 
 	}
-	
+
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public ModelAndView login(@ModelAttribute Users users,
 			@RequestParam(value = "error", required = false) String error,
@@ -91,6 +91,7 @@ public class HomeController {
 
 		return new ModelAndView("403", "username", username);
 	}
+
 	@RequestMapping(value = { "/signup" }, method = RequestMethod.GET)
 	public ModelAndView signupPage() {
 
@@ -99,7 +100,7 @@ public class HomeController {
 		return model;
 
 	}
-	
+
 	@RequestMapping(value = "/signup", method = RequestMethod.POST)
 	public ModelAndView register(@ModelAttribute Users user,
 			@RequestParam("confirm-password") String confirmPassword) {
@@ -113,21 +114,22 @@ public class HomeController {
 
 		}
 		if (flagSave == true) {
-			try{
-			this.usersService.addUser(user);
-			modelView.addObject("error", "Registered Successfully!!");
-			modelView.setViewName("login");
-			}
-			catch (Exception e){
-				 e.printStackTrace();
-				 modelView.addObject("error", "Already Registerd in same Email!!");
-				 modelView.addObject("forgot_password", "Forgot Password?");
-				 modelView.setViewName("signup");
+			try {
+				this.usersService.addUser(user);
+				modelView.addObject("error", "Registered Successfully!!");
+				modelView.setViewName("login");
+			} catch (Exception e) {
+				e.printStackTrace();
+				modelView.addObject("error",
+						"Already Registerd in same Email!!");
+				modelView.addObject("forgot_password", "Forgot Password?");
+				modelView.setViewName("signup");
 			}
 		}
 		return modelView;
 	}
-	@RequestMapping(value = {"/addQuestion" }, method = RequestMethod.GET)
+
+	@RequestMapping(value = { "/addQuestion" }, method = RequestMethod.GET)
 	public ModelAndView homePage() {
 
 		ModelAndView model = new ModelAndView();
@@ -136,61 +138,72 @@ public class HomeController {
 
 	}
 
-	@RequestMapping( value={"/saveQuestionAnswer"},method = RequestMethod.POST)
-	public @ResponseBody void saveQuestionAnswer(@RequestBody Question question){
-		
-		QuestionModel questionModel=new QuestionModel();
-        questionModel.setQuestionTitle(question.getQuestion());
-        Integer savedQuestionModelId = questionManager.saveQuestion(questionModel,question.getSurveyId());
-		
-		List<String> answerModelList=question.getAnswers();
+	@RequestMapping(value = { "/saveQuestionAnswer" }, method = RequestMethod.POST)
+	public @ResponseBody void saveQuestionAnswer(@RequestBody Question question) {
+
+		QuestionModel questionModel = new QuestionModel();
+		questionModel.setQuestionTitle(question.getQuestion());
+		Integer savedQuestionModelId = questionManager.saveQuestion(
+				questionModel, question.getSurveyId());
+
+		List<String> answerModelList = question.getAnswers();
 		AnswerModel answerModel = new AnswerModel();
-		for(int i=0;i<answerModelList.size();i++)
-		{
-			if(answerModelList.get(i)!=null && answerModelList.get(i)!=""){
+		for (int i = 0; i < answerModelList.size(); i++) {
+			if (answerModelList.get(i) != null && answerModelList.get(i) != "") {
 				answerModel.setAnswerDesc(answerModelList.get(i));
 				answerModel.setQuestion(questionModel);
 				answerModel.getQuestion().setQuestionId(savedQuestionModelId);
-				answerManager.saveAnswer(answerModel ,questionModel.getQuestionId());
+				answerManager.saveAnswer(answerModel,
+						questionModel.getQuestionId());
 			}
 		}
-      }
+	}
 
-	@RequestMapping(value={"/addSurveyTitle"},method = RequestMethod.GET)
-	public ModelAndView addSurveyTitle(){
-		
+	@RequestMapping(value = { "/addSurveyTitle" }, method = RequestMethod.GET)
+	public ModelAndView addSurveyTitle() {
+
 		ModelAndView model = new ModelAndView();
 		model.setViewName("AddSurvey");
 		return model;
 	}
-	
-	@RequestMapping(value={"/saveSurveyTitle"},method = RequestMethod.POST)
-	public @ResponseBody ModelAndView saveSurveyTitle(@ModelAttribute SurveyModel surveyModel){	
-		
+
+	@RequestMapping(value = { "/saveSurveyTitle" }, method = RequestMethod.POST)
+	public @ResponseBody ModelAndView saveSurveyTitle(
+			@ModelAttribute SurveyModel surveyModel) {
+
 		ModelAndView model = new ModelAndView();
 
-        surveyManager.saveSurvey(surveyModel);
-        model.addObject("surveyId", surveyModel.getSurveyId() );
-//		model.setViewName("redirect:" + "addQuestion");
-        model.setViewName("AddQuestion");
+		surveyManager.saveSurvey(surveyModel);
+		model.addObject("surveyId", surveyModel.getSurveyId());
+		// model.setViewName("redirect:" + "addQuestion");
+		model.setViewName("AddQuestion");
 		return model;
-      
+
 	}
 
-	
-	@RequestMapping(value={"/survey={surveyId}"},method = RequestMethod.GET)
-	public ModelAndView surveyDisplay(@PathVariable("surveyId") int surveyId ){
-		
+	@RequestMapping(value = { "/survey={surveyId}" }, method = RequestMethod.GET)
+	public ModelAndView surveyDisplay(@PathVariable("surveyId") int surveyId) {
+
 		ModelAndView model = new ModelAndView();
 
-		List<QuestionModel> questionList=questionManager.getQuestionListBySurveyId(surveyId);
-		
+		List<QuestionModel> questionList = questionManager
+				.getQuestionListBySurveyId(surveyId);
+
 		model.addObject("questionList", questionList);
 		model.setViewName("SurveyPoll");
 		return model;
 	}
-	
-	
-	
+
+	@RequestMapping(value = "/PollResult", method = RequestMethod.POST)
+	public ModelAndView pollResult() {
 		
+		ModelAndView model = new ModelAndView();
+
+		PollResult pollResult = new PollResult();
+
+		model.addObject("pollResult", pollResult);
+		model.setViewName("PollResult");
+		return model;
+
+	}
 }

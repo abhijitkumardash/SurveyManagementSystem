@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <link href="resources/css/materialize.css" rel="stylesheet">
@@ -20,15 +20,13 @@
 		<div class="col s12 m6" id="survey-wrap">
 	 		<div class="card medium">
 				<img class="blackImg" /> 
-			    <form action="saveSurveyPoll" method="post">
+			    <form action="PollResult" method="post">
 			     <span class="card-title">Survey Title:${question.survey.surveyTitle}</span>
 			   		<c:forEach items="${questionList}" var="question">
 			        	<div class="card-content white-text">
-			           
 			            <p>Question:${question.questionTitle}</p>
 			            <c:forEach items="${question.answers}" var="answer">
 				            <p>
-
 							<input name="answers${question.questionId}" type="radio" id="${answer.answerId}" value="${answer.answerId}"/>
 						      <label for="${answer.answerId}"> ${answer.answerDesc}</label>
 						    </p>
@@ -36,16 +34,17 @@
 			           
 			   			</div>
 		   			</c:forEach>
-		   			<button class="btn waves-effect waves-light" type="submit" name="action">Submit
+		   			<button class="btn waves-effect waves-light" type="submit" name="action"
+		   		>Submit
    						<i class="mdi-content-send right"></i>
   					</button>
+							<input type="hidden" name="${_csrf.parameterName}"
+								value="${_csrf.token}" />
   					<button class="btn waves-effect waves-light" type="reset" name="action">Reset choices
-   						<i class="mdi-content-send right"></i>
+   						<i class="mdi-action-autorenew right"></i>
   					</button>
 		   		</form>
-
 		    </div>
-		           
 	   </div>
 	</div>
 </body>
