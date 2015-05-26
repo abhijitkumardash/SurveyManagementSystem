@@ -27,17 +27,15 @@
 			   		<c:forEach items="${questionList}" var="question">
 			        	<div class="card-content white-text">
 			            <p>Question:${question.questionTitle}</p>
-			            <input type="hidden" name="surveyId" value="${question.survey.surveyId}" />
-			             <input type="hidden" name="questionId" value="${question.questionId}" />
-			            <c:forEach items="${question.answers}" var="answer">
+			     		<c:forEach items="${question.answers}" var="answer">
 			            	<p>
-								<input name="answers${question.questionId}" type="radio" id="${answer.answerId}" value="${answer.answerId}"/>
+								<input name="answers${question.questionId}" type="radio" id="${answer.answerId}" value="${answer.answerId}"  surveyId="${question.survey.surveyId}" questionId="${question.questionId}"/>
 						      	<label for="${answer.answerId}" > ${answer.answerDesc}</label>
 						      	
 						    </p>
 						   
 					    </c:forEach>
-			            
+			         
 			   			</div>
 		   			</c:forEach>
 		   			</form>

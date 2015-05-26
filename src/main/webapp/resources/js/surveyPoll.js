@@ -4,14 +4,10 @@ $(document).ready(function(){
 	var surveyId;
 	
 	$("input:radio[type=radio]").click(function() {
-	   answerId = $(this).attr("id");
-	   console.log(answerId);
+	   answerId = $(this).val();
+	   questionId=$(this).attr("questionId");
+	   surveyId=$(this).attr("surveyId");
 	   
-	   console.log($(answerId).siblings());
-	   
-	   surveyId=document.getElementsByName(surveyId);
-//	   surveyId = $("input[name=surveyId]").val();
-//console.log("answerId:"+answerId +"surveyId:"+surveyId+"questionId:"+questionId);
 	});
 
 });
