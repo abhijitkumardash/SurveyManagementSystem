@@ -25,6 +25,7 @@ import com.survey.modules.model.AnswerModel;
 import com.survey.modules.model.Question;
 import com.survey.modules.model.QuestionModel;
 import com.survey.modules.model.SurveyModel;
+import com.survey.modules.model.UserPoll;
 import com.survey.modules.model.Users;
 import com.survey.modules.service.UsersService;
 
@@ -193,13 +194,16 @@ public class HomeController {
 		return model;
 	}
 
-//	@RequestMapping(value = "/savePoll", method = RequestMethod.POST)
-//	public ModelAndView savePoll(@RequestBody PollObject pollObject) {
-//		
-//		ModelAndView model = new ModelAndView();
-//
-//		model.setViewName("Poll Result");
+	@RequestMapping(value = "/savePoll", method = RequestMethod.POST)
+	public  @ResponseBody void savePoll(@RequestBody UserPoll pollObject) {
+		
+		ModelAndView model = new ModelAndView();
+ 
+System.out.println(pollObject.toString());
+System.out.println("answers:"+pollObject.getAnswers());
+System.out.println("questions:"+pollObject.getQuestions());
+//		model.setViewName("SurveyPoll");
 //		return model;
-//
-//	}
+
+	}
 }
