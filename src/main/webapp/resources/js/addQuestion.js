@@ -31,7 +31,6 @@ $(document).ready(function(){
 	}
 	
 	$('#save-question-answer').click(function(){
-		
 		if(isFieldEmpty()===false){
 			$.ajax({ 
 	            type: 'POST',
@@ -64,7 +63,6 @@ $(document).ready(function(){
 		           xhr.setRequestHeader(header, token);
 		        },
 	             success : function(data) { 
-	                $("#generated-link").html("GENERATED URL :  http://localhost:8080/SurveyManagementSystem/survey="+$("#survey-id").html());
 	                $('#question-answer-container').find('input:text').val('');
 	             }, 
 	             

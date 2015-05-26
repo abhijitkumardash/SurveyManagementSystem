@@ -83,8 +83,7 @@ public class AnswerManager implements AnswerManagerInterface {
 		}
 	}
 
-	@SuppressWarnings({ "finally", "rawtypes" })
-	public List getAnswerListByQuestionId(int questionId) {
+	public List<AnswerModel> getAnswerListByQuestionId(int questionId) {
 		List<AnswerModel> answerList = null;
 		try {
 
@@ -94,8 +93,8 @@ public class AnswerManager implements AnswerManagerInterface {
 			e.getStackTrace();
 
 		} finally {
-
-			return answerList;
 		}
+		return answerList;
+		
 	}
 }

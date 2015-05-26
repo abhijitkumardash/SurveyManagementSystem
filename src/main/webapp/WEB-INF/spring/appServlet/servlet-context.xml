@@ -33,7 +33,6 @@
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<property name="url" value="jdbc:mysql://localhost:3306/testDb" />
 		<property name="username" value="root" />
-		<property name="password" value="root" />
 	</bean>
 	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
@@ -71,6 +70,9 @@
 		<bean id="answerDao" class="com.survey.modules.dao.AnswerDAOImpl">
 		<property name="sessionFactory"	ref="sessionFactory" />
 	</bean>
+	<bean id="pollDao" class="com.survey.modules.dao.PollDaoImpl">
+		<property name="sessionFactory"	ref="sessionFactory" />
+	</bean>
 	<bean id="usersService"
 		class="com.survey.modules.service.UsersServiceImpl">
 		<property name="loginDao" ref="loginDao"></property>
@@ -90,7 +92,10 @@
 		<property name="answerDAO" ref="answerDao"></property>
 		<property name="questionManager" ref="questionManager"></property>
 	</bean>
-	
+		<bean id="pollManager"
+		class="com.survey.modules.manager.PollManager">
+		<property name="pollDao" ref="pollDao"></property>
+	</bean>
 	
 	<bean id="txManager"
 		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
