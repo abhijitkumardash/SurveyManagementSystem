@@ -17,28 +17,23 @@ import javax.persistence.Table;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
-
-
-
 @Entity
-@Table(name="question_table")
+@Table(name = "question_table")
 public class QuestionModel {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name="question_id")
+	@Column(name = "question_id")
 	private int questionId;
-	
-	@Column(name="question_title")
-	private String questionTitle;
-	
-	@ManyToOne
-   	@JoinColumn(name="survey_id")
-	private SurveyModel survey;
-	
-	
 
-	@OneToMany( fetch=FetchType.EAGER, cascade=CascadeType.ALL, mappedBy="question")
+	@Column(name = "question_title")
+	private String questionTitle;
+
+	@ManyToOne
+	@JoinColumn(name = "survey_id")
+	private SurveyModel survey;
+
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "question")
 	@Fetch(FetchMode.SELECT)
 	private Set<AnswerModel> answers;
 
@@ -46,16 +41,13 @@ public class QuestionModel {
 		return questionId;
 	}
 
-
 	public Set<AnswerModel> getAnswers() {
 		return answers;
 	}
 
-
 	public void setAnswers(Set<AnswerModel> answers) {
 		this.answers = answers;
 	}
-
 
 	public void setQuestionId(int questionId) {
 		this.questionId = questionId;
@@ -77,6 +69,4 @@ public class QuestionModel {
 		this.survey = survey;
 	}
 
-	
-	
 }

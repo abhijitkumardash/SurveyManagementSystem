@@ -10,7 +10,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script src="resources/js/materialize.js"></script>
 <script src="resources/js/materialize.min.js"></script>
-<script src="resources/js/surveyPoll.js"></script>
+<script src="resources/js/addSurveyPoll.js"></script>
 <title>Survey Poll</title>
 </head>
 <body>
