@@ -8,58 +8,70 @@ $(document).ready(function(){
 		
 		var question = {};
         question.question= $("#question").val();
-        
         question.answers = [];
         var i=1;
         while(i<=4){
         	question.answers.push($("#answer"+i).val())
         	i++;
         }
-
         question.surveyId=$("#survey-id").html();
         var surveyId=$("#survey-id").html();
 		return question;
 	}
 	
+	function isFieldEmpty(){
+		 var inputs = document.getElementsByTagName('input');
+		 for(var i = 0; i < inputs.length; i++){
+	            if(inputs[i].value === ''){
+	            	$("#error-msg").html("Field shouldn't be empty"); 
+		            return true;
+	            }
+	     }
+		 return false;
+	}
+	
 	$('#save-question-answer').click(function(){
+		if(isFieldEmpty()===false){
+			$.ajax({ 
+	            type: 'POST',
+	            url: "saveQuestionAnswer",
+	            contentType: "application/json",
+	            data:JSON.stringify(getQuestionAnswer()),
+	            beforeSend: function(xhr){
+		           xhr.setRequestHeader(header, token);
+		        },
+	             success : function(data) { 
+	                window.location.replace("/SurveyManagementSystem/survey="+$("#survey-id").html()); 
+	             }, 
+	             error : function(e) { 
+	              console.log('Error: ' + e);  
+	             } 
+	        });
+		}
 		
-		$.ajax({ 
-            type: 'POST',
-            url: "saveQuestionAnswer",
-            contentType: "application/json",
-            data:JSON.stringify(getQuestionAnswer()),
-            beforeSend: function(xhr){
-	           xhr.setRequestHeader(header, token);
-	        },
-             success : function(data) { 
-            	$("#generated-link").html("GENERATED URL :  http://localhost:8080/modules/survey="+$("#survey-id").html());
-//                window.location.replace("/SurveyManagementSystem/survey="+$("#survey-id").html()); 
-             }, 
-             error : function(e) { 
-              console.log('Error: ' + e);  
-             } 
-        });
     });
 	
 	$('#addAnother-question-answer').click(function(){
 
-		$.ajax({ 
-            type: 'POST',
-            url: "saveQuestionAnswer",
-            contentType: "application/json",
-            data:JSON.stringify(getQuestionAnswer()),
-            beforeSend: function(xhr){
-	           xhr.setRequestHeader(header, token);
-	        },
-             success : function(data) { 
-                $("#generated-link").html("GENERATED URL :  http://localhost:8080/modules/survey="+$("#survey-id").html());
-                $('#question-answer-container').find('input:text').val('');
-             }, 
-             
-             error : function(e) { 
-              alert('Post object fail .Error: ' + e);  
-             } 
-        });
+		if(isFieldEmpty()===false){
+			$.ajax({ 
+	            type: 'POST',
+	            url: "saveQuestionAnswer",
+	            contentType: "application/json",
+	            data:JSON.stringify(getQuestionAnswer()),
+	            beforeSend: function(xhr){
+		           xhr.setRequestHeader(header, token);
+		        },
+	             success : function(data) { 
+	                $('#question-answer-container').find('input:text').val('');
+	             }, 
+	             
+	             error : function(e) { 
+	              alert('Post object fail .Error: ' + e);  
+	             } 
+	        });
+		}
+
 	});
 	
 	

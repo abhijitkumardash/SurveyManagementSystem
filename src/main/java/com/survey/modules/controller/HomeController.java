@@ -158,9 +158,8 @@ public class HomeController {
 		}
 	}
 
-	@RequestMapping(value = { "/addSurveyTitle" }, method = RequestMethod.GET)
-	public ModelAndView addSurveyTitle() {
-
+	@RequestMapping(value={"/addSurveyTitle"},method = RequestMethod.GET)
+	public ModelAndView addSurveyTitle(){
 		ModelAndView model = new ModelAndView();
 		model.setViewName("AddSurvey");
 		return model;
@@ -189,6 +188,7 @@ public class HomeController {
 				.getQuestionListBySurveyId(surveyId);
 
 		model.addObject("questionList", questionList);
+		model.addObject("surveyTitle", (surveyManager.findSurveyById(surveyId)).getSurveyTitle());
 		model.setViewName("SurveyPoll");
 		return model;
 	}
