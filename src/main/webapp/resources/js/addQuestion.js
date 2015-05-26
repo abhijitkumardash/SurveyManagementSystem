@@ -31,6 +31,7 @@ $(document).ready(function(){
 	}
 	
 	$('#save-question-answer').click(function(){
+		
 		if(isFieldEmpty()===false){
 			$.ajax({ 
 	            type: 'POST',
@@ -52,6 +53,7 @@ $(document).ready(function(){
     });
 	
 	$('#addAnother-question-answer').click(function(){
+
 		if(isFieldEmpty()===false){
 			$.ajax({ 
 	            type: 'POST',
@@ -71,6 +73,7 @@ $(document).ready(function(){
 	             } 
 	        });
 		}
+
 	});
 	
 	

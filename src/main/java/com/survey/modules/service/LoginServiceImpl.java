@@ -30,7 +30,6 @@ public class LoginServiceImpl implements UserDetailsService {
  public void setLoginDao(LoginDao loginDao) {
      this.loginDao = loginDao;
  }
- 
  @Transactional
  public UserDetails loadUserByUsername(String username)
    throws UsernameNotFoundException {
