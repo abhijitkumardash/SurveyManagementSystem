@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page  language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -19,21 +19,25 @@
   <div class="grad"></div>		
 	<div class="row">
 		<div class="col s12 m6" id="survey-wrap">
-	 		<div class="card medium">
+	 		<div class="card ">
 				<img class="blackImg" /> 
+				 <span class="card-title">Survey Title: ${surveyTitle}</span>
+				 
 			    <form action="saveSurveyPoll" method="post">
 			   		<c:forEach items="${questionList}" var="question">
 			        	<div class="card-content white-text">
-			            <span class="card-title">Survey Title:${question.survey.surveyTitle}</span>
 			            <p>Question:${question.questionTitle}</p>
+			            <input type="hidden" name="surveyId" value="${question.survey.surveyId}" />
+			             <input type="hidden" name="questionId" value="${question.questionId}" />
 			            <c:forEach items="${question.answers}" var="answer">
-				            <p>
-
-							<input name="answers${question.questionId}" type="radio" id="${answer.answerId}" value="${answer.answerId}"/>
-						      <label for="${answer.answerId}" > ${answer.answerDesc}</label>
+			            	<p>
+								<input name="answers${question.questionId}" type="radio" id="${answer.answerId}" value="${answer.answerId}"/>
+						      	<label for="${answer.answerId}" > ${answer.answerDesc}</label>
+						      	
 						    </p>
+						   
 					    </c:forEach>
-			           
+			            
 			   			</div>
 		   			</c:forEach>
 		   			</form>

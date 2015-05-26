@@ -29,6 +29,7 @@
      <img class="blackImg" /> 
      <ul  id="question-answer-container">
      	<li ><h5>Survey ID :<i id="survey-id" >${surveyId}</i></h5></li>
+     	<li id="error-msg"></li>
      	<li id="question-wrap">
      		<label>Question:</label>
      		<input type="text" placeholder="Enter the question" id="question" name="question" required/>

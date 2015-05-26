@@ -37,8 +37,9 @@ public class SurveyManager implements SurveyManagerInterface {
 		}
 		
 	}
-    @Transactional
+   
 	@SuppressWarnings("finally")
+	@Transactional
 	public SurveyModel findSurveyById(int surveyId){
 		
 		SurveyModel surveyModel=null;

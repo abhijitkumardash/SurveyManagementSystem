@@ -1,5 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page  session="true" language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+  
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -16,15 +17,16 @@
 <body>
   <div class="body"></div>
   <div class="grad"></div>
-    
+   <p style="color:#fff">${username}</p>
   <div class="row">
         <div class="col s8 m6" id="survey-wrap">
          <form action="saveSurveyTitle" method="post">
           <div class="card">
           	 <img class="blackImg" /> 
             <div class="card-content white-text">
+             <p class="current-user"></p>
               <div class="card-title center-align">Create a new Survey</div>
-              <p class="error-msg"></p>
+          
               <input type="text" placeholder="Enter Survey Title" id="survey-title" name="surveyTitle" class="valign" required/>
             </div>
             <div class="card-action center-align">
