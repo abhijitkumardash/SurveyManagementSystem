@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.survey.modules.model.UserRole;
-import com.survey.modules.model.Users;;
+import com.survey.modules.model.Users;
 
 @Repository("userRoleDao")
 public class UserRoleDaoImpl implements UserRoleDao {

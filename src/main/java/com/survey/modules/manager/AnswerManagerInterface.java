@@ -8,6 +8,6 @@ public interface AnswerManagerInterface {
 	public void updateAnswer(AnswerModel answerObj);
 	public void deleteAnswer(AnswerModel answerObj);
 	public AnswerModel findAnswerById(int answerId);
-	public List getAnswerListByQuestionId(int answerId);
+	public List<AnswerModel> getAnswerListByQuestionId(int answerId);
 	
 }

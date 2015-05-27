@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 
@@ -29,6 +29,7 @@
      <img class="blackImg" /> 
      <ul  id="question-answer-container">
      	<li ><h5>Survey ID :<i id="survey-id" >${surveyId}</i></h5></li>
+     	<li id="error-msg"></li>
      	<li id="question-wrap">
      		<label>Question:</label>
      		<input type="text" placeholder="Enter the question" id="question" name="question" required/>

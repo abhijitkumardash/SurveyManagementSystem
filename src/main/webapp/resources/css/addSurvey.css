@@ -2,6 +2,9 @@
 #survey-wrap {
 	margin-top: 5%;
 }
+.current-user{
+	color:#fff;
+}
 
 /* line 8, ../sass/addSurvey.scss */
 #survey-title {

@@ -27,6 +27,7 @@ import com.survey.modules.model.AnswerModel;
 import com.survey.modules.model.Question;
 import com.survey.modules.model.QuestionModel;
 import com.survey.modules.model.SurveyModel;
+import com.survey.modules.model.UserPoll;
 import com.survey.modules.model.Users;
 import com.survey.modules.service.UsersService;
 
@@ -35,19 +36,19 @@ import com.survey.modules.service.UsersService;
 public class HomeController {
 	@Autowired
 	private UsersService usersService;
-	
+
 	@Autowired
 	private SurveyManagerInterface surveyManager;
 
 	@Autowired
 	private QuestionManagerInterface questionManager;
-	
+
 	@Autowired
 	private AnswerManagerInterface answerManager;
 	
 	@Autowired
 	ChartService chartService;
-	
+
 	public void setQuestionManager(QuestionManager questionManager) {
 		this.questionManager = questionManager;
 	}
@@ -55,11 +56,10 @@ public class HomeController {
 	public void setUsersService(UsersService usersService) {
 		this.usersService = usersService;
 	}
-	
+
 	public void setSurveyManager(SurveyManagerInterface surveyManager) {
 		this.surveyManager = surveyManager;
 	}
-
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ModelAndView welcomePage() {
@@ -69,7 +69,7 @@ public class HomeController {
 		return model;
 
 	}
-	
+
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public ModelAndView login(@ModelAttribute Users users,
 			@RequestParam(value = "error", required = false) String error,
@@ -97,6 +97,7 @@ public class HomeController {
 
 		return new ModelAndView("403", "username", username);
 	}
+
 	@RequestMapping(value = { "/signup" }, method = RequestMethod.GET)
 	public ModelAndView signupPage() {
 
@@ -105,7 +106,7 @@ public class HomeController {
 		return model;
 
 	}
-	
+
 	@RequestMapping(value = "/signup", method = RequestMethod.POST)
 	public ModelAndView register(@ModelAttribute Users user,
 			@RequestParam("confirm-password") String confirmPassword) {
@@ -119,21 +120,22 @@ public class HomeController {
 
 		}
 		if (flagSave == true) {
-			try{
-			this.usersService.addUser(user);
-			modelView.addObject("error", "Registered Successfully!!");
-			modelView.setViewName("login");
-			}
-			catch (Exception e){
-				 e.printStackTrace();
-				 modelView.addObject("error", "Already Registerd in same Email!!");
-				 modelView.addObject("forgot_password", "Forgot Password?");
-				 modelView.setViewName("signup");
+			try {
+				this.usersService.addUser(user);
+				modelView.addObject("error", "Registered Successfully!!");
+				modelView.setViewName("login");
+			} catch (Exception e) {
+				e.printStackTrace();
+				modelView.addObject("error",
+						"Already Registerd in same Email!!");
+				modelView.addObject("forgot_password", "Forgot Password?");
+				modelView.setViewName("signup");
 			}
 		}
 		return modelView;
 	}
-	@RequestMapping(value = {"/addQuestion" }, method = RequestMethod.GET)
+
+	@RequestMapping(value = { "/addQuestion" }, method = RequestMethod.GET)
 	public ModelAndView homePage() {
 
 		ModelAndView model = new ModelAndView();
@@ -142,65 +144,77 @@ public class HomeController {
 
 	}
 
-	@RequestMapping( value={"/saveQuestionAnswer"},method = RequestMethod.POST)
-	public @ResponseBody void saveQuestionAnswer(@RequestBody Question question){
-		
-		QuestionModel questionModel=new QuestionModel();
-        questionModel.setQuestionTitle(question.getQuestion());
-        Integer savedQuestionModelId = questionManager.saveQuestion(questionModel,question.getSurveyId());
-		
-		List<String> answerModelList=question.getAnswers();
+	@RequestMapping(value = { "/saveQuestionAnswer" }, method = RequestMethod.POST)
+	public @ResponseBody void saveQuestionAnswer(@RequestBody Question question) {
+
+		QuestionModel questionModel = new QuestionModel();
+		questionModel.setQuestionTitle(question.getQuestion());
+		Integer savedQuestionModelId = questionManager.saveQuestion(
+				questionModel, question.getSurveyId());
+
+		List<String> answerModelList = question.getAnswers();
 		AnswerModel answerModel = new AnswerModel();
-		for(int i=0;i<answerModelList.size();i++)
-		{
-			if(answerModelList.get(i)!=null && answerModelList.get(i)!=""){
+		for (int i = 0; i < answerModelList.size(); i++) {
+			if (answerModelList.get(i) != null && answerModelList.get(i) != "") {
 				answerModel.setAnswerDesc(answerModelList.get(i));
 				answerModel.setQuestion(questionModel);
 				answerModel.getQuestion().setQuestionId(savedQuestionModelId);
-				answerManager.saveAnswer(answerModel ,questionModel.getQuestionId());
+				answerManager.saveAnswer(answerModel,
+						questionModel.getQuestionId());
 			}
 		}
-      }
+	}
 
 	@RequestMapping(value={"/addSurveyTitle"},method = RequestMethod.GET)
 	public ModelAndView addSurveyTitle(){
-		
 		ModelAndView model = new ModelAndView();
 		model.setViewName("AddSurvey");
 		return model;
 	}
-	
-	@RequestMapping(value={"/saveSurveyTitle"},method = RequestMethod.POST)
-	public @ResponseBody ModelAndView saveSurveyTitle(@ModelAttribute SurveyModel surveyModel){	
-		
+
+	@RequestMapping(value = { "/saveSurveyTitle" }, method = RequestMethod.POST)
+	public @ResponseBody ModelAndView saveSurveyTitle(
+			@ModelAttribute SurveyModel surveyModel) {
+
 		ModelAndView model = new ModelAndView();
 
-        surveyManager.saveSurvey(surveyModel);
-        model.addObject("surveyId", surveyModel.getSurveyId() );
-//		model.setViewName("redirect:" + "addQuestion");
-        model.setViewName("AddQuestion");
+		surveyManager.saveSurvey(surveyModel);
+		model.addObject("surveyId", surveyModel.getSurveyId());
+		// model.setViewName("redirect:" + "addQuestion");
+		model.setViewName("AddQuestion");
 		return model;
-      
+
 	}
 
-	
-	@RequestMapping(value={"/survey={surveyId}"},method = RequestMethod.GET)
-	public ModelAndView surveyDisplay(@PathVariable("surveyId") int surveyId ){
-		
+	@RequestMapping(value = { "/survey={surveyId}" }, method = RequestMethod.GET)
+	public ModelAndView surveyDisplay(@PathVariable("surveyId") int surveyId) {
+
 		ModelAndView model = new ModelAndView();
 
-		List<QuestionModel> questionList=questionManager.getQuestionListBySurveyId(surveyId);
-		
+		List<QuestionModel> questionList = questionManager
+				.getQuestionListBySurveyId(surveyId);
+
 		model.addObject("questionList", questionList);
+		model.addObject("surveyTitle", (surveyManager.findSurveyById(surveyId)).getSurveyTitle());
 		model.setViewName("SurveyPoll");
 		return model;
 	}
 	
-	
 	@RequestMapping({"/chart"})
-    @ResponseBody
-    public DataBean showChart() {
+      public DataBean showChart() {
         return chartService.getChartData();
     }
-		
+
+	@RequestMapping(value = "/savePoll", method = RequestMethod.POST)
+	public  @ResponseBody void savePoll(@RequestBody UserPoll pollObject) {
+	
+		ModelAndView model = new ModelAndView();
+ 
+System.out.println(pollObject.toString());
+System.out.println("answers:"+pollObject.getAnswers());
+System.out.println("questions:"+pollObject.getQuestions());
+//		model.setViewName("SurveyPoll");
+//		return model;
+
+	}
 }
