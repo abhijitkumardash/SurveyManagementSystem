@@ -45,6 +45,7 @@
 				<value>com.survey.modules.model.QuestionModel</value>
 				<value>com.survey.modules.model.SurveyModel</value>
 				<value>com.survey.modules.model.AnswerModel</value>
+				<value>com.survey.modules.model.PollModel</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">

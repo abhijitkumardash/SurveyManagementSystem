@@ -22,7 +22,6 @@ $(document).ready(function(){
 		userPoll.surveyId=surveyId;
 		userPoll.questions=questionId;
 		userPoll.answers=answerId;
-		
 		return userPoll;
 	}
 
@@ -36,9 +35,10 @@ $(document).ready(function(){
             beforeSend: function(xhr){
 	           xhr.setRequestHeader(header, token);
 	        },
-             success : function() { 
+             success : function(data) { 
             	 alert("Poll submit using post completed")
             	 window.location.replace("http://localhost:8080/SurveyManagementSystem/");
+
              }, 
              error : function(e) { 
               console.log('Error: ' + e);  
