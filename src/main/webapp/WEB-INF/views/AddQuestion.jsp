@@ -58,8 +58,6 @@
 			<a class="waves-effect waves-light btn"  id="addAnother-question-answer" >Add another Question</a>
 		</div>	
      	</li>
-     	<p id="generated-link"/></p>
-     	
      </ul>
 
   </div>
