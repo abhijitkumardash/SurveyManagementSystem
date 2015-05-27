@@ -159,8 +159,8 @@ public class HomeController {
 		}
 	}
 
-	@RequestMapping(value={"/addSurveyTitle"},method = RequestMethod.GET)
-	public ModelAndView addSurveyTitle(){
+	@RequestMapping(value = { "/addSurveyTitle" }, method = RequestMethod.GET)
+	public ModelAndView addSurveyTitle() {
 		ModelAndView model = new ModelAndView();
 		model.setViewName("AddSurvey");
 		return model;
@@ -174,7 +174,6 @@ public class HomeController {
 
 		surveyManager.saveSurvey(surveyModel);
 		model.addObject("surveyId", surveyModel.getSurveyId());
-		// model.setViewName("redirect:" + "addQuestion");
 		model.setViewName("AddQuestion");
 		return model;
 
@@ -189,21 +188,19 @@ public class HomeController {
 				.getQuestionListBySurveyId(surveyId);
 
 		model.addObject("questionList", questionList);
-		model.addObject("surveyTitle", (surveyManager.findSurveyById(surveyId)).getSurveyTitle());
+		model.addObject("surveyTitle",
+				(surveyManager.findSurveyById(surveyId)).getSurveyTitle());
 		model.setViewName("SurveyPoll");
 		return model;
 	}
 
 	@RequestMapping(value = "/savePoll", method = RequestMethod.POST)
-	public  @ResponseBody void savePoll(@RequestBody UserPoll pollObject) {
-		
-		ModelAndView model = new ModelAndView();
- 
-System.out.println(pollObject.toString());
-System.out.println("answers:"+pollObject.getAnswers());
-System.out.println("questions:"+pollObject.getQuestions());
-//		model.setViewName("SurveyPoll");
-//		return model;
+	public @ResponseBody void savePoll(@RequestBody UserPoll pollObject) {
+		System.out.println(pollObject.toString());
+		System.out.println("answers:" + pollObject.getAnswers());
+		System.out.println("questions:" + pollObject.getQuestions());
+		// model.setViewName("SurveyPoll");
+		// return model;
 
 	}
 }

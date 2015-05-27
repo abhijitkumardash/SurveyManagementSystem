@@ -22,16 +22,15 @@
 		<div class="col s12 m6" id="survey-wrap">
 			<div class="card ">
 				<img class="blackImg" /> 
+				<form >
 				 <span class="card-title">Survey Title: ${surveyTitle}</span>
-				 
-			    <form method="post">
 			   		<c:forEach items="${questionList}" var="question">
 			        	<div class="card-content white-text">
 			            <p>Question:${question.questionTitle}</p>
 			     		<c:forEach items="${question.answers}" var="answer">
+					
 			            	<p>
-			            	
-								<input name="answers${question.questionId}" type="radio" id="${answer.answerId}" value="${answer.answerId}"  surveyId="${question.survey.surveyId}" questionId="${question.questionId}"/>
+			            		<input name="answers${question.questionId}" type="radio" id="${answer.answerId}" value="${answer.answerId}"  data-surveyId="${question.survey.surveyId}" data-questionId="${question.questionId}"/>
 						      	<label for="${answer.answerId}" > ${answer.answerDesc}</label>
 						     </p>
 						</c:forEach>
@@ -48,8 +47,7 @@
 						name="action">
 						Reset choices <i class="mdi-action-autorenew right"></i>
 					</button>
-		   			</form>
-
+				</form>
 		</div>
 	</div>
 	</div>

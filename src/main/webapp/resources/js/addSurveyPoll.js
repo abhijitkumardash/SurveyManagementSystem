@@ -9,9 +9,10 @@ $(document).ready(function(){
 	
 	$("input:radio[type=radio]").click(function() {
 	   answerId.push($(this).val());
-	   questionId.push($(this).attr("questionId"));
-	   surveyId=$(this).attr("surveyId");
+	   questionId.push($(this).attr("data-questionId"));
+	   surveyId=$(this).attr("data-surveyId");
 	   console.log("questionId:"+questionId);
+	   console.log("answerId:"+answerId);
 	   
 	});
 	
@@ -38,7 +39,6 @@ $(document).ready(function(){
              success : function() { 
             	 alert("Poll submit using post completed")
             	 window.location.replace("http://localhost:8080/SurveyManagementSystem/");
-//            	 location.reload();
              }, 
              error : function(e) { 
               console.log('Error: ' + e);  
