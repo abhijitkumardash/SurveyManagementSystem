@@ -37,7 +37,6 @@ $(document).ready(function(){
 	        },
              success : function() { 
             	 alert("Poll submit using post completed")
-            	 window.location.replace("http://localhost:8080/SurveyManagementSystem/");
 //            	 location.reload();
              }, 
              error : function(e) { 

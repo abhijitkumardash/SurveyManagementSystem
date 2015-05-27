@@ -7,6 +7,6 @@
 <title>Poll Result</title>
 </head>
 <body>
-saveSurveyPoll
+Input saved
 </body>
 </html>
