@@ -27,7 +27,7 @@ public class AnswerModel {
 
 	@ManyToOne(cascade=CascadeType.ALL)  
    	@JoinColumn(name="question_id")
-	private QuestionModel question;
+	private QuestionModel question; 
 
 
 	public int getAnswerId() {
