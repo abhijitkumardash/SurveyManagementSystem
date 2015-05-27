@@ -9,8 +9,7 @@
 <link href="resources/css/materialize.css" rel="stylesheet">
 <link href="resources/css/materialize.min.css" rel="stylesheet">
 <link href="resources/css/surveyPoll.css" rel="stylesheet">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script src="resources/js/materialize.js"></script>
 <script src="resources/js/materialize.min.js"></script>
 <script src="resources/js/addSurveyPoll.js"></script>
@@ -24,8 +23,9 @@
 			<div class="card ">
 
 				<img class="blackImg" />
-				<form>
+			
 					<span class="card-title">Survey Title: ${surveyTitle}</span>
+
 					<c:forEach items="${questionList}" var="question">
 						<div class="card-content white-text">
 							<p>Question:${question.questionTitle}</p>
@@ -43,16 +43,17 @@
 					</c:forEach>
 					<input type="hidden" name="${_csrf.parameterName}"
 						value="${_csrf.token}" />
-					<button class="btn waves-effect waves-light" id="poll-submit"
-						name="action">
-						Submit <i class="mdi-content-send right"></i>
-					</button>
 
-					<button class="btn waves-effect waves-light" type="reset"
-						name="action">
-						Reset choices <i class="mdi-action-autorenew right"></i>
-					</button>
-				</form>
+						<button  class="btn waves-effect waves-light" id="poll-submit"> Submit</button>
+<!-- 					<button class="btn waves-effect waves-light" type="reset" -->
+<!-- 						name="action"> -->
+<!-- 						Reset choices <i class="mdi-action-autorenew right"></i> -->
+<!-- 					</button> -->
+<!-- 				<button class="btn waves-effect waves-light" id="poll-submit" type="submit" -->
+<!-- 						name="action"> -->
+<!-- 						Submit <i class="mdi-content-send right"></i> -->
+<!-- 					</button> -->
+
 			</div>
 
 		</div>

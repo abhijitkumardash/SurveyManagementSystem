@@ -8,9 +8,11 @@ $(document).ready(function(){
 	var surveyId;
 	
 	$("input:radio[type=radio]").click(function() {
-	   answerId.push($(this).val());
-	   questionId.push($(this).attr("data-questionId"));
-	   surveyId=$(this).attr("data-surveyId");
+		
+	   answerId.push(Number($(this).val()));
+	   questionId.push(Number($(this).attr("data-questionId")));
+	   surveyId=Number($(this).attr("data-surveyId"));
+
 	   console.log("questionId:"+questionId);
 	   console.log("answerId:"+answerId);
 	   
@@ -35,13 +37,14 @@ $(document).ready(function(){
             beforeSend: function(xhr){
 	           xhr.setRequestHeader(header, token);
 	        },
-             success : function(data) { 
-            	 alert("Poll submit using post completed")
-            	 window.location.replace("http://localhost:8080/SurveyManagementSystem/");
+
+	        success : function(data) { 
+                window.location.replace("/SurveyManagementSystem").html(); 
 
              }, 
              error : function(e) { 
               console.log('Error: ' + e);  
+             
              } 
         });
     });
