@@ -238,8 +238,8 @@ public class HomeController {
 			System.out.println("Poll saved");
 		}
 		model.setViewName("PollResult");
+		System.out.println(model);
 		return model;
-
 	}
 
 }
