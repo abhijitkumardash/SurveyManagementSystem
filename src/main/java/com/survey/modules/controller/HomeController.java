@@ -18,10 +18,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.survey.modules.manager.AnswerManagerInterface;
+import com.survey.modules.manager.PollManagerInterface;
 import com.survey.modules.manager.QuestionManager;
 import com.survey.modules.manager.QuestionManagerInterface;
 import com.survey.modules.manager.SurveyManagerInterface;
 import com.survey.modules.model.AnswerModel;
+import com.survey.modules.model.PollModel;
 import com.survey.modules.model.Question;
 import com.survey.modules.model.QuestionModel;
 import com.survey.modules.model.SurveyModel;
@@ -42,6 +44,9 @@ public class HomeController {
 
 	@Autowired
 	private AnswerManagerInterface answerManager;
+	
+	@Autowired
+	private PollManagerInterface pollManager; 
 
 	public void setQuestionManager(QuestionManager questionManager) {
 		this.questionManager = questionManager;
@@ -137,15 +142,14 @@ public class HomeController {
 		return model;
 
 	}
-
 	@RequestMapping(value = { "/saveQuestionAnswer" }, method = RequestMethod.POST)
 	public @ResponseBody void saveQuestionAnswer(@RequestBody Question question) {
-
+		
 		QuestionModel questionModel = new QuestionModel();
 		questionModel.setQuestionTitle(question.getQuestion());
 		Integer savedQuestionModelId = questionManager.saveQuestion(
 				questionModel, question.getSurveyId());
-
+		
 		List<String> answerModelList = question.getAnswers();
 		AnswerModel answerModel = new AnswerModel();
 		for (int i = 0; i < answerModelList.size(); i++) {
@@ -159,8 +163,8 @@ public class HomeController {
 		}
 	}
 
-	@RequestMapping(value={"/addSurveyTitle"},method = RequestMethod.GET)
-	public ModelAndView addSurveyTitle(){
+	@RequestMapping(value = { "/addSurveyTitle" }, method = RequestMethod.GET)
+	public ModelAndView addSurveyTitle() {
 		ModelAndView model = new ModelAndView();
 		model.setViewName("AddSurvey");
 		return model;
@@ -189,21 +193,42 @@ public class HomeController {
 				.getQuestionListBySurveyId(surveyId);
 
 		model.addObject("questionList", questionList);
-		model.addObject("surveyTitle", (surveyManager.findSurveyById(surveyId)).getSurveyTitle());
+		model.addObject("surveyTitle",
+				(surveyManager.findSurveyById(surveyId)).getSurveyTitle());
 		model.setViewName("SurveyPoll");
 		return model;
 	}
 
 	@RequestMapping(value = "/savePoll", method = RequestMethod.POST)
-	public  @ResponseBody void savePoll(@RequestBody UserPoll pollObject) {
-		
+	public ModelAndView savePoll(@RequestBody UserPoll pollObject) {
+
 		ModelAndView model = new ModelAndView();
- 
-System.out.println(pollObject.toString());
-System.out.println("answers:"+pollObject.getAnswers());
-System.out.println("questions:"+pollObject.getQuestions());
-//		model.setViewName("SurveyPoll");
-//		return model;
+		PollModel pollModel = new PollModel();
+		pollModel.setSurveyId(pollObject.getSurveyId());
+
+		List<Integer> questionList = pollObject.getQuestions();
+		List<Integer> answerList = pollObject.getAnswers();
+		
+		System.out.println("answers:" + answerList);
+		System.out.println("questions:" +questionList);
+		
+
+		for (int i = 0; i < answerList.size(); i++) {
+
+			System.out.println("Survey id" + pollObject.getSurveyId());
+
+			pollModel.setAnswerId(answerList.get(i));
+						System.out.println("answer being saved"+answerList.get(i));
+			
+			pollModel.setQuestionId(questionList.get(i));
+			System.out.println("question being saved"+questionList.get(i));
+			
+			pollManager.savePoll(pollModel);
+			System.out.println("Poll saved");
+		}
+		model.setViewName("PollResult");
+		return model;
 
 	}
+
 }
