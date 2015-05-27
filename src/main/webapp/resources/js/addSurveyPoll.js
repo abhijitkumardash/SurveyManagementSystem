@@ -8,10 +8,13 @@ $(document).ready(function(){
 	var surveyId;
 	
 	$("input:radio[type=radio]").click(function() {
+		
 	   answerId.push(Number($(this).val()));
-	   questionId.push(Number($(this).attr("questionId")));
-	   surveyId=Number($(this).attr("surveyId"));
+	   questionId.push(Number($(this).attr("data-questionId")));
+	   surveyId=Number($(this).attr("data-surveyId"));
+
 	   console.log("questionId:"+questionId);
+	   console.log("answerId:"+answerId);
 	   
 	});
 	
@@ -21,7 +24,6 @@ $(document).ready(function(){
 		userPoll.surveyId=surveyId;
 		userPoll.questions=questionId;
 		userPoll.answers=answerId;
-		
 		return userPoll;
 	}
 
@@ -35,8 +37,10 @@ $(document).ready(function(){
             beforeSend: function(xhr){
 	           xhr.setRequestHeader(header, token);
 	        },
+
 	        success : function(data) { 
                 window.location.replace("/SurveyManagementSystem").html(); 
+
              }, 
              error : function(e) { 
               console.log('Error: ' + e);  

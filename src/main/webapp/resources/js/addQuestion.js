@@ -21,6 +21,11 @@ $(document).ready(function(){
 	
 	function isFieldEmpty(){
 		 var inputs = document.getElementsByTagName('input');
+		 if($("#survey-id").html()==""){
+			alert("Please give a survey title");
+			 window.location.replace("/SurveyManagementSystem/addSurveyTitle");
+			 return true;
+		 }
 		 for(var i = 0; i < inputs.length; i++){
 	            if(inputs[i].value === ''){
 	            	$("#error-msg").html("Field shouldn't be empty"); 
@@ -71,7 +76,6 @@ $(document).ready(function(){
 	             } 
 	        });
 		}
-
 	});
 	
 	
@@ -101,5 +105,11 @@ $(document).ready(function(){
 		}
 	
 	});
+	
+	$("#cancel").click(function(){
+		 
+		$('#question-answer-container').find('input:text').val('');
+	});
+	
 	
 });
