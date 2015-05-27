@@ -65,3 +65,29 @@ input{
 	text-align: center;
 /* 	border:1px solid #fff; */
 }
+
+#logoutButton {
+	position: relative;
+	z-index: 10;
+	text-align: right;
+	float: right;
+	background-color: transparent;
+	border-color: transparent;
+	color: white;
+	font-weight: 900;
+}
+
+#user {
+	position: relative;
+	z-index: 10;
+	text-align: right;
+	float: right;
+	text-transform: capitalize;
+	color: white;
+	font-weight: 900;
+	font-size: 16px;
+	border-right: 1px solid wheat;
+	padding-right: 1%;
+}
+
+

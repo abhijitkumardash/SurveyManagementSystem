@@ -96,3 +96,27 @@
 	margin-left: 35%;
 	display: inline-block;
 }
+
+#logoutButton {
+	position: relative;
+	z-index: 10;
+	text-align: right;
+	float: right;
+	background-color: transparent;
+	border-color: transparent;
+	color: white;
+	font-weight: 900;
+}
+
+#user {
+	position: relative;
+	z-index: 10;
+	text-transform: capitalize;
+	float:right;
+	text-align: right;
+	color: white;
+	font-weight: 900;
+	font-size: 16px;
+	border-right: 1px solid wheat;
+	padding-right: 1%;
+}

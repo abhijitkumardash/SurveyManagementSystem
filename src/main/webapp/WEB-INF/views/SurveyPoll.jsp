@@ -9,8 +9,7 @@
 <link href="resources/css/materialize.css" rel="stylesheet">
 <link href="resources/css/materialize.min.css" rel="stylesheet">
 <link href="resources/css/surveyPoll.css" rel="stylesheet">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script src="resources/js/materialize.js"></script>
 <script src="resources/js/materialize.min.js"></script>
 <script src="resources/js/addSurveyPoll.js"></script>
@@ -22,20 +21,21 @@
 	<div class="row">
 		<div class="col s12 m6" id="survey-wrap">
 			<div class="card ">
-				<img class="blackImg" /> <span class="card-title">Survey
-					Title: ${surveyTitle}</span>
 
+				<img class="blackImg" />
+			
+					<span class="card-title">Survey Title: ${surveyTitle}</span>
 
 					<c:forEach items="${questionList}" var="question">
 						<div class="card-content white-text">
 							<p>Question:${question.questionTitle}</p>
 							<c:forEach items="${question.answers}" var="answer">
-								<p>
 
+								<p>
 									<input name="answers${question.questionId}" type="radio"
 										id="${answer.answerId}" value="${answer.answerId}"
-										surveyId="${question.survey.surveyId}"
-										questionId="${question.questionId}" /> <label
+										data-surveyId="${question.survey.surveyId}"
+										data-questionId="${question.questionId}" /> <label
 										for="${answer.answerId}"> ${answer.answerDesc}</label>
 								</p>
 							</c:forEach>
@@ -43,6 +43,7 @@
 					</c:forEach>
 					<input type="hidden" name="${_csrf.parameterName}"
 						value="${_csrf.token}" />
+
 						<button  class="btn waves-effect waves-light" id="poll-submit"> Submit</button>
 <!-- 					<button class="btn waves-effect waves-light" type="reset" -->
 <!-- 						name="action"> -->
@@ -52,8 +53,9 @@
 <!-- 						name="action"> -->
 <!-- 						Submit <i class="mdi-content-send right"></i> -->
 <!-- 					</button> -->
-				
+
 			</div>
+
 		</div>
 	</div>
 </body>

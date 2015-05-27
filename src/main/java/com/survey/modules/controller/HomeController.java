@@ -178,7 +178,6 @@ public class HomeController {
 
 		surveyManager.saveSurvey(surveyModel);
 		model.addObject("surveyId", surveyModel.getSurveyId());
-		// model.setViewName("redirect:" + "addQuestion");
 		model.setViewName("AddQuestion");
 		return model;
 
