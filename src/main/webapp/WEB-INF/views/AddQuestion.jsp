@@ -52,7 +52,7 @@
 	     	</li>
 	
 		</ul>
-		<div id="buttons-wrap">
+		<li><div id="buttons-wrap">
 		 	<a class="waves-effect waves-light btn"  id="save-question-answer" >Save</a>
 			<a class="waves-effect waves-light btn red">Cancel</a>
 			<a class="waves-effect waves-light btn"  id="addAnother-question-answer" >Add another Question</a>
