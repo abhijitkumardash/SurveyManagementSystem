@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.survey.modules.service.ChartService;
+import com.survey.modules.bean.DataBean;
 import com.survey.modules.manager.AnswerManagerInterface;
 import com.survey.modules.manager.QuestionManager;
 import com.survey.modules.manager.QuestionManagerInterface;
@@ -27,6 +29,7 @@ import com.survey.modules.model.QuestionModel;
 import com.survey.modules.model.SurveyModel;
 import com.survey.modules.model.Users;
 import com.survey.modules.service.UsersService;
+
 
 @Controller
 public class HomeController {
@@ -41,6 +44,9 @@ public class HomeController {
 	
 	@Autowired
 	private AnswerManagerInterface answerManager;
+	
+	@Autowired
+	ChartService chartService;
 	
 	public void setQuestionManager(QuestionManager questionManager) {
 		this.questionManager = questionManager;
@@ -191,6 +197,10 @@ public class HomeController {
 	}
 	
 	
-	
+	@RequestMapping({"/chart"})
+    @ResponseBody
+    public DataBean showChart() {
+        return chartService.getChartData();
+    }
 		
 }
