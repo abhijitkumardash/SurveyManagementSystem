@@ -1,0 +1,122 @@
+/* line 1, ../sass/addQuestion.scss */
+#left-container {
+  width: 20%;
+  margin-left: 0px;
+  margin-top: 20px;
+  border: 1px solid #000;
+  display: inline-block;
+  position: fixed;
+}
+
+/* line 9, ../sass/addQuestion.scss */
+#question-answer-container {
+  margin-top: 10px;
+  width: 100%;
+/*   border: 1px solid #000; */
+  display: inline-block;
+  z-index: 5;
+  
+}
+
+#question-answer-container label{
+	font-size: 16px;
+	color:#fff;
+}	
+
+/* line 24, ../sass/addQuestion.scss */
+#question-answer-container #answer-wrap {
+  margin-top: 10px;
+ 
+}
+/* line 31, ../sass/addQuestion.scss */
+#question-answer-container  input {
+  border: 1px solid #000;
+  width: 92%;
+  margin-left: 20px;
+  text-align: center;
+/*   background-color: #3EA876; */
+  color: #fff;
+  border-radius: 15px;
+  height: 30px;
+  
+}
+.card{
+  overflow: hidden !important;
+  display: block !important;
+  position: absolute;
+  width: 656px;
+  left: 25%;
+  background-color:transparent;
+  color:#fff;
+  border: 1px solid #000!important;
+  margin-top: 10%;
+  z-index:20;
+  height:auto;
+}
+#buttons-wrap{
+	margin-left:20px;
+}
+.blackImg{
+	background-image: url('../../resources/images/1685510.jpg');
+	opacity: 0.2;
+	z-index:-1;
+	width: 655px;
+	position: absolute;
+	
+	height:inherit;
+}
+.body{
+	position: absolute;
+	top: -20px;
+	left: -20px;
+	right: -40px;
+	bottom: -40px;
+	width: auto;
+	height: auto;
+	background-image:url("../../resources/images/city-skyline-wallpapers-008.jpg");
+	background-size: cover;
+	-webkit-filter: blur(5px);
+	z-index: 0;
+}
+
+.grad{
+	position: absolute;
+	top: -20px;
+	left: -20px;
+	right: -40px;
+	bottom: -40px;
+	width: auto;
+	height: auto;
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,0)), color-stop(100%,rgba(0,0,0,0.65))); /* Chrome,Safari4+ */
+	z-index: 1;
+	opacity: 0.7;
+}
+#error-msg{
+	color:red;
+	margin-left: 35%;
+	display: inline-block;
+}
+
+#logoutButton {
+	position: relative;
+	z-index: 10;
+	text-align: right;
+	float: right;
+	background-color: transparent;
+	border-color: transparent;
+	color: white;
+	font-weight: 900;
+}
+
+#user {
+	position: relative;
+	z-index: 10;
+	text-transform: capitalize;
+	float:right;
+	text-align: right;
+	color: white;
+	font-weight: 900;
+	font-size: 16px;
+	border-right: 1px solid wheat;
+	padding-right: 1%;
+}

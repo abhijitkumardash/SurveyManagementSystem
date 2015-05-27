@@ -1,0 +1,157 @@
+@import url(http://fonts.googleapis.com/css?family=Exo:100,200,400);
+@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:700,400,300);
+
+body{
+	margin: 0;
+	padding: 0;
+	background: #fff;
+
+	color: #fff;
+	font-family: Arial;
+	font-size: 12px;
+}
+
+.body{
+	position: absolute;
+	top: -20px;
+	left: -20px;
+	right: -40px;
+	bottom: -40px;
+	width: auto;
+	height: auto;
+	background-image:url("../../resources/images/city-skyline-wallpapers-008.jpg");
+	
+	background-size: cover;
+	-webkit-filter: blur(5px);
+	z-index: 0;
+}
+
+.grad{
+	position: absolute;
+	top: -20px;
+	left: -20px;
+	right: -40px;
+	bottom: -40px;
+	width: auto;
+	height: auto;
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,0)), color-stop(100%,rgba(0,0,0,0.65))); /* Chrome,Safari4+ */
+	z-index: 1;
+	opacity: 0.7;
+}
+.lhead{
+	  position: absolute;
+  top: calc(42% - 35px);
+  left: calc(50% - 255px);
+  z-index: 2;
+}
+
+.logo{
+	position: relative;
+	background-image:url("../../resources/images/Online+Survey+-+Logo+Only.png");
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	vertical-align:middle;
+	width:100px;
+	height:100px;
+	
+}
+.header{
+	position: relative;
+	left: calc(92% - 255px);
+	z-index: 2;
+}
+
+.header div{
+	float: left;
+	color: #fff;
+	font-family: 'Exo', sans-serif;
+	font-size: 35px;
+	font-weight: 200;
+}
+
+.header div span{
+	color: #5379fa !important;
+}
+
+
+.wrapper {
+  width: 420px;
+  position: absolute;
+    top: calc(26% - 35px);
+  left: calc(67% - 255px);
+  z-index: 2;
+}
+
+h1 {
+  text-align: center;
+  padding: 30px 0px 0px 0px;
+  font: 25px Oswald;
+  color: #5379fa;
+  font-family: 'Exo', sans-serif;
+  text-transform: uppercase;
+  margin: 0px;
+}
+
+p {
+	text-align: center;
+  font: 13px Open Sans;
+  color: #ffff;
+  margin-bottom: 30px;
+}
+
+.form {
+  width: full;
+}
+
+input[type="text"],
+input[type="password"] {
+  width: 98%;
+  padding: 15px 0px 15px 8px;
+  border-radius: 5px;
+  box-shadow: inset 4px 6px 10px -4px rgba(0, 0, 0, 0.3), 0 1px 1px -1px rgba(255, 255, 255, 0.3);
+  background: rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 1);
+  margin-bottom: 10px;
+  color: #FFF;
+  text-shadow: #000 0px 1px 5px;
+}
+
+input[type="submit"] {
+  width: 100%;
+  padding: 15px;
+  border-radius: 5px;
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#50A200), to(#102000));
+  background-image: -webkit-linear-gradient(#50A200 0%, #102000 100%);
+  background-image: -moz-linear-gradient(#50A200 0%, #102000 100%);
+  background-image: -o-linear-gradient(#50A200 0%, #102000 100%);
+  background-image: linear-gradient(#50A200 0%, #102000 100%);
+  font: 14px Oswald;
+  color: #FFF;
+  text-transform: uppercase;
+  text-shadow: #000 0px 1px 5px;
+  border: 1px solid #000;
+  opacity: 0.7;
+  -webkit-box-shadow: 0 8px 6px -6px rgba(0, 0, 0, 0.7);
+  -moz-box-shadow: 0 8px 6px -6px rgba(0, 0, 0, 0.7);
+  box-shadow: 0 8px 6px -6px rgba(0, 0, 0, 0.7);
+  border-top: 1px solid rgba(255, 255, 255, 0.8)!important;
+  -webkit-box-reflect: below 0px -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(50%, transparent), to(rgba(255, 255, 255, 0.2)));
+}
+
+input:focus {
+  box-shadow: inset 4px 6px 10px -4px rgba(0, 0, 0, 0.7), 0 1px 1px -1px rgba(255, 255, 255, 0.3);
+  background: rgba(0, 0, 0, 0.1);
+ 
+}
+
+input[type="submit"]:hover {
+  opacity: 1;
+  cursor: pointer;
+}
+
+
+.optimize {
+  position: fixed;
+  right: 3%;
+  top: 0px;
+}
