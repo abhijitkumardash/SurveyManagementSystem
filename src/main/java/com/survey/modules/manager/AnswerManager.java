@@ -82,7 +82,7 @@ public class AnswerManager implements AnswerManagerInterface {
 			return answerModel;
 		}
 	}
-
+@Transactional
 	public List<AnswerModel> getAnswerListByQuestionId(int questionId) {
 		List<AnswerModel> answerList = null;
 		try {
