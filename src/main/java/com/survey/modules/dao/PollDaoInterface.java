@@ -17,5 +17,11 @@ public interface PollDaoInterface {
 	public abstract List<PollModel> PollList();
 
 	public abstract void deleteAll();
+	
+	@SuppressWarnings("rawtypes")
+	public Long getEachAnserCountById(int answerId);
+	
+	@SuppressWarnings("rawtypes")
+	public Long getCountOfUser(int surveyId);
 
 }

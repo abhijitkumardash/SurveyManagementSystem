@@ -39,7 +39,11 @@ $(document).ready(function(){
 	        },
 
 	        success : function(data) { 
-                window.location.replace("/SurveyManagementSystem").html(); 
+//                window.location.replace("/SurveyManagementSystem").html(); 
+                console.log(data);
+                console.log(data[1]);
+                console.log(data[0]);
+               
 
              }, 
              error : function(e) { 
