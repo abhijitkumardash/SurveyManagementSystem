@@ -1,26 +1,13 @@
-$(document).ready(function() {
-	 $.ajax({
-		 type: 'GET',
-		 url: "analysis",
-	     success: function (data) {
-	    	var qt=data[0].questionTitle;
-	    	var at=data[0].answerTitle;
-	    	var cp=data[0].countPercentage;
-	    	
-	        chart(data[0]);
-	    }
-	  });
-	 });
-function chart(data) { 
+$(function () {
     $('#container').highcharts({
         chart: {
             type: 'bar'
         },
         title: {
-            text: data.questionTitle
+            text: 'Q1'
         },
         xAxis: {
-            categories: data.answerTitles,
+            categories: ['A1', 'A2', 'A3', 'A4'],
             title: {
                 text: 'Answers'
             }
@@ -51,9 +38,8 @@ function chart(data) {
         },
         series: [{
         
-            data: data.countPercentage
+            data: [80, 31, 50, 20]
             
         }]
     });
-};
-
+});

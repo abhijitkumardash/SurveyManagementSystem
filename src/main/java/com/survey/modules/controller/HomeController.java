@@ -212,7 +212,7 @@ public class HomeController {
 
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/savePoll", method = RequestMethod.POST)
-	public @ResponseBody List savePoll(@RequestBody UserPoll pollObject) {
+	public @ResponseBody void savePoll(@RequestBody UserPoll pollObject) {
 
 		ModelAndView model = new ModelAndView();
 		PollModel pollModel = new PollModel();
@@ -240,63 +240,62 @@ public class HomeController {
 		
 		}
 
-		//data for highcharts
-		List<QuestionModel> questionModelList = questionManager.getQuestionListBySurveyId(1);
 		
-		Long eachAnswerCount, userCount;
-		List<AnswerModel> answerModelList;
-		Double answerPollPercentage;
-		String questionTitle, answerTitle = null;
-
-	    List<HighChartData> HighChartDataList = new ArrayList<HighChartData>();
-	   
-		
-	    
-		
-		for (int i = 0; i < questionModelList.size(); i++) {
-			
-			questionTitle=questionModelList.get(i).getQuestionTitle();
-			answerModelList =  answerManager.getAnswerListByQuestionId(questionModelList.get(i).getQuestionId());
-		
-			List<String> categories=new ArrayList<String>();
-			List<Double> series=new ArrayList<Double>();
-			for (int j = 0; j < answerModelList.size(); j++) {
-				
-				answerTitle=answerModelList.get(j).getAnswerDesc();
-				eachAnswerCount=pollManager.getEachAnserCountById(answerModelList.get(j).getAnswerId());
-				userCount=pollManager.getCountOfUser(1)/(questionModelList.size());
-				
-				answerPollPercentage=(double)(eachAnswerCount/(double)userCount)*100;
-				
-				categories.add(answerTitle);
-				series.add(answerPollPercentage);
-				
-				
-			}
-			HighChartData highChartData=new HighChartData();
-			
-			highChartData.setQuestionTitle(questionTitle);
-			highChartData.setAnswerTitles(categories);
-			highChartData.setCountPercentage(series);
-			HighChartDataList.add(highChartData) ;
-			
-		}
-
-		
-		return HighChartDataList;
-//		return highChartData;
-	
-//		model.addObject(highChartData);
-//		model.setViewName("PollResult");
-//		System.out.println(model);
-//		return model;
 	}
 	@RequestMapping(value = "/analysis", method = RequestMethod.GET)
-	public ModelAndView analysisPage() {
+	public @ResponseBody List analysisPage() {
+		//data for highcharts
+				List<QuestionModel> questionModelList = questionManager.getQuestionListBySurveyId(19);
+				
+				Long eachAnswerCount, userCount;
+				List<AnswerModel> answerModelList;
+				Double answerPollPercentage;
+				String questionTitle, answerTitle = null;
 
-		ModelAndView model = new ModelAndView();
-		model.setViewName("analysis");
-		return model;
+			    List<HighChartData> HighChartDataList = new ArrayList<HighChartData>();
+			   
+				
+			    
+				
+				for (int i = 0; i < questionModelList.size(); i++) {
+					
+					questionTitle=questionModelList.get(i).getQuestionTitle();
+					answerModelList =  answerManager.getAnswerListByQuestionId(questionModelList.get(i).getQuestionId());
+				
+					List<String> categories=new ArrayList<String>();
+					List<Double> series=new ArrayList<Double>();
+					for (int j = 0; j < answerModelList.size(); j++) {
+						
+						answerTitle=answerModelList.get(j).getAnswerDesc();
+						eachAnswerCount=pollManager.getEachAnserCountById(answerModelList.get(j).getAnswerId());
+						userCount=pollManager.getCountOfUser(19)/(questionModelList.size());
+						
+						answerPollPercentage=(double)(eachAnswerCount/(double)userCount)*100;
+						
+						categories.add(answerTitle);
+						series.add(answerPollPercentage);
+						
+						
+					}
+					HighChartData highChartData=new HighChartData();
+					
+					highChartData.setQuestionTitle(questionTitle);
+					highChartData.setAnswerTitles(categories);
+					highChartData.setCountPercentage(series);
+					HighChartDataList.add(highChartData) ;
+					
+				}
+
+				
+				return HighChartDataList;
+				
+//				model.addObject(highChartData);
+//				model.setViewName("PollResult");
+//				System.out.println(model);
+//				return model;
+//		ModelAndView model = new ModelAndView();
+//		model.setViewName("analysis");
+//		return model;
 
 	}
 
