@@ -240,5 +240,14 @@ public class HomeController {
 		System.out.println(model);
 		return model;
 	}
+	@RequestMapping(value = "/analysis", method = RequestMethod.GET)
+	public ModelAndView analysisPage() {
 
+		ModelAndView model = new ModelAndView();
+		model.setViewName("analysis");
+		return model;
+
+	}
+
+	
 }

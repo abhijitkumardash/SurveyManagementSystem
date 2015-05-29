@@ -25,10 +25,7 @@ function getBaseChart() {
                 shadow: true,
                 type: 'bar'
             },
-            credits: {
-                enabled: false
-            },
-            exporting: {
+           exporting: {
                 enabled: false
             },
             title: {
@@ -37,27 +34,23 @@ function getBaseChart() {
             },
             xAxis: {
                 categories: [],
-                
                 title: {
-                    text: null,
-                },
-                labels: {
-                    rotation: -25,
-                    align: 'right',
+                    text: null
                 }
             },
             yAxis: {
                 min: 0,
+                max:100,
                 title: {
-                    text: null,
-            
+                    text: 'Poll',
+                    align: 'high'
                 },
                 labels: {
                     overflow: 'justify'
-                },
+                }
             },
             tooltip: {
-                valueSuffix: null
+                valueSuffix: '%'
             },
             plotOptions: {
                 bar: {
@@ -66,22 +59,12 @@ function getBaseChart() {
                     }
                 }
             },
-            legend: {
-                layout: 'vertical',
-                align: 'right',
-                verticalAlign: 'top',
-                x: -40,
-                y: 100,
-                floating: true,
-                borderWidth: 1,
-                backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'),
-                shadow: true
-            },
             credits: {
-                enabled: false
+                enabled: true
             },
-            series: []
-
+            series: [{
+                data: []
+            }]
         },
 
         // here you'll merge the defaults with the object options
