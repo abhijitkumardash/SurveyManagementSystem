@@ -39,59 +39,7 @@ $(document).ready(function() {
 			},
 
 			success : function(data) {
-				// window.location.replace("/SurveyManagementSystem").html();
-//				console.log(data);
-//				console.log(data[1]);
-				console.log(data[0]);
-
-				
-				$(function() {
-					$('#container').highcharts({
-						chart : {
-							type : 'bar'
-						},
-						title : {
-							text : data[0].questionTitle
-						},
-						xAxis : {
-							categories : data[0].answerTitles,
-							title : {
-								text : 'Answers'
-							}
-						},
-						yAxis : {
-							min : 0,
-							max : 100,
-							title : {
-								text : 'Poll',
-								align : 'high'
-							},
-							labels : {
-								overflow : 'justify'
-							}
-						},
-						tooltip : {
-							valueSuffix : '%'
-						},
-						plotOptions : {
-							bar : {
-								dataLabels : {
-									enabled : false
-								}
-							}
-						},
-						credits : {
-							enabled : true
-						},
-						series : [ {
-							data : data[0].countPercentage
-						} ]
-					});
-				});
-				
-				
-				
-
+				 window.location.replace("/SurveyManagementSystem").html();
 			},
 			error : function(e) {
 				console.log('Error: ' + e);
