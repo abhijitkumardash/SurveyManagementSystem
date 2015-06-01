@@ -18,8 +18,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.survey.modules.service.ChartService;
-import com.survey.modules.bean.DataBean;
 import com.survey.modules.manager.AnswerManagerInterface;
 import com.survey.modules.manager.PollManagerInterface;
 import com.survey.modules.manager.QuestionManager;
@@ -50,9 +48,7 @@ public class HomeController {
 	@Autowired
 	private AnswerManagerInterface answerManager;
 	
-	@Autowired
-	ChartService chartService;
-	
+		
 	@Autowired
 	private PollManagerInterface pollManager; 
 
@@ -205,10 +201,7 @@ public class HomeController {
 		return model;
 	}
 	
-	@RequestMapping({"/chart"})
-       public DataBean showChart() {
-        return chartService.getChartData();
-    }
+	
 
 	@RequestMapping(value = "/savePoll", method = RequestMethod.POST)
 	public @ResponseBody void savePoll(@RequestBody UserPoll pollObject) {
@@ -239,68 +232,8 @@ public class HomeController {
 		
 		}
 
-		
-	}
-	@SuppressWarnings("rawtypes")
-	@RequestMapping(value = "/analysis", method = RequestMethod.GET)
-	public @ResponseBody List analysisPage() {
-		//data for highcharts
-				List<QuestionModel> questionModelList = questionManager.getQuestionListBySurveyId(19);
-				
-				Long eachAnswerCount, userCount;
-				List<AnswerModel> answerModelList;
-				Double answerPollPercentage;
-				String questionTitle, answerTitle = null;
-
-			    List<HighChartData> HighChartDataList = new ArrayList<HighChartData>();
-			   
-				
-			    
-				
-				for (int i = 0; i < questionModelList.size(); i++) {
-					
-					questionTitle=questionModelList.get(i).getQuestionTitle();
-					answerModelList =  answerManager.getAnswerListByQuestionId(questionModelList.get(i).getQuestionId());
-				
-					List<String> categories=new ArrayList<String>();
-					List<Double> series=new ArrayList<Double>();
-					for (int j = 0; j < answerModelList.size(); j++) {
-						
-						answerTitle=answerModelList.get(j).getAnswerDesc();
-						eachAnswerCount=pollManager.getEachAnserCountById(answerModelList.get(j).getAnswerId());
-						userCount=pollManager.getCountOfUser(19)/(questionModelList.size());
-						
-						answerPollPercentage=(double)(eachAnswerCount/(double)userCount)*100;
-						
-						categories.add(answerTitle);
-						series.add(answerPollPercentage);
-						
-						
-					}
-					HighChartData highChartData=new HighChartData();
-					
-					highChartData.setQuestionTitle(questionTitle);
-					highChartData.setAnswerTitles(categories);
-					highChartData.setCountPercentage(series);
-					HighChartDataList.add(highChartData) ;
-					
-				}
-
-				
-				return HighChartDataList;
-				
-//				model.addObject(highChartData);
-//				model.setViewName("PollResult");
-//				System.out.println(model);
-//				return model;
-//		ModelAndView model = new ModelAndView();
-//		model.setViewName("analysis");
-//		return model;
 
 	}
-	
-	
-	
 	
 	
 	@RequestMapping(value = "/chart", method = RequestMethod.GET)
@@ -309,10 +242,13 @@ public class HomeController {
 		model.setViewName("chart");
 		return model;
 	}
+	
+	@SuppressWarnings("rawtypes")
 	@RequestMapping(value = "/chart1", method = RequestMethod.GET)
 	public @ResponseBody List analysisPage(@RequestParam("surveyId") int surveyId) {
 	
 		// data for highcharts
+		
 		List<QuestionModel> questionModelList = questionManager
 				.getQuestionListBySurveyId(surveyId);
 		Long eachAnswerCount, userCount;
@@ -348,6 +284,5 @@ public class HomeController {
 		
 	}
 
-	
 }
 

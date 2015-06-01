@@ -7,11 +7,11 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
-import org.hibernate.transform.DistinctRootEntityResultTransformer;
+
 import org.springframework.stereotype.Repository;
 
 import com.survey.modules.model.PollModel;
-import com.survey.modules.model.QuestionModel;
+
 
 @Repository
 public class PollDaoImpl implements PollDaoInterface {
@@ -67,7 +67,7 @@ public class PollDaoImpl implements PollDaoInterface {
 			}
 		}
 		
-		@SuppressWarnings("rawtypes")
+		
 		public Long getEachAnserCountById(int answerId){
 			Session session = this.sessionFactory.getCurrentSession();
 			Criteria cr= session.createCriteria(PollModel.class);

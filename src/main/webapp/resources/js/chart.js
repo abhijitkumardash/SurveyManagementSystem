@@ -5,32 +5,22 @@
 	$("#survey-id-submit").click(function(){
 		
 		var surveyId=$("#survey-id").val();
-		alert(surveyId);
-		sId={"surveyId":surveyId};
 		$.ajax({
 			type : 'GET',
 			url : 'chart1',
 			contentType : "application/json",
 			data : "surveyId="+surveyId,
 			success : function(data) {
-
 				for(var i=0;i<data.length;i++){
-					
 					chart(data[i],i);
 				}
-
 			},
 			error : function(e) {
-				alert(e);
 				console.log('Error: ' + e);
-
 			}
 		});
-		
 	});
 
-
-	
 });
 
 
@@ -82,3 +72,4 @@ function chart(data,i){
 						} ]
 					});
 				};
+
