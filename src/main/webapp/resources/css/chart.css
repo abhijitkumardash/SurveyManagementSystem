@@ -1,12 +1,54 @@
-.chart-input-wrap{
-	width:500px;
+.chart-input-wrap {
+	width: 500px;
 	position: absolute;
-	border:1px solid #000;
+	border: 1px solid #000;
+	  margin-left: 32%;
+	  z-index:10;
 }
-#chart-container{
-	min-width: 310px;
-	max-width: 800px; 
-	height: 400px; 
-	margin:140 auto;
-	position:absolute;
+
+#chart-container {
+	position: absolute;
+	margin-top: 10%;
+	z-index:10;
+    width: 80%;
+  margin-left: 12%;
+}
+.chart-div{
+  display: inline-block;
+  float: left;
+  background-color: transparent;
+  margin: 10px;
+  border: 1px solid black;
+}
+.body {
+	position: absolute;
+	top: -20px;
+	left: -20px;
+	right: -40px;
+	bottom: -40px;
+	width: auto;
+	height: auto;
+	background-image:
+		url("../../resources/images/city-skyline-wallpapers-008.jpg");
+	background-size: cover;
+	-webkit-filter: blur(5px);
+	z-index: 0;
+}
+
+.grad {
+	position: absolute;
+	top: -20px;
+	left: -20px;
+	right: -40px;
+	bottom: -40px;
+	width: auto;
+	height: auto;
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(0, 0
+		, 0, 0)), color-stop(100%, rgba(0, 0, 0, 0.65)));
+	/* Chrome,Safari4+ */
+	z-index: 1;
+	opacity: 0.7;
+}
+rect>.highcharts-background{
+	fill:transparent;
 }

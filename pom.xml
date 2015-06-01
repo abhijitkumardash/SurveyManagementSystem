@@ -5,7 +5,6 @@
 	<groupId>com.survey</groupId>
 	<artifactId>SurveyManagementSystem</artifactId>
 	<name>SurveyManagementSystem</name>
-	<packaging>war</packaging>
 	<version>1.0.0-BUILD-SNAPSHOT</version>
 	<properties>
 
@@ -157,4 +156,5 @@
 
         </plugins>
     </build>
+    <packaging>war</packaging>
 </project>

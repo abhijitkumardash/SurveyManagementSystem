@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.survey.modules.service.ChartService;
+import com.survey.modules.bean.DataBean;
 import com.survey.modules.manager.AnswerManagerInterface;
 import com.survey.modules.manager.PollManagerInterface;
 import com.survey.modules.manager.QuestionManager;
@@ -32,6 +34,7 @@ import com.survey.modules.model.SurveyModel;
 import com.survey.modules.model.UserPoll;
 import com.survey.modules.model.Users;
 import com.survey.modules.service.UsersService;
+
 
 @Controller
 public class HomeController {
@@ -48,7 +51,11 @@ public class HomeController {
 	private AnswerManagerInterface answerManager;
 	
 	@Autowired
+	ChartService chartService;
+	
+	@Autowired
 	private PollManagerInterface pollManager; 
+
 
 	public void setQuestionManager(QuestionManager questionManager) {
 		this.questionManager = questionManager;
@@ -197,12 +204,16 @@ public class HomeController {
 		model.setViewName("SurveyPoll");
 		return model;
 	}
+	
+	@RequestMapping({"/chart"})
+       public DataBean showChart() {
+        return chartService.getChartData();
+    }
 
-	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/savePoll", method = RequestMethod.POST)
-	public @ResponseBody List savePoll(@RequestBody UserPoll pollObject) {
+	public @ResponseBody void savePoll(@RequestBody UserPoll pollObject) {
 
-		ModelAndView model = new ModelAndView();
+	//	ModelAndView model = new ModelAndView();
 		PollModel pollModel = new PollModel();
 		pollModel.setSurveyId(pollObject.getSurveyId());
 
@@ -228,56 +239,64 @@ public class HomeController {
 		
 		}
 
+		
+	}
+	@SuppressWarnings("rawtypes")
+	@RequestMapping(value = "/analysis", method = RequestMethod.GET)
+	public @ResponseBody List analysisPage() {
 		//data for highcharts
-		List<QuestionModel> questionModelList = questionManager.getQuestionListBySurveyId(1);
-		
-		Long eachAnswerCount, userCount;
-		List<AnswerModel> answerModelList;
-		Double answerPollPercentage;
-		String questionTitle, answerTitle = null;
+				List<QuestionModel> questionModelList = questionManager.getQuestionListBySurveyId(19);
+				
+				Long eachAnswerCount, userCount;
+				List<AnswerModel> answerModelList;
+				Double answerPollPercentage;
+				String questionTitle, answerTitle = null;
 
-	    List<HighChartData> HighChartDataList = new ArrayList<HighChartData>();
-	   
-		
-	    
-		
-		for (int i = 0; i < questionModelList.size(); i++) {
-			
-			questionTitle=questionModelList.get(i).getQuestionTitle();
-			answerModelList =  answerManager.getAnswerListByQuestionId(questionModelList.get(i).getQuestionId());
-		
-			List<String> categories=new ArrayList<String>();
-			List<Double> series=new ArrayList<Double>();
-			for (int j = 0; j < answerModelList.size(); j++) {
+			    List<HighChartData> HighChartDataList = new ArrayList<HighChartData>();
+			   
 				
-				answerTitle=answerModelList.get(j).getAnswerDesc();
-				eachAnswerCount=pollManager.getEachAnserCountById(answerModelList.get(j).getAnswerId());
-				userCount=pollManager.getCountOfUser(1)/(questionModelList.size());
+			    
 				
-				answerPollPercentage=(double)(eachAnswerCount/(double)userCount)*100;
+				for (int i = 0; i < questionModelList.size(); i++) {
+					
+					questionTitle=questionModelList.get(i).getQuestionTitle();
+					answerModelList =  answerManager.getAnswerListByQuestionId(questionModelList.get(i).getQuestionId());
 				
-				categories.add(answerTitle);
-				series.add(answerPollPercentage);
-				
-				
-			}
-			HighChartData highChartData=new HighChartData();
-			
-			highChartData.setQuestionTitle(questionTitle);
-			highChartData.setAnswerTitles(categories);
-			highChartData.setCountPercentage(series);
-			HighChartDataList.add(highChartData) ;
-			
-		}
+					List<String> categories=new ArrayList<String>();
+					List<Double> series=new ArrayList<Double>();
+					for (int j = 0; j < answerModelList.size(); j++) {
+						
+						answerTitle=answerModelList.get(j).getAnswerDesc();
+						eachAnswerCount=pollManager.getEachAnserCountById(answerModelList.get(j).getAnswerId());
+						userCount=pollManager.getCountOfUser(19)/(questionModelList.size());
+						
+						answerPollPercentage=(double)(eachAnswerCount/(double)userCount)*100;
+						
+						categories.add(answerTitle);
+						series.add(answerPollPercentage);
+						
+						
+					}
+					HighChartData highChartData=new HighChartData();
+					
+					highChartData.setQuestionTitle(questionTitle);
+					highChartData.setAnswerTitles(categories);
+					highChartData.setCountPercentage(series);
+					HighChartDataList.add(highChartData) ;
+					
+				}
 
-		
-		return HighChartDataList;
-//		return highChartData;
-	
-//		model.addObject(highChartData);
-//		model.setViewName("PollResult");
-//		System.out.println(model);
+				
+				return HighChartDataList;
+				
+//				model.addObject(highChartData);
+//				model.setViewName("PollResult");
+//				System.out.println(model);
+//				return model;
+//		ModelAndView model = new ModelAndView();
+//		model.setViewName("analysis");
 //		return model;
+
 	}
 	
 	
@@ -329,5 +348,6 @@ public class HomeController {
 		
 	}
 
+	
 }
 

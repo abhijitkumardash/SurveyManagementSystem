@@ -1,4 +1,3 @@
-
  $(window).load(function() {
 	var token = $("meta[name='_csrf']").attr("content");
 	var header = $("meta[name='_csrf_header']").attr("content");
@@ -29,18 +28,21 @@
 		});
 		
 	});
+
+
 	
 });
 
 
 function chart(data,i){
 
-	var str="<div id='chart"+i+"'></div>"
+	var str="<div id='chart"+i+"'class='chart-div'></div>"
 	$('#chart-container').append(str);
-
 					$("#chart"+i).highcharts({
 						chart : {
-							type : 'bar'
+							type : 'bar',
+							width: 300,
+							height:200
 						},
 						title : {
 							text : data.questionTitle

@@ -24,7 +24,7 @@ public class LoginServiceImpl implements UserDetailsService {
 
  @Autowired
  private LoginDao loginDao;
- 
+
  public void setLoginDao(LoginDao loginDao) {
      this.loginDao = loginDao;
  }
