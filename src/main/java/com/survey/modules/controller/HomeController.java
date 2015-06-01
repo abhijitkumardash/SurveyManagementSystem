@@ -210,11 +210,10 @@ public class HomeController {
         return chartService.getChartData();
     }
 
-	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/savePoll", method = RequestMethod.POST)
 	public @ResponseBody void savePoll(@RequestBody UserPoll pollObject) {
 
-		ModelAndView model = new ModelAndView();
+	//	ModelAndView model = new ModelAndView();
 		PollModel pollModel = new PollModel();
 		pollModel.setSurveyId(pollObject.getSurveyId());
 
@@ -242,6 +241,7 @@ public class HomeController {
 
 		
 	}
+	@SuppressWarnings("rawtypes")
 	@RequestMapping(value = "/analysis", method = RequestMethod.GET)
 	public @ResponseBody List analysisPage() {
 		//data for highcharts
