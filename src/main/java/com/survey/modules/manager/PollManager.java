@@ -1,5 +1,9 @@
 package com.survey.modules.manager;
 
+import java.util.List;
+
+import javax.persistence.Temporal;
+
 import org.hibernate.HibernateException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -71,5 +75,31 @@ public class PollManager implements PollManagerInterface {
 		}
 	}
 	
+	@Transactional
+	@SuppressWarnings("rawtypes")
+	public Long getEachAnserCountById(int answerId){
+		Long count = null;
+		try{
+			count=pollDao.getEachAnserCountById(answerId);
+			
+		}
+		catch(HibernateException e){
+			e.getStackTrace();
+		}
+		return count;
+	}
+	
+	@Transactional
+	@SuppressWarnings("rawtypes")
+	public Long getCountOfUser(int surveyId){
+		Long count=null;
+		try{
+			count=pollDao.getCountOfUser(surveyId);
+		}
+		catch(HibernateException e){
+			e.getStackTrace();
+		}
+		return count;
+	}
 	
 }
