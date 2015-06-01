@@ -14,8 +14,11 @@
 			contentType : "application/json",
 			data : "surveyId="+surveyId,
 			success : function(data) {
-				console.log(data[0]);
-				chart(data[0]);
+
+				for(var i=0;i<data.length;i++){
+					
+					chart(data[i],i);
+				}
 
 			},
 			error : function(e) {
@@ -30,9 +33,12 @@
 });
 
 
-function chart(data){
+function chart(data,i){
 
-					$('#chart-container').highcharts({
+	var str="<div id='chart"+i+"'></div>"
+	$('#chart-container').append(str);
+
+					$("#chart"+i).highcharts({
 						chart : {
 							type : 'bar'
 						},
