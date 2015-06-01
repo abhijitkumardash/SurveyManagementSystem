@@ -344,7 +344,6 @@ public class HomeController {
 			highChartData.setCountPercentage(series);
 			HighChartDataList.add(highChartData);
 		}
-		System.out.println(HighChartDataList.get(0).getQuestionTitle());
 		return HighChartDataList;
 		
 	}
