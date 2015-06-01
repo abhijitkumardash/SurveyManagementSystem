@@ -279,6 +279,56 @@ public class HomeController {
 //		System.out.println(model);
 //		return model;
 	}
+	
+	
+	
+	
+	
+	@RequestMapping(value = "/chart", method = RequestMethod.GET)
+	public ModelAndView getChartPage(){
+		ModelAndView model=new ModelAndView();
+		model.setViewName("chart");
+		return model;
+	}
+	@RequestMapping(value = "/chart1", method = RequestMethod.GET)
+	public @ResponseBody List analysisPage(@RequestParam("surveyId") int surveyId) {
+	
+		// data for highcharts
+		List<QuestionModel> questionModelList = questionManager
+				.getQuestionListBySurveyId(surveyId);
+		Long eachAnswerCount, userCount;
+		List<AnswerModel> answerModelList;
+		Double answerPollPercentage;
+		String questionTitle, answerTitle = null;
+		List<HighChartData> HighChartDataList = new ArrayList<HighChartData>();
+		for (int i = 0; i < questionModelList.size(); i++) {
+			questionTitle = questionModelList.get(i).getQuestionTitle();
+			answerModelList = answerManager
+					.getAnswerListByQuestionId(questionModelList.get(i)
+							.getQuestionId());
+			List<String> categories = new ArrayList<String>();
+			List<Double> series = new ArrayList<Double>();
+			for (int j = 0; j < answerModelList.size(); j++) {
+				answerTitle = answerModelList.get(j).getAnswerDesc();
+				eachAnswerCount = pollManager
+						.getEachAnserCountById(answerModelList.get(j)
+								.getAnswerId());
+				userCount = pollManager.getCountOfUser(surveyId)
+						/ (questionModelList.size());
+				answerPollPercentage = (double) (eachAnswerCount / (double) userCount) * 100;
+				categories.add(answerTitle);
+				series.add(answerPollPercentage);
+			}
+			HighChartData highChartData = new HighChartData();
+			highChartData.setQuestionTitle(questionTitle);
+			highChartData.setAnswerTitles(categories);
+			highChartData.setCountPercentage(series);
+			HighChartDataList.add(highChartData);
+		}
+		System.out.println(HighChartDataList.get(0).getQuestionTitle());
+		return HighChartDataList;
+		
+	}
 
 }
 
