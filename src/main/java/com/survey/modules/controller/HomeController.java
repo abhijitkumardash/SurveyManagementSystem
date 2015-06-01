@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+
 import com.survey.modules.manager.AnswerManagerInterface;
 import com.survey.modules.manager.PollManagerInterface;
 import com.survey.modules.manager.QuestionManager;
@@ -33,6 +34,7 @@ import com.survey.modules.model.UserPoll;
 import com.survey.modules.model.Users;
 import com.survey.modules.service.UsersService;
 
+
 @Controller
 public class HomeController {
 	@Autowired
@@ -47,8 +49,10 @@ public class HomeController {
 	@Autowired
 	private AnswerManagerInterface answerManager;
 	
+		
 	@Autowired
 	private PollManagerInterface pollManager; 
+
 
 	public void setQuestionManager(QuestionManager questionManager) {
 		this.questionManager = questionManager;
@@ -197,12 +201,13 @@ public class HomeController {
 		model.setViewName("SurveyPoll");
 		return model;
 	}
+	
+	
 
-	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/savePoll", method = RequestMethod.POST)
 	public @ResponseBody void savePoll(@RequestBody UserPoll pollObject) {
 
-		ModelAndView model = new ModelAndView();
+	//	ModelAndView model = new ModelAndView();
 		PollModel pollModel = new PollModel();
 		pollModel.setSurveyId(pollObject.getSurveyId());
 
@@ -227,6 +232,7 @@ public class HomeController {
 			System.out.println("Poll saved");
 		
 		}
+
 
 	}
 	
@@ -279,9 +285,6 @@ public class HomeController {
 		return HighChartDataList;
 		
 	}
-
-	
-	
 
 }
 
