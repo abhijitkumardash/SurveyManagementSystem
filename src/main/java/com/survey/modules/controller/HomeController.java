@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-
 import com.survey.modules.manager.AnswerManagerInterface;
 import com.survey.modules.manager.PollManagerInterface;
 import com.survey.modules.manager.QuestionManager;
@@ -237,15 +236,14 @@ public class HomeController {
 	}
 	
 	
-	
-	
-	
 	@RequestMapping(value = "/chart", method = RequestMethod.GET)
 	public ModelAndView getChartPage(){
 		ModelAndView model=new ModelAndView();
 		model.setViewName("chart");
 		return model;
 	}
+	
+	@SuppressWarnings("rawtypes")
 	@RequestMapping(value = "/chart1", method = RequestMethod.GET)
 	public @ResponseBody List analysisPage(@RequestParam("surveyId") int surveyId) {
 	
