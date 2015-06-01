@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!DOCTYPE html>
 <html>
 <head>
 <meta name="_csrf" content="${_csrf.token}" />
@@ -32,8 +33,9 @@
 	  </button>
 	     
  </div>
+<c:forEach items="${HighChartDataList}" var="data">
 
-
-	<div id="chart-container"></div>
+	<div id="${data.questionTitle}" class="chart-container"></div>
+	</c:forEach>
 </body>
 </html>

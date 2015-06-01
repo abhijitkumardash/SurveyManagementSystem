@@ -31,7 +31,7 @@
 
 function chart(data){
 
-					$('#chart-container').highcharts({
+					$('#data[0].questionTitle').highcharts({
 						chart : {
 							type : 'bar'
 						},
