@@ -20,6 +20,9 @@
 <title>Survey Chart</title>
 </head>
 <body>
+<div class="body"></div>
+	<div class="grad"></div>
+
 
 <div class="chart-input-wrap">
 
