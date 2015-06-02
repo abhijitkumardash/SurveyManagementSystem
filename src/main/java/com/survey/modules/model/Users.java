@@ -10,6 +10,9 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 @Entity
 @Table(name = "users")
 public class Users {
@@ -28,6 +31,7 @@ public class Users {
  private Set<UserRole> userRole = new HashSet<UserRole>(0);
 
  @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+ @Fetch(FetchMode.SELECT)
  private Set<SurveyModel> survey;
  
  public Set<SurveyModel> getSurvey() {

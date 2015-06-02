@@ -193,7 +193,7 @@ String username=user.getUsername().toString();
 
 		 Users users=usersService.findByUserName(username);
 		 surveyModel.setUser(users);
-		 
+		
 		surveyManager.saveSurvey(surveyModel);
 		model.addObject("surveyId", surveyModel.getSurveyId());
 		model.setViewName("AddQuestion");
@@ -301,7 +301,16 @@ String username=user.getUsername().toString();
 	
 	@RequestMapping(value = "/dashboard", method = RequestMethod.GET)
 	public ModelAndView getDash(){
-		ModelAndView model=new ModelAndView();
+		 User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		 String username = user.getUsername();
+		 List<SurveyModel> surveyList= surveyManager.findSurveyByName(username); 
+		for(int i=0;i<surveyList.size();i++)
+		{
+			System.out.println(surveyList.size());
+		 System.out.println(surveyList.get(i).getSurveyTitle());
+		}
+		 ModelAndView model=new ModelAndView();
+		model.addObject("surveyList",surveyList);
 		model.setViewName("Dashboard");
 		return model;
 	}

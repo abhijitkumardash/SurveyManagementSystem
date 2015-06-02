@@ -5,6 +5,7 @@ import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
 import com.survey.modules.model.SurveyModel;
@@ -48,6 +49,14 @@ public class SurveyDAOImpl implements SurveyDAOInterface{
 		Criteria cr=session.createCriteria(SurveyModel.class);
 		List<SurveyModel> surveyList=cr.list();
 		return surveyList;
+	}
+	@SuppressWarnings("unchecked")
+	public List<SurveyModel> findSurveyByName(String username){
+		 Session session = this.sessionFactory.getCurrentSession();
+		 Criteria cr=session.createCriteria(SurveyModel.class);
+		 cr.add(Restrictions.eq( "user.username",username));
+			List<SurveyModel> surveyList=cr.list();
+			return surveyList;
 	}
 	
 	public void deleteAll(){

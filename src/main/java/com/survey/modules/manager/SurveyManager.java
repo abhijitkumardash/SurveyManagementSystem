@@ -1,5 +1,7 @@
 package com.survey.modules.manager;
 
+import java.util.List;
+
 import org.hibernate.HibernateException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -53,6 +55,23 @@ public class SurveyManager implements SurveyManagerInterface {
 		finally{
 			
 			return surveyModel;
+		}
+	}
+	@SuppressWarnings({ "finally", "rawtypes", "unchecked" })
+	@Transactional
+	public List findSurveyByName(String username){
+		
+		List<SurveyModel> surveyList=null;
+		try{
+			surveyList=surveyDao.findSurveyByName(username);
+		}
+		catch(HibernateException e){
+			e.getStackTrace();
+			
+		}
+		finally{
+			
+			return surveyList;
 		}
 	}
 }

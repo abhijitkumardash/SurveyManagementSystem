@@ -14,7 +14,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link href="resources/css/materialize.css" rel="stylesheet">
 <link href="resources/css/materialize.min.css" rel="stylesheet">
-<link href="resources/css/addSurvey.css" rel="stylesheet">
+<link href="resources/css/Dashboard.css" rel="stylesheet">
 
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
@@ -48,22 +48,20 @@
 					<c:forEach items="${surveyList}" var="survey">
 
 						<p>
-							<input name="survey${survey.surveyId}" type="radio"
+							<input name="survey" type="radio"
 								id="${survey.surveyId}" value="${survey.surveyId}"
 								data-surveyId="${survey.surveyId}"/> <label
 								for="${survey.surveyId}"> ${survey.surveyTitle}</label>
 						</p>
 					</c:forEach>
 
-
-					<div class="card-action center-align">
+				<div class="card-action center-align">
 						<input type="hidden" name="${_csrf.parameterName}"
 							value="${_csrf.token}" />
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
 	</div>
 </body>
 </html>

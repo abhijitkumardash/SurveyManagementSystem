@@ -14,6 +14,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 @Entity
 @Table(name="survey_table")
 public class SurveyModel {
@@ -30,6 +33,7 @@ public class SurveyModel {
 	private Set<QuestionModel> questions;
 	
 	@ManyToOne(fetch = FetchType.LAZY,cascade=CascadeType.ALL)
+//	@Fetch(FetchMode.SELECT)
 	@JoinColumn(name = "username", nullable = false)
 	private Users user;
 	
