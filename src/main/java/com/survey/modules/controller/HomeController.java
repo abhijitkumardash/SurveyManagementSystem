@@ -297,5 +297,13 @@ String username=user.getUsername().toString();
 		
 	}
 
+	
+	
+	@RequestMapping(value = "/dashboard", method = RequestMethod.GET)
+	public ModelAndView getDash(){
+		ModelAndView model=new ModelAndView();
+		model.setViewName("Dashboard");
+		return model;
+	}
 }
 

@@ -48,6 +48,7 @@
 					<c:forEach items="${surveyList}" var="survey">
 
 						<p>
+							<input name="survey${survey.surveyId}" type="radio"
 								id="${survey.surveyId}" value="${survey.surveyId}"
 								data-surveyId="${survey.surveyId}"/> <label
 								for="${survey.surveyId}"> ${survey.surveyTitle}</label>
