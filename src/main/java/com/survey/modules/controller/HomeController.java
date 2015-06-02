@@ -1,11 +1,13 @@
 package com.survey.modules.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -23,6 +25,7 @@ import com.survey.modules.manager.QuestionManager;
 import com.survey.modules.manager.QuestionManagerInterface;
 import com.survey.modules.manager.SurveyManagerInterface;
 import com.survey.modules.model.AnswerModel;
+import com.survey.modules.model.HighChartData;
 import com.survey.modules.model.PollModel;
 import com.survey.modules.model.Question;
 import com.survey.modules.model.QuestionModel;
@@ -30,6 +33,7 @@ import com.survey.modules.model.SurveyModel;
 import com.survey.modules.model.UserPoll;
 import com.survey.modules.model.Users;
 import com.survey.modules.service.UsersService;
+
 
 @Controller
 public class HomeController {
@@ -45,8 +49,10 @@ public class HomeController {
 	@Autowired
 	private AnswerManagerInterface answerManager;
 	
+		
 	@Autowired
 	private PollManagerInterface pollManager; 
+
 
 	public void setQuestionManager(QuestionManager questionManager) {
 		this.questionManager = questionManager;
@@ -171,11 +177,23 @@ public class HomeController {
 	}
 
 	@RequestMapping(value = { "/saveSurveyTitle" }, method = RequestMethod.POST)
-	public @ResponseBody ModelAndView saveSurveyTitle(
+	public  ModelAndView saveSurveyTitle(
 			@ModelAttribute SurveyModel surveyModel) {
+//			@RequestParam("surveyTitle") String surveyTitle){
+//SurveyModel surveyModel=new SurveyModel();
+//surveyModel.setSurveyTitle(surveyTitle);
+System.out.println(surveyModel.getSurveyTitle());
 
 		ModelAndView model = new ModelAndView();
+		 User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		 System.out.println(user.getUsername());
+String username=user.getUsername().toString();
 
+//		 surveyModel.getUser().setUsername(username);
+
+		 Users users=usersService.findByUserName(username);
+		 surveyModel.setUser(users);
+		 
 		surveyManager.saveSurvey(surveyModel);
 		model.addObject("surveyId", surveyModel.getSurveyId());
 		model.setViewName("AddQuestion");
@@ -188,20 +206,20 @@ public class HomeController {
 
 		ModelAndView model = new ModelAndView();
 
-		List<QuestionModel> questionList = questionManager
-				.getQuestionListBySurveyId(surveyId);
+		List<QuestionModel> questionList = questionManager.getQuestionListBySurveyId(surveyId);
 
 		model.addObject("questionList", questionList);
-		model.addObject("surveyTitle",
-				(surveyManager.findSurveyById(surveyId)).getSurveyTitle());
+		model.addObject("surveyTitle",(surveyManager.findSurveyById(surveyId)).getSurveyTitle());
 		model.setViewName("SurveyPoll");
 		return model;
 	}
+	
+	
 
 	@RequestMapping(value = "/savePoll", method = RequestMethod.POST)
-	public ModelAndView savePoll(@RequestBody UserPoll pollObject) {
+	public @ResponseBody void savePoll(@RequestBody UserPoll pollObject) {
 
-		ModelAndView model = new ModelAndView();
+	//	ModelAndView model = new ModelAndView();
 		PollModel pollModel = new PollModel();
 		pollModel.setSurveyId(pollObject.getSurveyId());
 
@@ -217,17 +235,67 @@ public class HomeController {
 			System.out.println("Survey id" + pollObject.getSurveyId());
 
 			pollModel.setAnswerId(answerList.get(i));
-						System.out.println("answer being saved"+answerList.get(i));
+			System.out.println("answer being saved"+answerList.get(i));
 			
 			pollModel.setQuestionId(questionList.get(i));
 			System.out.println("question being saved"+questionList.get(i));
 			
 			pollManager.savePoll(pollModel);
 			System.out.println("Poll saved");
+		
 		}
-		model.setViewName("PollResult");
-		System.out.println(model);
+
+
+	}
+	
+	
+	@RequestMapping(value = "/chart", method = RequestMethod.GET)
+	public ModelAndView getChartPage(){
+		ModelAndView model=new ModelAndView();
+		model.setViewName("chart");
 		return model;
+	}
+	
+	@SuppressWarnings("rawtypes")
+	@RequestMapping(value = "/chart1", method = RequestMethod.GET)
+	public @ResponseBody List analysisPage(@RequestParam("surveyId") int surveyId) {
+	
+		// data for highcharts
+		
+		List<QuestionModel> questionModelList = questionManager
+				.getQuestionListBySurveyId(surveyId);
+		Long eachAnswerCount, userCount;
+		List<AnswerModel> answerModelList;
+		Double answerPollPercentage;
+		String questionTitle, answerTitle = null;
+		List<HighChartData> HighChartDataList = new ArrayList<HighChartData>();
+		for (int i = 0; i < questionModelList.size(); i++) {
+			questionTitle = questionModelList.get(i).getQuestionTitle();
+			answerModelList = answerManager
+					.getAnswerListByQuestionId(questionModelList.get(i)
+							.getQuestionId());
+			List<String> categories = new ArrayList<String>();
+			List<Double> series = new ArrayList<Double>();
+			for (int j = 0; j < answerModelList.size(); j++) {
+				answerTitle = answerModelList.get(j).getAnswerDesc();
+				eachAnswerCount = pollManager
+						.getEachAnserCountById(answerModelList.get(j)
+								.getAnswerId());
+				userCount = pollManager.getCountOfUser(surveyId)
+						/ (questionModelList.size());
+				answerPollPercentage = (double) (eachAnswerCount / (double) userCount) * 100;
+				categories.add(answerTitle);
+				series.add(answerPollPercentage);
+			}
+			HighChartData highChartData = new HighChartData();
+			highChartData.setQuestionTitle(questionTitle);
+			highChartData.setAnswerTitles(categories);
+			highChartData.setCountPercentage(series);
+			HighChartDataList.add(highChartData);
+		}
+		return HighChartDataList;
+		
 	}
 
 }
+

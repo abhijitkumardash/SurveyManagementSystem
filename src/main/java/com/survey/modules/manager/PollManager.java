@@ -71,5 +71,31 @@ public class PollManager implements PollManagerInterface {
 		}
 	}
 	
+	@Transactional
+	public Long getEachAnserCountById(int answerId){
+		Long count = null;
+		try{
+			count=pollDao.getEachAnserCountById(answerId);
+			
+		}
+		catch(HibernateException e){
+			e.getStackTrace();
+		}
+		return count;
+	}
+	
+	@Transactional
+	public Long getCountOfUser(int surveyId){
+		Long count=null;
+		try{
+			count=pollDao.getCountOfUser(surveyId);
+		}
+		catch(HibernateException e){
+			e.getStackTrace();
+		}
+		return count;
+	}
+	
+	
 	
 }

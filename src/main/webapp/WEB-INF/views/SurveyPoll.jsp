@@ -12,6 +12,11 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script src="resources/js/materialize.js"></script>
 <script src="resources/js/materialize.min.js"></script>
+
+
+<script
+	src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+<script src="http://code.highcharts.com/highcharts.js"></script>
 <script src="resources/js/addSurveyPoll.js"></script>
 <title>Survey Poll</title>
 </head>
@@ -58,5 +63,7 @@
 
 		</div>
 	</div>
+	<div id="container"
+		style="min-width: 310px; max-width: 800px; height: 400px; margin: 0 auto"></div>
 </body>
 </html>

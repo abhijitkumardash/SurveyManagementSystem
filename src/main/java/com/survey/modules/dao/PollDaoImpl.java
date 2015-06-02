@@ -5,9 +5,13 @@ import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
+
 import org.springframework.stereotype.Repository;
 
 import com.survey.modules.model.PollModel;
+
 
 @Repository
 public class PollDaoImpl implements PollDaoInterface {
@@ -48,7 +52,7 @@ public class PollDaoImpl implements PollDaoInterface {
 	
 		@SuppressWarnings("unchecked")
 		public List<PollModel> PollList(){
-			  Session session = this.sessionFactory.getCurrentSession();
+			Session session = this.sessionFactory.getCurrentSession();
 			Criteria cr=session.createCriteria(PollModel.class);
 			List<PollModel> pollList=cr.list();
 			return pollList;
@@ -61,6 +65,28 @@ public class PollDaoImpl implements PollDaoInterface {
 			for (PollModel entity : entityList) {
 					deletePoll(entity);
 			}
+		}
+		
+		
+		public Long getEachAnserCountById(int answerId){
+			Session session = this.sessionFactory.getCurrentSession();
+			Criteria cr= session.createCriteria(PollModel.class);
+			cr.add(Restrictions.eq( "answerId",answerId));
+			cr.setProjection(Projections.rowCount());
+			Long answerPollCount=(Long)cr.uniqueResult();
+			return answerPollCount;
+
+		}
+		
+		public Long getCountOfUser(int surveyId){
+			 Session session = this.sessionFactory.getCurrentSession();
+			 Criteria cr= session.createCriteria(PollModel.class);
+			 cr.add(Restrictions.eq( "surveyId",surveyId));
+			 cr.setProjection(Projections.distinct(Projections.property("questionId")));
+			 cr.setProjection(Projections.rowCount());
+			 Long answerPollCount=(Long) cr.uniqueResult();
+			 return answerPollCount;
+
 		}
 		
 	}

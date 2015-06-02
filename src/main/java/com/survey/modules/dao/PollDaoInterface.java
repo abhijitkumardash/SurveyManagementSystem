@@ -17,5 +17,9 @@ public interface PollDaoInterface {
 	public abstract List<PollModel> PollList();
 
 	public abstract void deleteAll();
+	
+	public Long getEachAnserCountById(int answerId);
+	
+	public Long getCountOfUser(int surveyId);
 
 }
