@@ -284,5 +284,13 @@ public class HomeController {
 		
 	}
 
+	
+	
+	@RequestMapping(value = "/dashboard", method = RequestMethod.GET)
+	public ModelAndView getDash(){
+		ModelAndView model=new ModelAndView();
+		model.setViewName("Dashboard");
+		return model;
+	}
 }
 
