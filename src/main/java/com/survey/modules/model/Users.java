@@ -27,8 +27,18 @@ public class Users {
  @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
  private Set<UserRole> userRole = new HashSet<UserRole>(0);
 
+ @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+ private Set<SurveyModel> survey;
  
- public String getUsername() {
+ public Set<SurveyModel> getSurvey() {
+	return survey;
+}
+
+public void setSurvey(Set<SurveyModel> survey) {
+	this.survey = survey;
+}
+
+public String getUsername() {
   return username;
  }
 

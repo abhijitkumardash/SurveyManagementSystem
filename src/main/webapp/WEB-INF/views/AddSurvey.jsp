@@ -46,7 +46,7 @@
 		          <div class="card-content white-text">
 			          <p class="current-user"></p>
 			          <div class="card-title center-align">Create a new Survey</div>
-			          
+			       
 			          <input type="text" placeholder="Enter Survey Title" id="survey-title" name="surveyTitle" class="valign" required/>
 		          </div>
 		          <div class="card-action center-align">
