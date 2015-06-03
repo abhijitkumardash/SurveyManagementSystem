@@ -1,6 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page session="true" language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
+<!DOCTYPE html>
 <html>
 <head>
 <meta name="_csrf" content="${_csrf.token}" />
@@ -22,18 +25,28 @@
 <body>
 <div class="body"></div>
 	<div class="grad"></div>
+<div class="row">
+	  	<c:url var="logoutUrl" value="j_spring_security_logout" />
+		 <form action="${logoutUrl}" method="post">
+			  <input id="logoutButton" type="submit" value="Logout" /> 
+			  <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+		 </form>
+		 
+		 <div id="user">
+			<sec:authentication property="principal.username" />
+		</div>
+		<div id="dash">
+		<a href="dashboard">Dashboard</a>
+	</div>
+	</div>
 
+<div>
 
-<div class="chart-input-wrap">
-
-	 <div class="input-field ">
-	          <input id="survey-id" type="text" >
-	          <label for="survey-id">Survey Id</label>
-	  </div>
-	         <button class="btn waves-effect waves-light" id="survey-id-submit">Submit
-	    <i class="mdi-content-send right"></i>
-	  </button>
+	 <div>
+	          <input id="survey-id"  hidden="true" value="${surveyId}">
 	     
+	  </div>
+	   	     
  </div>
 
 

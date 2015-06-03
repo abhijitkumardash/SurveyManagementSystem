@@ -7,16 +7,6 @@ $(document).ready(function() {
 	var questionId = [];
 	var surveyId;
 
-	$("input:radio[type=radio]").click(function() {
-
-		answerId.push(Number($(this).val()));
-		questionId.push(Number($(this).attr("data-questionId")));
-		surveyId = Number($(this).attr("data-surveyId"));
-
-		console.log("questionId:" + questionId);
-		console.log("answerId:" + answerId);
-
-	});
 
 	function getPollInputs() {
 
@@ -28,7 +18,16 @@ $(document).ready(function() {
 	}
 
 	$('#poll-submit').click(function() {
-
+		var checkedValue = null; 
+		var inputElements = document.getElementsByClassName('questionAndAnswer');
+		for(var i=0; inputElements[i]; ++i){
+		      if(inputElements[i].checked){
+		    	answerId.push((inputElements[i].value));
+		  		questionId.push((inputElements[i].getAttribute("data-questionId")));
+		  		surveyId = Number(inputElements[i].getAttribute("data-surveyId"));
+		  	  }
+		    
+		}
 		$.ajax({
 			type : 'POST',
 			url : "savePoll",

@@ -17,7 +17,6 @@
 
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<script type="text/javascript" src="resources/js/addSurvey.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script src="resources/js/materialize.js"></script>
 <script src="resources/js/materialize.min.js"></script>

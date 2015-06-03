@@ -14,6 +14,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 @Entity
 @Table(name="survey_table")
 public class SurveyModel {
@@ -26,10 +29,12 @@ public class SurveyModel {
 	@Column(name="survey_title")
 	private String surveyTitle;
 	
-	@OneToMany(fetch = FetchType.EAGER,mappedBy="survey")
+	@OneToMany(fetch = FetchType.EAGER,mappedBy="survey", orphanRemoval=true)
+	@Fetch(FetchMode.SELECT)
 	private Set<QuestionModel> questions;
 	
-	@ManyToOne(fetch = FetchType.LAZY,cascade=CascadeType.ALL)
+
+	@ManyToOne(fetch = FetchType.EAGER,cascade=CascadeType.REFRESH)
 	@JoinColumn(name = "username", nullable = false)
 	private Users user;
 	
