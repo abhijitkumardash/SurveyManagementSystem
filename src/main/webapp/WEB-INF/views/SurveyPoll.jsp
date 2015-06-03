@@ -40,7 +40,7 @@
 									<input name="answers${question.questionId}" type="radio"
 										id="${answer.answerId}" value="${answer.answerId}"
 										data-surveyId="${question.survey.surveyId}"
-										data-questionId="${question.questionId}" /> <label
+										data-questionId="${question.questionId}" class="questionAndAnswer"/> <label
 										for="${answer.answerId}"> ${answer.answerDesc}</label>
 								</p>
 							</c:forEach>

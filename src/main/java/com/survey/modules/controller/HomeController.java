@@ -34,7 +34,6 @@ import com.survey.modules.model.UserPoll;
 import com.survey.modules.model.Users;
 import com.survey.modules.service.UsersService;
 
-
 @Controller
 public class HomeController {
 	@Autowired
@@ -48,11 +47,9 @@ public class HomeController {
 
 	@Autowired
 	private AnswerManagerInterface answerManager;
-	
-		
-	@Autowired
-	private PollManagerInterface pollManager; 
 
+	@Autowired
+	private PollManagerInterface pollManager;
 
 	public void setQuestionManager(QuestionManager questionManager) {
 		this.questionManager = questionManager;
@@ -148,14 +145,15 @@ public class HomeController {
 		return model;
 
 	}
+
 	@RequestMapping(value = { "/saveQuestionAnswer" }, method = RequestMethod.POST)
 	public @ResponseBody void saveQuestionAnswer(@RequestBody Question question) {
-		
+
 		QuestionModel questionModel = new QuestionModel();
 		questionModel.setQuestionTitle(question.getQuestion());
 		Integer savedQuestionModelId = questionManager.saveQuestion(
 				questionModel, question.getSurveyId());
-		
+
 		List<String> answerModelList = question.getAnswers();
 		AnswerModel answerModel = new AnswerModel();
 		for (int i = 0; i < answerModelList.size(); i++) {
@@ -177,23 +175,23 @@ public class HomeController {
 	}
 
 	@RequestMapping(value = { "/saveSurveyTitle" }, method = RequestMethod.POST)
-	public  ModelAndView saveSurveyTitle(
-			@ModelAttribute SurveyModel surveyModel) {
-//			@RequestParam("surveyTitle") String surveyTitle){
-//SurveyModel surveyModel=new SurveyModel();
-//surveyModel.setSurveyTitle(surveyTitle);
-System.out.println(surveyModel.getSurveyTitle());
+	public ModelAndView saveSurveyTitle(@ModelAttribute SurveyModel surveyModel) {
+		// @RequestParam("surveyTitle") String surveyTitle){
+		// SurveyModel surveyModel=new SurveyModel();
+		// surveyModel.setSurveyTitle(surveyTitle);
+		System.out.println(surveyModel.getSurveyTitle());
 
 		ModelAndView model = new ModelAndView();
-		 User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		 System.out.println(user.getUsername());
-String username=user.getUsername().toString();
+		User user = (User) SecurityContextHolder.getContext()
+				.getAuthentication().getPrincipal();
+		System.out.println(user.getUsername());
+		String username = user.getUsername().toString();
 
-//		 surveyModel.getUser().setUsername(username);
+		// surveyModel.getUser().setUsername(username);
 
-		 Users users=usersService.findByUserName(username);
-		 surveyModel.setUser(users);
-		 
+		Users users = usersService.findByUserName(username);
+		surveyModel.setUser(users);
+
 		surveyManager.saveSurvey(surveyModel);
 		model.addObject("surveyId", surveyModel.getSurveyId());
 		model.setViewName("AddQuestion");
@@ -206,62 +204,60 @@ String username=user.getUsername().toString();
 
 		ModelAndView model = new ModelAndView();
 
-		List<QuestionModel> questionList = questionManager.getQuestionListBySurveyId(surveyId);
+		List<QuestionModel> questionList = questionManager
+				.getQuestionListBySurveyId(surveyId);
 
 		model.addObject("questionList", questionList);
-		model.addObject("surveyTitle",(surveyManager.findSurveyById(surveyId)).getSurveyTitle());
+		model.addObject("surveyTitle",
+				(surveyManager.findSurveyById(surveyId)).getSurveyTitle());
 		model.setViewName("SurveyPoll");
 		return model;
 	}
-	
-	
 
 	@RequestMapping(value = "/savePoll", method = RequestMethod.POST)
 	public @ResponseBody void savePoll(@RequestBody UserPoll pollObject) {
 
-	//	ModelAndView model = new ModelAndView();
+		// ModelAndView model = new ModelAndView();
 		PollModel pollModel = new PollModel();
 		pollModel.setSurveyId(pollObject.getSurveyId());
 
 		List<Integer> questionList = pollObject.getQuestions();
 		List<Integer> answerList = pollObject.getAnswers();
-		
+
 		System.out.println("answers:" + answerList);
-		System.out.println("questions:" +questionList);
-		
+		System.out.println("questions:" + questionList);
 
 		for (int i = 0; i < answerList.size(); i++) {
 
 			System.out.println("Survey id" + pollObject.getSurveyId());
 
 			pollModel.setAnswerId(answerList.get(i));
-			System.out.println("answer being saved"+answerList.get(i));
-			
+			System.out.println("answer being saved" + answerList.get(i));
+
 			pollModel.setQuestionId(questionList.get(i));
-			System.out.println("question being saved"+questionList.get(i));
-			
+			System.out.println("question being saved" + questionList.get(i));
+
 			pollManager.savePoll(pollModel);
 			System.out.println("Poll saved");
-		
+
 		}
 
-
 	}
-	
-	
+
 	@RequestMapping(value = "/chart", method = RequestMethod.GET)
-	public ModelAndView getChartPage(){
-		ModelAndView model=new ModelAndView();
+	public ModelAndView getChartPage() {
+		ModelAndView model = new ModelAndView();
 		model.setViewName("chart");
 		return model;
 	}
-	
+
 	@SuppressWarnings("rawtypes")
 	@RequestMapping(value = "/chart1", method = RequestMethod.GET)
-	public @ResponseBody List analysisPage(@RequestParam("surveyId") int surveyId) {
-	
+	public @ResponseBody List analysisPage(
+			@RequestParam("surveyId") int surveyId) {
+
 		// data for highcharts
-		
+
 		List<QuestionModel> questionModelList = questionManager
 				.getQuestionListBySurveyId(surveyId);
 		Long eachAnswerCount, userCount;
@@ -294,8 +290,38 @@ String username=user.getUsername().toString();
 			HighChartDataList.add(highChartData);
 		}
 		return HighChartDataList;
-		
+
 	}
 
-}
+	@RequestMapping(value = "/dashboard", method = RequestMethod.GET)
+	public ModelAndView getDash() {
+		User user = (User) SecurityContextHolder.getContext()
+				.getAuthentication().getPrincipal();
+		String username = user.getUsername();
+		List<SurveyModel> surveyList = surveyManager.findSurveyByName(username);
+		for (int i = 0; i < surveyList.size(); i++) {
+			System.out.println(surveyList.size());
+			System.out.println(surveyList.get(i).getSurveyTitle());
+		}
+		ModelAndView model = new ModelAndView();
+		model.addObject("surveyList", surveyList);
+		model.setViewName("Dashboard");
+		return model;
+	}
 
+	@RequestMapping(value = "/analysis", method = RequestMethod.POST)
+	public ModelAndView setSurveyAnalysis(@RequestParam("survey") int surveyId) {
+
+		ModelAndView model = new ModelAndView();
+		model.addObject("surveyId", surveyId);
+		model.setViewName("chart");
+		System.out.println(model.getViewName());
+		return model;
+	}
+
+	@RequestMapping(value = "/deleteSurvey", method = RequestMethod.GET)
+	public void deleteSurvey(@RequestParam("surveyId") int surveyId) {
+		surveyManager.deleteSurveyById(surveyId);
+		
+	}
+}
