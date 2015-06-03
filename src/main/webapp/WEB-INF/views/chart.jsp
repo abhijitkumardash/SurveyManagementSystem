@@ -1,5 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page session="true" language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,7 +25,20 @@
 <body>
 <div class="body"></div>
 	<div class="grad"></div>
-
+<div class="row">
+	  	<c:url var="logoutUrl" value="j_spring_security_logout" />
+		 <form action="${logoutUrl}" method="post">
+			  <input id="logoutButton" type="submit" value="Logout" /> 
+			  <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+		 </form>
+		 
+		 <div id="user">
+			<sec:authentication property="principal.username" />
+		</div>
+		<div id="dash">
+		<a href="dashboard">Dashboard</a>
+	</div>
+	</div>
 
 <div>
 

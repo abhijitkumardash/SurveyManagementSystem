@@ -3,6 +3,7 @@ package com.survey.modules.model;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.survey.modules.model.SurveyModel;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;

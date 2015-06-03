@@ -69,6 +69,7 @@ public class SurveyDAOImpl implements SurveyDAOInterface{
 	public void deleteSurveyById(int surveyId){
 		 Session session = this.sessionFactory.getCurrentSession();
 		 SurveyModel surveyObj=(SurveyModel)session.get(SurveyModel.class, surveyId);
-		 deleteSurvey(surveyObj);
+System.out.println(surveyId);
+		 session.delete(surveyObj);
 	}
 }

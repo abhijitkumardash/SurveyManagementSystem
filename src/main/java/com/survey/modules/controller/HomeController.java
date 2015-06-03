@@ -320,7 +320,8 @@ public class HomeController {
 	}
 
 	@RequestMapping(value = "/deleteSurvey", method = RequestMethod.GET)
-	public void deleteSurvey(@RequestParam("surveyId") int surveyId) {
+	public @ResponseBody  void deleteSurvey(@RequestParam("surveyId") int surveyId) {
+//		surveyId=23;
 		surveyManager.deleteSurveyById(surveyId);
 		
 	}

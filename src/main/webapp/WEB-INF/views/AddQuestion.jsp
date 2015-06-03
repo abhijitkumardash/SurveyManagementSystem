@@ -34,7 +34,11 @@
 		 <div id="user">
 			<sec:authentication property="principal.username" />
 		</div>
+		<div id="dash">
+		<a href="dashboard">Dashboard</a>
 	</div>
+	</div>
+	
 	 
    <div class="row">
    	  <div  class="card large">

@@ -83,6 +83,21 @@ input {
 	border-right: 1px solid wheat;
 	padding-right: 1%;
 }
+#dash{
+	position: relative;
+	z-index: 10;
+	text-align: right;
+	float: right;
+	color: white;
+	  margin-right: 10px;
+	font-weight: 900;
+	font-size: 16px;
+	border-right: 1px solid wheat;
+	padding-right: 1%;
+}
+#dash > a{
+	color: white !important;
+}
 
 #logoutButton {
 	position: relative;

@@ -9,7 +9,8 @@
 				contentType : "application/json",
 				data : "surveyId="+surveyId,
 				success : function() {
-			    location.reload();
+					alert("Django");
+					location.reload();
 				},
 				error : function(e) {
 					console.log('Error: ' + e);
