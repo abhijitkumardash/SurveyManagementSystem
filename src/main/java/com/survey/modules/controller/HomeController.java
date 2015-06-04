@@ -325,4 +325,12 @@ public class HomeController {
 		surveyManager.deleteSurveyById(surveyId);
 		pollManager.deletePollBySurvey(surveyId);
 	}
+	@RequestMapping(value = "/surveySuccess", method = RequestMethod.GET)
+	public ModelAndView getLandingPage() {
+		ModelAndView model = new ModelAndView();
+		model.setViewName("SurveyLandingPage");
+		return model;
+	}
+
 }
+

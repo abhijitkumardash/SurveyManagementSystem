@@ -53,7 +53,7 @@ $(document).ready(function() {
 			},
 
 			success : function(data) {
-				 window.location.replace("/SurveyManagementSystem").html();
+				 window.location.replace("/SurveyManagementSystem/surveySuccess").html();
 			},
 			error : function(e) {
 				console.log('Error: ' + e);
