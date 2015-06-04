@@ -323,6 +323,6 @@ public class HomeController {
 	public @ResponseBody  void deleteSurvey(@RequestParam("surveyId") int surveyId) {
 //		surveyId=23;
 		surveyManager.deleteSurveyById(surveyId);
-		
+		pollManager.deletePollBySurvey(surveyId);
 	}
 }
