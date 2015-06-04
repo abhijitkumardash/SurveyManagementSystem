@@ -15,5 +15,7 @@ public interface PollManagerInterface {
 	public Long getEachAnserCountById(int answerId);
 	
 	public Long getCountOfUser(int surveyId);
+	
+	public void deletePollBySurvey(int surveyId);
 
 }
