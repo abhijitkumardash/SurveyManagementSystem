@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Entity;
+
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 @Entity
@@ -16,7 +17,14 @@ public class Question implements Serializable {
 	private int surveyId;
 	private String question;
 	public List<String> answers;
+	private String questionType;
 	
+	public String getQuestionType() {
+		return questionType;
+	}
+	public void setQuestionType(String questionType) {
+		this.questionType = questionType;
+	}
 	public int getSurveyId() {
 		return surveyId;
 	}
