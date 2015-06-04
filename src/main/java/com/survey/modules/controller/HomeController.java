@@ -151,6 +151,7 @@ public class HomeController {
 
 		QuestionModel questionModel = new QuestionModel();
 		questionModel.setQuestionTitle(question.getQuestion());
+		questionModel.setQuestionType(question.getQuestionType());
 		Integer savedQuestionModelId = questionManager.saveQuestion(
 				questionModel, question.getSurveyId());
 

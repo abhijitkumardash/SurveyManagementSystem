@@ -61,3 +61,10 @@
 label{
 	color:#fff;
 }
+select{
+	background-color: transparent;
+	color:#fff;
+}
+option{
+	color:#000;
+}

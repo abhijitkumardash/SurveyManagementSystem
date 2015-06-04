@@ -46,6 +46,15 @@
 	     <ul  id="question-answer-container">
 	     	<li ><h5>Survey ID :<i id="survey-id" >${surveyId}</i></h5></li>
 	     	<li id="error-msg"></li>
+	     	<li><span>
+			      <input type="radio" id="multiple-choice"  value="multipleChoice" name="questionType" class="questionType"/>
+			      <label for="multiple-choice">Multiple Choice Options</label>
+			    </span>
+			    <span>
+			      <input type="radio" id="dropdown"  value="dropdown" name="questionType" class="questionType"/>
+			      <label for="dropdown">Dropdown Options</label>
+			    </span>
+	     	</li>
 	     	<li id="question-wrap">
 	     		<label>Question:</label>
 	     		<input type="text" placeholder="Enter the question" id="question" name="question" required/>
