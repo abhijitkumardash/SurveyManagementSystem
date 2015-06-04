@@ -151,6 +151,7 @@ public class HomeController {
 
 		QuestionModel questionModel = new QuestionModel();
 		questionModel.setQuestionTitle(question.getQuestion());
+		questionModel.setQuestionType(question.getQuestionType());
 		Integer savedQuestionModelId = questionManager.saveQuestion(
 				questionModel, question.getSurveyId());
 
@@ -322,6 +323,6 @@ public class HomeController {
 	@RequestMapping(value = "/deleteSurvey", method = RequestMethod.GET)
 	public @ResponseBody  void deleteSurvey(@RequestParam("surveyId") int surveyId) {
 		surveyManager.deleteSurveyById(surveyId);
-		
+		pollManager.deletePollBySurvey(surveyId);
 	}
 }
