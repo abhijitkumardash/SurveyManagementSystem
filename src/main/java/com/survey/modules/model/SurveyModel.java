@@ -25,14 +25,14 @@ public class SurveyModel {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="survey_id")
 	private int surveyId;
-	
+
 	@Column(name="survey_title")
 	private String surveyTitle;
 	
 	@OneToMany(fetch = FetchType.EAGER,mappedBy="survey", orphanRemoval=true)
 	@Fetch(FetchMode.SELECT)
 	private Set<QuestionModel> questions;
-	
+
 
 	@ManyToOne(fetch = FetchType.EAGER,cascade=CascadeType.REFRESH)
 	@JoinColumn(name = "username", nullable = false)
@@ -41,6 +41,7 @@ public class SurveyModel {
 	public Users getUser() {
 		return user;
 	}
+	
 
 	public void setUser(Users user) {
 		this.user = user;

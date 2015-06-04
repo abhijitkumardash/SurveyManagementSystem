@@ -255,7 +255,7 @@ public class HomeController {
 	@RequestMapping(value = "/chart1", method = RequestMethod.GET)
 	public @ResponseBody List analysisPage(
 			@RequestParam("surveyId") int surveyId) {
-
+		
 		// data for highcharts
 
 		List<QuestionModel> questionModelList = questionManager
@@ -321,7 +321,6 @@ public class HomeController {
 
 	@RequestMapping(value = "/deleteSurvey", method = RequestMethod.GET)
 	public @ResponseBody  void deleteSurvey(@RequestParam("surveyId") int surveyId) {
-//		surveyId=23;
 		surveyManager.deleteSurveyById(surveyId);
 		
 	}

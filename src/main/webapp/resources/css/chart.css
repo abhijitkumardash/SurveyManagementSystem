@@ -12,6 +12,7 @@
 	z-index:10;
     width: 80%;
   margin-left: 12%;
+  overflow-x:visible;
     overflow-y: scroll;
   height: 80%;
 }
