@@ -36,19 +36,6 @@ public class QuestionModel {
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "question")
 	@Fetch(FetchMode.SELECT)
 	private Set<AnswerModel> answers;
-	
-
-	@Column(name="question_type")
-	private String questionType;
-
-	public String getQuestionType() {
-		return questionType;
-	}
-
-	public void setQuestionType(String questionType) {
-		this.questionType = questionType;
-	}
-	
 
 	public int getQuestionId() {
 		return questionId;
