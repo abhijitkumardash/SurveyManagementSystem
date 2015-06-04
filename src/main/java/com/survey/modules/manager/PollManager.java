@@ -95,7 +95,15 @@ public class PollManager implements PollManagerInterface {
 		}
 		return count;
 	}
-	
-	
+	@Transactional
+	public void deletePollBySurvey(int surveyId) {
+		try{
+			pollDao.deletePollBySurvey(surveyId);
+		}
+		catch(HibernateException e){
+			e.getStackTrace();
+		}
+		
+	}
 	
 }

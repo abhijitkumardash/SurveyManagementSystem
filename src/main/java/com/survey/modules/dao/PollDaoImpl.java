@@ -7,7 +7,6 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
-
 import org.springframework.stereotype.Repository;
 
 import com.survey.modules.model.PollModel;
@@ -38,9 +37,9 @@ public class PollDaoImpl implements PollDaoInterface {
 		}
 
 		public PollModel findPollById(int pollId){
-			  Session session = this.sessionFactory.getCurrentSession();
-			 PollModel quesObj=(PollModel)session.get(PollModel.class, pollId);
-			 return quesObj;
+			 Session session = this.sessionFactory.getCurrentSession();
+			 PollModel pollObj=(PollModel)session.get(PollModel.class, pollId);
+			 return pollObj;
 		}
 		
 	
@@ -87,6 +86,23 @@ public class PollDaoImpl implements PollDaoInterface {
 			 Long answerPollCount=(Long) cr.uniqueResult();
 			 return answerPollCount;
 
+		}
+
+		
+		public List<PollModel> PollListBySurvey(int surveyId){
+			Session session = this.sessionFactory.getCurrentSession();
+			Criteria cr=session.createCriteria(PollModel.class);
+			cr.add(Restrictions.eq( "surveyId",surveyId));
+			@SuppressWarnings("unchecked")
+			List<PollModel> pollList=cr.list();
+			return pollList;
+		}
+		public void deletePollBySurvey(int surveyId) {
+		
+			List<PollModel> entityList=PollListBySurvey(surveyId);
+			for (PollModel entity : entityList) {
+					deletePoll(entity);
+			}
 		}
 		
 	}
