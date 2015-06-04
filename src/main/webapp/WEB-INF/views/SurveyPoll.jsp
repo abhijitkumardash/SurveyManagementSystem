@@ -9,7 +9,10 @@
 <link href="resources/css/materialize.css" rel="stylesheet">
 <link href="resources/css/materialize.min.css" rel="stylesheet">
 <link href="resources/css/surveyPoll.css" rel="stylesheet">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+      
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script src="resources/js/materialize.js"></script>
 <script src="resources/js/materialize.min.js"></script>
 
@@ -27,37 +30,59 @@
 		<div class="col s12 m6" id="survey-wrap">
 			<div class="card ">
 
-				<img class="blackImg" />
-			
-					<span class="card-title">Survey Title: ${surveyTitle}</span>
+				<img class="blackImg" /> <span class="card-title">Survey
+					Title: ${surveyTitle}</span>
 
-					<c:forEach items="${questionList}" var="question">
-						<div class="card-content white-text">
-							<p>Question:${question.questionTitle}</p>
+				<c:forEach items="${questionList}" var="question">
+					<div class="card-content white-text">
+						<p>Question:${question.questionTitle}</p>
+						<c:if test="${question.questionType=='multipleChoice'}">
 							<c:forEach items="${question.answers}" var="answer">
 
 								<p>
 									<input name="answers${question.questionId}" type="radio"
 										id="${answer.answerId}" value="${answer.answerId}"
 										data-surveyId="${question.survey.surveyId}"
-										data-questionId="${question.questionId}" class="questionAndAnswer"/> <label
-										for="${answer.answerId}"> ${answer.answerDesc}</label>
+										data-questionId="${question.questionId}"
+										class="questionAndAnswer" /> <label for="${answer.answerId}">
+										${answer.answerDesc}</label>
 								</p>
 							</c:forEach>
-						</div>
-					</c:forEach>
-					<input type="hidden" name="${_csrf.parameterName}"
-						value="${_csrf.token}" />
+						</c:if>
+						
+						<div class="input-field col s10">
+							<c:if test="${question.questionType.equals('dropdown')}">
 
-						<button  class="btn waves-effect waves-light" id="poll-submit"> Submit</button>
-<!-- 					<button class="btn waves-effect waves-light" type="reset" -->
-<!-- 						name="action"> -->
-<!-- 						Reset choices <i class="mdi-action-autorenew right"></i> -->
-<!-- 					</button> -->
-<!-- 				<button class="btn waves-effect waves-light" id="poll-submit" type="submit" -->
-<!-- 						name="action"> -->
-<!-- 						Submit <i class="mdi-content-send right"></i> -->
-<!-- 					</button> -->
+								<select class="browser-default" id="${question.questionId}">
+								<option value="">select</option>
+									<c:forEach items="${question.answers}" var="answer">
+										
+
+										<option class="opt" value="${answer.answerId}"
+											data-surveyId="${question.survey.surveyId}"
+											data-questionId="${question.questionId}">
+											${answer.answerDesc}</option>
+									</c:forEach>
+								</select>
+								  
+							</c:if>
+
+						</div>
+					</div>
+				</c:forEach>
+				<div class="center-align col s12  ">
+					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+					<button class="btn waves-effect waves-light " id="poll-submit">
+						Submit</button>
+				</div>
+				<!-- 					<button class="btn waves-effect waves-light" type="reset" -->
+				<!-- 						name="action"> -->
+				<!-- 						Reset choices <i class="mdi-action-autorenew right"></i> -->
+				<!-- 					</button> -->
+				<!-- 				<button class="btn waves-effect waves-light" id="poll-submit" type="submit" -->
+				<!-- 						name="action"> -->
+				<!-- 						Submit <i class="mdi-content-send right"></i> -->
+				<!-- 					</button> -->
 
 			</div>
 
