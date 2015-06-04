@@ -8,7 +8,6 @@ $(document).ready(function(){
 		
 		var question = {};
         question.question= $("#question").val();
-        question.questionType=$('.questionType:checked').val();
         question.answers = [];
         var i=1;
         while(i<=4){

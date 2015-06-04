@@ -18,11 +18,7 @@ $(document).ready(function() {
 	}
 
 	$('#poll-submit').click(function() {
-		answerId = [];
-		questionId = [];
-		surveyId;
-		
-		
+		var checkedValue = null; 
 		var inputElements = document.getElementsByClassName('questionAndAnswer');
 		for(var i=0; inputElements[i]; ++i){
 		      if(inputElements[i].checked){
@@ -30,17 +26,8 @@ $(document).ready(function() {
 		  		questionId.push((inputElements[i].getAttribute("data-questionId")));
 		  		surveyId = Number(inputElements[i].getAttribute("data-surveyId"));
 		  	  }
-		 }
-		
-		var dropdownElements = document.getElementsByClassName('opt');
-		 for(var i=0; dropdownElements[i]; ++i){
-			if(dropdownElements[i].selected){
-		    	answerId.push((dropdownElements[i].value));
-		  		questionId.push((dropdownElements[i].getAttribute("data-questionId")));
-		  		surveyId = Number(dropdownElements[i].getAttribute("data-surveyId"));
-		  	}  
+		    
 		}
-	
 		$.ajax({
 			type : 'POST',
 			url : "savePoll",
