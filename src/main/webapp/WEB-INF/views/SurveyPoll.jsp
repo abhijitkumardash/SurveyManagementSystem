@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -72,18 +74,13 @@
 				</c:forEach>
 				<div class="center-align col s12  ">
 					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+					<sec:authorize access="!hasRole('ROLE_USER')">
 					<button class="btn waves-effect waves-light " id="poll-submit">
 						Submit</button>
-				</div>
-				<!-- 					<button class="btn waves-effect waves-light" type="reset" -->
-				<!-- 						name="action"> -->
-				<!-- 						Reset choices <i class="mdi-action-autorenew right"></i> -->
-				<!-- 					</button> -->
-				<!-- 				<button class="btn waves-effect waves-light" id="poll-submit" type="submit" -->
-				<!-- 						name="action"> -->
-				<!-- 						Submit <i class="mdi-content-send right"></i> -->
-				<!-- 					</button> -->
+</sec:authorize>
 
+					
+				</div>
 			</div>
 
 		</div>
