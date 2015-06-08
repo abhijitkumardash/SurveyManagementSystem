@@ -38,7 +38,7 @@
 	<div id="user">
 		<sec:authentication property="principal.username" />
 	</div>
-<div id="dash">
+	<div id="dash">
 		<a href="dashboard">Dashboard</a>
 	</div>
 
@@ -49,38 +49,49 @@
 				<div class="card-content white-text">
 					<div class="card-title center-align">Dashboard</div>
 					<form action="analysis" method="POST">
-					<div class="main-content">
-					
-						<c:forEach items="${surveyList}" var="survey">
+						<div class="main-content">
 
-							<p>
-								<input name="survey" type="radio" class="white-text"
-									id="${survey.surveyId}" value="${survey.surveyId}"
-									data-surveyId="${survey.surveyId}" /> <label
-									for="${survey.surveyId}"> ${survey.surveyTitle}</label>
-							</p>
-						</c:forEach>
+							<c:forEach items="${surveyList}" var="survey">
 
-						<div class="center-align">
-							<input type="hidden" name="${_csrf.parameterName}"
-								value="${_csrf.token}" />
+								<p>
+									<input name="survey" type="radio" class="white-text"
+										id="${survey.surveyId}" value="${survey.surveyId}"
+										data-surveyId="${survey.surveyId}" /> <label
+										for="${survey.surveyId}"> ${survey.surveyTitle}</label>
+								</p>
+							</c:forEach>
+
+							<div class="center-align">
+								<input type="hidden" name="${_csrf.parameterName}"
+									value="${_csrf.token}" />
+							</div>
 						</div>
-					</div>
-					<div class="action-buttons">
-						<a class="waves-effect waves-teal btn-flat" href="addSurveyTitle">Create</a>
-						 <a id="delete-button" class="waves-effect waves-teal btn-flat">Delete</a>
-							<div class= "analyse-button">
-						<button id="analyse-button" class="btn waves-effect waves-light" type="submit"  name="survey">
-							Analyse <i class="mdi-content-send right"></i>
-						</button>
-					</div>
-							
-					</div>
+						<div class="action-buttons">
+							<a class="waves-effect waves-teal btn-flat" href="addSurveyTitle">Create</a>
+							<a class="waves-effect waves-light btn-flat modal-trigger" id="details-button"
+								href="#surveyDetails" >Details</a> <a id="delete-button"
+								class="waves-effect waves-teal btn-flat">Delete</a>
+							<div class="analyse-button">
+								<button id="analyse-button" class="btn waves-effect waves-light"
+									type="submit" name="survey">
+									Analyse <i class="mdi-content-send right"></i>
+								</button>
+							</div>
+
+						</div>
 					</form>
 
 				</div>
 			</div>
 		</div>
 	</div>
+	<div id="surveyDetails" class="modal">
+		<div class="modal-content">
+			<div id="surveyTitle"></div>
+			<div id="pollCount"></div>
+			<div> Survey Link: <a id="link"></a></div>
+		</div>
+	</div>
+
 </body>
 </html>

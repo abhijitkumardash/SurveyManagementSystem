@@ -331,6 +331,16 @@ public class HomeController {
 		model.setViewName("SurveyLandingPage");
 		return model;
 	}
-
+	
+	@RequestMapping(value = "/surveyDetails", method = RequestMethod.GET)
+	public @ResponseBody List<String> getDetails(@RequestParam("surveyId") int surveyId) {
+		String surveyTitle= surveyManager.findSurveyById(surveyId).getSurveyTitle();
+		Long pollCount = pollManager.getCountOfUser(surveyId);
+		List<String> temp = new ArrayList<String>(); 
+		temp.add(surveyTitle);
+		temp.add(Long.toString(pollCount));
+		temp.add(Integer.toString(surveyId));
+		return temp;
+	}
 }
 

@@ -12,7 +12,7 @@
 <link href="resources/css/materialize.min.css" rel="stylesheet">
 <link href="resources/css/surveyPoll.css" rel="stylesheet">
 
-      
+
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script src="resources/js/materialize.js"></script>
@@ -51,14 +51,14 @@
 								</p>
 							</c:forEach>
 						</c:if>
-						
+
 						<div class="input-field col s10">
 							<c:if test="${question.questionType.equals('dropdown')}">
 
 								<select class="browser-default" id="${question.questionId}">
-								<option value="">select</option>
+									<option value="">select</option>
 									<c:forEach items="${question.answers}" var="answer">
-										
+
 
 										<option class="opt" value="${answer.answerId}"
 											data-surveyId="${question.survey.surveyId}"
@@ -66,26 +66,25 @@
 											${answer.answerDesc}</option>
 									</c:forEach>
 								</select>
-								  
+
 							</c:if>
 
 						</div>
 					</div>
 				</c:forEach>
 				<div class="center-align col s12  ">
-					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+					<input type="hidden" name="${_csrf.parameterName}"
+						value="${_csrf.token}" />
 					<sec:authorize access="!hasRole('ROLE_USER')">
-					<button class="btn waves-effect waves-light " id="poll-submit">
-						Submit</button>
-</sec:authorize>
+						<button class="btn waves-effect waves-light " id="poll-submit">
+							Submit</button>
+					</sec:authorize>
 
-					
+
 				</div>
 			</div>
 
 		</div>
 	</div>
-	<div id="container"
-		style="min-width: 310px; max-width: 800px; height: 400px; margin: 0 auto"></div>
 </body>
 </html>
