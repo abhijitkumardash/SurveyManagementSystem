@@ -89,7 +89,7 @@
 		<div class="modal-content">
 			<div id="surveyTitle"></div>
 			<div id="pollCount"></div>
-			<div> Survey Link: <a id="link"></a></div>
+			<div id="surveyLink"><a id="link"></a></div>
 		</div>
 	</div>
 

@@ -19,7 +19,6 @@
 	 });
  });
  $(document).ready(function(){
-	    // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
 	    $('.modal-trigger').leanModal();
 	  });
  
@@ -34,10 +33,10 @@
 				contentType : "application/json",
 				data : "surveyId="+surveyId,
 				success : function(data) {
-					$("#surveyTitle").html("Survey Name: "+data[0]);
-					$("#pollCount").html("Poll Count: "+data[1]);
+					$("#surveyTitle").html("Survey Name : "+data[0]);
+					$("#pollCount").html("Poll Count : "+data[1]);
+					$("#surveyLink").html("Survey Link : ");
 					$("#link").html("http://localhost:8080/SurveyManagementSystem/survey="+data[2]);
-//					var link="http://localhost:8080/SurveyManagementSystem/survey="+data[2];
 					$("#link").attr("href","http://localhost:8080/SurveyManagementSystem/survey="+data[2]);
 				},
 				error : function(e) {
