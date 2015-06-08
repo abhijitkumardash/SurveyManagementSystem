@@ -45,7 +45,7 @@
 	overflow: hidden !important;
 	display: block !important;
 	position: absolute;
-	min-width:600px;
+	min-width: 600px;
 	width: auto;
 	left: 25%;
 	background-color: transparent;
@@ -83,19 +83,21 @@ input {
 	border-right: 1px solid wheat;
 	padding-right: 1%;
 }
-#dash{
+
+#dash {
 	position: relative;
 	z-index: 10;
 	text-align: right;
 	float: right;
 	color: white;
-	  margin-right: 10px;
+	margin-right: 10px;
 	font-weight: 900;
 	font-size: 16px;
 	border-right: 1px solid wheat;
 	padding-right: 1%;
 }
-#dash > a{
+
+#dash>a {
 	color: white !important;
 }
 
@@ -122,40 +124,42 @@ input {
 	border-right: 1px solid wheat;
 	padding-right: 1%;
 }
-.card .card-content .card-title{
+
+.card .card-content .card-title {
 	font-weight: 500;
 }
-.main-content > p > label{
-	color:white;
+
+.main-content>p>label {
+	color: white;
 }
 
-.main-content{
-	margin-top:10%;
-	min-width:35%;
+.main-content {
+	margin-top: 10%;
+	min-width: 35%;
 	display: inline-block;
 	position: relative;
 	width: auto;
-	margin:10px;
-	float:left;
-	
+	margin: 10px;
+	float: left;
 }
-.action-buttons > a{
-	color:turquoise;
-	
+
+.action-buttons>a {
+	color: turquoise;
 }
-.action-buttons{
-	
-	margin:10px;
-	
-	min-width:35%;
+
+.action-buttons {
+	margin: 10px;
+	min-width: 35%;
 	display: inline-block;
 	position: relative;
 	width: auto;
-	float:right;
+	float: right;
+	margin-right: -5%;
 }
-.analyse-button{
-  clear: both;
-  position: relative;
-  margin-top: 15px;
-  margin-left: 15%;
+
+.analyse-button {
+	clear: both;
+	position: relative;
+	margin-top: 15px;
+	margin-left: 28%;
 }

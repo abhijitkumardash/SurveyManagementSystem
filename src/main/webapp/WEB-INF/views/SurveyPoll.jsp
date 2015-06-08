@@ -28,6 +28,22 @@
 <body>
 	<div class="body"></div>
 	<div class="grad"></div>
+	<sec:authorize access="hasRole('ROLE_USER')">
+		<div class="row">
+			<c:url var="logoutUrl" value="j_spring_security_logout" />
+			<form action="${logoutUrl}" method="post">
+				<input id="logoutButton" type="submit" value="Logout" /> <input
+					type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+			</form>
+
+			<div id="user">
+				<sec:authentication property="principal.username" />
+			</div>
+			<div id="dash">
+				<a href="dashboard">Dashboard</a>
+			</div>
+		</div>
+	</sec:authorize>
 	<div class="row">
 		<div class="col s12 m6" id="survey-wrap">
 			<div class="card ">
