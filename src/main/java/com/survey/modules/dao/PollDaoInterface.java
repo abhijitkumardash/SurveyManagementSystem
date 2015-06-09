@@ -23,4 +23,6 @@ public interface PollDaoInterface {
 	public Long getCountOfUser(int surveyId);
 
 	public void deletePollBySurvey(int surveyId);
+	
+	public List<PollModel> PollListBySurvey(int surveyId);
 }

@@ -158,8 +158,30 @@ input {
 }
 
 .analyse-button {
-	clear: both;
-	position: relative;
-	margin-top: 15px;
-	margin-left: 28%;
+	  margin-left: -42%;
+	    margin-top: 5%;
+}
+.row{
+	  width: 50% !important;
+  float: right !important;
+}
+.tabs .tab a:hover {
+  color: #ccff90 !important;
+}
+.tabs .tab a {
+  color: #fff;
+}
+.tabs {
+  background-color: transparent;
+  border:1px solid rgba(255,255,255,0.2); 
+ 
+}
+.tabs .indicator {
+  background-color: #00c853 !important;
+}
+#response-button{
+  padding: 0 8.5%;
+    margin-top: 5%;
+    display: block;
+      width: 70.5%;
 }

@@ -15,6 +15,12 @@
 <link href="resources/css/materialize.css" rel="stylesheet">
 <link href="resources/css/materialize.min.css" rel="stylesheet">
 <link href="resources/css/Dashboard.css" rel="stylesheet">
+<!-- Custom Fonts -->
+<link href="resources/font-awesome/css/font-awesome.min.css"
+	rel="stylesheet" type="text/css">
+<link
+	href="http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic"
+	rel="stylesheet" type="text/css">
 
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
@@ -66,18 +72,39 @@
 									value="${_csrf.token}" />
 							</div>
 						</div>
-						<div class="action-buttons">
-							<a class="waves-effect waves-teal btn-flat" href="addSurveyTitle">Create</a>
-							<a class="waves-effect waves-light btn-flat modal-trigger" id="details-button"
-								href="#surveyDetails" >Details</a> <a id="delete-button"
-								class="waves-effect waves-teal btn-flat">Delete</a>
-							<div class="analyse-button">
-								<button id="analyse-button" class="btn waves-effect waves-light"
-									type="submit" name="survey">
-									Analyse <i class="mdi-content-send right"></i>
-								</button>
-							</div>
 
+
+						<div class="row">
+
+							<ul class="tabs">
+								<li class="tab col s3"><a class="active" href="#actions">Actions</a></li>
+								<li class="tab col s3"><a href="#analysis">Analysis</a></li>
+							</ul>
+
+
+
+							<div class="action-buttons">
+								<div id="actions">
+									<a class="waves-effect waves-teal btn-flat white-text"
+										href="addSurveyTitle">Create</a> <a
+										class="waves-effect waves-light btn-flat modal-trigger white-text"
+										id="details-button" href="#surveyDetails">Details</a> <a
+										id="delete-button"
+										class="waves-effect waves-teal btn-flat white-text">Delete</a>
+								</div>
+
+								<div class="analyse-button" id="analysis">
+									<button id="analyse-button"
+										class="btn waves-effect waves-light" type="submit"
+										name="survey">
+										Analyse <i class="mdi-content-send right"></i>
+									</button>
+									<a id="response-button"
+										class="btn waves-effect waves-light modal-trigger"
+										href="#responses"> Responses <i class="fa fa-users right"></i>
+									</a>
+								</div>
+							</div>
 						</div>
 					</form>
 
@@ -89,8 +116,11 @@
 		<div class="modal-content">
 			<div id="surveyTitle"></div>
 			<div id="pollCount"></div>
-			<div id="surveyLink"><a id="link"></a></div>
+			<div id="surveyLink"></div>
 		</div>
+	</div>
+	<div id="responses" class="modal">
+		<div class="modal-content"></div>
 	</div>
 
 </body>

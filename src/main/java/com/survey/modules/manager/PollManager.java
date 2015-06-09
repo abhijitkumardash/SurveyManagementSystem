@@ -1,5 +1,8 @@
 package com.survey.modules.manager;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.hibernate.HibernateException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -104,6 +107,20 @@ public class PollManager implements PollManagerInterface {
 			e.getStackTrace();
 		}
 		
+	}
+	@SuppressWarnings("finally")
+	@Transactional
+	public List<PollModel> PollListBySurvey(int surveyId){
+		List<PollModel> tempList = null;
+		try{
+			tempList = pollDao.PollListBySurvey(surveyId);
+		}
+		catch(HibernateException e){
+			e.getStackTrace();
+		}
+		finally{
+			return tempList;
+		}
 	}
 	
 }

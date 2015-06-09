@@ -342,5 +342,11 @@ public class HomeController {
 		temp.add(Integer.toString(surveyId));
 		return temp;
 	}
+	@RequestMapping(value = "/responses", method = RequestMethod.GET)
+	public @ResponseBody List<String> getResponses(@RequestParam("surveyId") int surveyId) {
+		
+		List<String> temp = new ArrayList<String>(); 
+		return temp;
+	}
 }
 
