@@ -173,14 +173,14 @@ input {
 }
 .tabs {
   background-color: transparent;
-  border:1px solid rgba(255,255,255,0.2); 
+  border-bottom:1px solid rgba(255,255,255,0.2); 
  
 }
 .tabs .indicator {
   background-color: #00c853 !important;
 }
 #response-button{
-  padding: 0 8.5%;
+  padding: 0 8.6%;
     margin-top: 5%;
     display: block;
       width: 70.5%;

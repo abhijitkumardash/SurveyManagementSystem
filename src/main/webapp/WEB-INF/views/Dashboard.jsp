@@ -99,10 +99,6 @@
 										name="survey">
 										Analyse <i class="mdi-content-send right"></i>
 									</button>
-									<a id="response-button"
-										class="btn waves-effect waves-light modal-trigger"
-										href="#responses"> Responses <i class="fa fa-users right"></i>
-									</a>
 								</div>
 							</div>
 						</div>
@@ -119,9 +115,7 @@
 			<div id="surveyLink"></div>
 		</div>
 	</div>
-	<div id="responses" class="modal">
-		<div class="modal-content"></div>
-	</div>
+	
 
 </body>
 </html>

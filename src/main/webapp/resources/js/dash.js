@@ -42,21 +42,5 @@
 			});
 	 });
 	 
-	 $("#response-button2").click(function(){
-			 
-	 var surveyId=$("input:radio[name='survey']:checked").val();
-	 
-	 $.ajax({
-			type : 'GET',
-			url : 'responses',
-			contentType : "application/json",
-			data : "surveyId="+surveyId,
-			success : function(data) {
-				
-			},
-			error : function(e) {
-				console.log('Error: ' + e);
-			}
-		});
- });
+	
  });

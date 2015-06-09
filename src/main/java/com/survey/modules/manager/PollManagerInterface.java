@@ -1,5 +1,7 @@
 package com.survey.modules.manager;
 
+import java.util.List;
+
 import com.survey.modules.model.PollModel;
 
 public interface PollManagerInterface {
@@ -17,5 +19,7 @@ public interface PollManagerInterface {
 	public Long getCountOfUser(int surveyId);
 	
 	public void deletePollBySurvey(int surveyId);
+
+	public List<PollModel> PollListBySurvey(int surveyId);
 
 }

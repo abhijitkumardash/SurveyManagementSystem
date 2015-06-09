@@ -343,9 +343,11 @@ public class HomeController {
 		return temp;
 	}
 	@RequestMapping(value = "/responses", method = RequestMethod.GET)
-	public @ResponseBody List<String> getResponses(@RequestParam("surveyId") int surveyId) {
-		
-		List<String> temp = new ArrayList<String>(); 
+	public @ResponseBody List<PollModel> getResponses(@RequestParam("surveyId") int surveyId) {
+	
+		List<PollModel> temp = null;
+		temp= pollManager.PollListBySurvey(surveyId);
+	
 		return temp;
 	}
 }

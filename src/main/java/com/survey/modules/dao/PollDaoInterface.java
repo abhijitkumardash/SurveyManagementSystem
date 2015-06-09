@@ -18,11 +18,11 @@ public interface PollDaoInterface {
 
 	public abstract void deleteAll();
 	
-	public Long getEachAnserCountById(int answerId);
+	public abstract Long getEachAnserCountById(int answerId);
 	
-	public Long getCountOfUser(int surveyId);
+	public abstract Long getCountOfUser(int surveyId);
 
-	public void deletePollBySurvey(int surveyId);
+	public abstract void deletePollBySurvey(int surveyId);
 	
-	public List<PollModel> PollListBySurvey(int surveyId);
+	public abstract List<PollModel> PollListBySurvey(int surveyId);
 }
