@@ -18,7 +18,7 @@
 		<!-- access denied page -->
 		<access-denied-handler error-page="/403" />
 		<form-login login-page="/login" 
-		    default-target-url="/dashboard"
+		    default-target-url="/addSurveyTitle"
 		     authentication-failure-url="/login?error"
 			username-parameter="username" 
 			password-parameter="password"/>
